@@ -1,0 +1,158 @@
+<div *ngIf="cursosInfo">
+    <div fxLayout="row" style="margin: 70px 0 15px 60px;">
+        <svg-icon key="flechaRetorno"></svg-icon>
+        <span class="enlace">
+            <a [routerLink]="['']">{{cursosInfo.cursos_talleres.inicio}}</a>
+        </span>
+        <mat-icon class="icono">keyboard_arrow_right</mat-icon>
+        <span class="enlace">
+            <a *ngIf="isAdmin" [routerLink]="['/cursosTalleres']" [routerLinkActive]="['link-activo']">{{cursosInfo.cursos_talleres.gestion}}</a>
+            <a *ngIf="!isAdmin" [routerLink]="['/cursosTalleres/seccion/1']" [routerLinkActive]="['link-activo']">{{cursosInfo.cursos_talleres.talleres}}</a>
+        </span>
+    </div>
+
+    <app-presentacion></app-presentacion>
+
+    <app-banner></app-banner>
+
+    <div *ngIf="!showDetalle" fxLayout="column">
+        <div class="filtro" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <span fxFlex="40" fxFlex.gt-xs="50" style="text-align: right;">{{cursosInfo.cursos_talleres.filtar}}</span>
+
+            <div class="box" fxFlex="40" fxFlex.gt-xs="20">
+                <form [formGroup]="formFiltro">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{cursosInfo.cursos_talleres.pais}}</mat-label>
+
+                        <mat-select formControlName="pais" multiple (valueChange)="buscarPais.value = ''; bPais.value = ''">
+                            <input class="campo-buscar" [formControl]="buscarPais" matInput placeholder="{{cursosInfo.cursos_talleres.buscar}}" #bPais value="">
+                            <mat-option disableRipple #option [ngClass]="optionPais(item.id, option)" [ngClass]="{'ocultar': !mostrar(buscarPais.value, item.nombre),'option-selected' : option._getAriaSelected()}" [value]="item.id" *ngFor="let item of paisesList">
+                                {{getDescripcionPais(item)}}
+                                <span class="cantidad">{{getCantidadPais(item.id)}}</span>
+                            </mat-option>
+                        </mat-select>
+
+                        <mat-icon class="icono-select">
+                            expand_more
+                        </mat-icon>
+                    </mat-form-field>
+                </form>
+            </div>
+            <div fxFlex="40" fxFlex.gt-xs="1"></div>
+
+            <div class="box" fxFlex="40" fxFlex.gt-xs="20">
+                <form [formGroup]="formFiltro">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{cursosInfo.cursos_talleres.tipo}}</mat-label>
+                        <mat-select formControlName="tipo" multiple (valueChange)="buscarTipo.value = ''; bTipo.value=''">
+                            <input class="campo-buscar" [formControl]="buscarTipo" matInput placeholder="{{cursosInfo.cursos_talleres.buscar}}" #bTipo value="">
+                            <mat-option [ngClass]="optionTipo(item.id, option)" [ngClass]="{'ocultar': !mostrar(buscarTipo.value, item.description),'option-selected' : option._getAriaSelected()}" #option [value]="item.id" *ngFor="let item of tiposList">
+                                {{item.description}}
+                                <span class="cantidad">{{getCantidadTipo(item.id)}}</span>
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon class="icono-select">
+                            expand_more
+                        </mat-icon>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end" style="margin-top: 20px;">
+            <mat-accordion fxFlex>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{cursosInfo.cursos_talleres.resumen_t}}
+                        </mat-panel-title>
+                        <mat-panel-description fxLayout="row" fxLayoutAlign="end">
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <div fxFlex="50">
+                            <h4>{{cursosInfo.cursos_talleres.pais_}}</h4>
+                            <mat-chip-list class="chips" #chipList>
+                                <mat-chip [removable]="true" (removed)="removePais(item)" *ngFor="let item of paises">
+                                    {{getDescripcionPais(item)}}
+                                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                                </mat-chip>
+                            </mat-chip-list>
+                        </div>
+                        <div fxFlex="50">
+                            <h4>{{cursosInfo.cursos_talleres.tipo}}:</h4>
+                            <mat-chip-list class="chips" #chipListTipo>
+                                <mat-chip [removable]="true" (removed)="removeTipo(item)" *ngFor="let item of tipos">
+                                    {{getTipo(item)}}
+                                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                                </mat-chip>
+                            </mat-chip-list>
+                        </div>
+                        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+                            <button (click)="limpiarFiltro()" class="btn-noticias">{{cursosInfo.cursos_talleres.limpiar}}</button>
+                        </div>
+                    </div>
+
+                    <p style="text-align: center;">{{cursosInfo.cursos_talleres.talleres_e}}: <span>{{configGrupos.totalItems}}</span></p>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <a *ngIf="isAdmin && idTipoSecion !=='1' " class="Agregar-nuevo-tem" (click)="openDialogCrear()" fxFlex>
+            <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px;" viewBox="0 0 40.33 40.34">
+                <defs>
+                    <style>.mas-cls-1{fill:#f07e00;fill-rule:evenodd;}</style>
+                </defs>
+                <path class="mas-cls-1" d="M347.85,376.33a1.26,1.26,0,1,1-1.26,1.26,1.25,1.25,0,0,1,1.26-1.26Zm21.43,15.13h-5a2.52,2.52,0,0,0-2.52,2.52h0v5a5,5,0,0,1-5,5h-5a5,5,0,0,1-5.05-5v-5h0a2.51,2.51,0,0,0-2.52-2.52h-5a5.05,5.05,0,0,1-5-5h0v-5a5.05,5.05,0,0,1,5-5h3.78a1.26,1.26,0,1,1,.13,2.52h-3.28a3.15,3.15,0,0,0-3.15,3.15v3.78a3.15,3.15,0,0,0,3.15,3.15h5a4.42,4.42,0,0,1,4.41,4.41h0v5.05a3.15,3.15,0,0,0,3.15,3.15H356a3.15,3.15,0,0,0,3.15-3.15v-5.05a4.42,4.42,0,0,1,4.41-4.41h5a3.15,3.15,0,0,0,3.16-3.15V382a3.15,3.15,0,0,0-3.16-3.15h-5a4.41,4.41,0,0,1-4.41-4.41h0v-5.05a3.15,3.15,0,0,0-3.15-3.15h-3.78a3.15,3.15,0,0,0-3.15,3.15v3.16a1.26,1.26,0,0,1-1.2,1.32,1.25,1.25,0,0,1-1.32-1.19v-3.92a5,5,0,0,1,5-5h5a5,5,0,0,1,5,5v5h0a2.52,2.52,0,0,0,2.52,2.53h5a5,5,0,0,1,5,5v5a5,5,0,0,1-5,5Z" transform="translate(-333.98 -363.72)"/>
+            </svg> {{cursosInfo.cursos_talleres.texto_1}}
+        </a>
+
+        <div style="padding: 0 60px;">
+            <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center">
+                <app-tarjeta-curso [ngClass]="{'margen-tarjeta': e}" (mostrarDetalle)="abrirDetalle($event)" [curso]="curso" [isAdmin]="isAdmin" [idTipoSecion]="idTipoSecion" [listaTipos]="tiposList" fxFlex="40" *ngFor="let curso of cursosTalleres| paginate: configGrupos; let e = even">
+                </app-tarjeta-curso>
+            </div>
+
+            <div style="margin-bottom: 40px;" fxLayout="row" fxLayoutAlign="end center">
+                <pagination-template #p="paginationApi" [id]="configGrupos.id" (pageChange)="pageChanged($event)">
+                    <div class="custom-pagination" fxLayout="row">
+                        <div *ngIf="!p.isFirstPage()" class="pagination-previous" [class.disabled]="p.isFirstPage()" (click)="p.previous()">
+                            <span>
+                        <mat-icon class="flecha" >
+                            keyboard_arrow_left
+                        </mat-icon>
+                    </span>
+                        </div>
+                        <div class="page-number" (click)="p.setCurrent(page.value)" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+                            <span *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                            <div *ngIf="p.getCurrent() === page.value">
+                                <span>{{ page.label }}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="!p.isLastPage()" class="pagination-next" [class.disabled]="p.isLastPage()" (click)="p.next()">
+                            <span (click)="p.next()">
+                        <mat-icon class="flecha">
+                            keyboard_arrow_right
+                        </mat-icon>
+                    </span>
+                        </div>
+                    </div>
+                </pagination-template>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showDetalle">
+        <div fxLayout="row" class="retorno" style="cursor: pointer;">
+            <svg-icon (click)="showDetalle = false" key="flechaRetorno"></svg-icon>
+            <span class="enlace">
+                <a (click)="showDetalle = false">{{cursosInfo.cursos_talleres.volver}}</a>
+            </span>
+        </div>
+        <br><br>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <app-detalle-curso class="detalle" [curso]="cursoDetalle"></app-detalle-curso>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div *ngIf="dNoticiaInfo" class="margen">
+    <div fxLayout="row" fxFlexAlign="space-between center">
+        <h2 class="title-modal" fxFlex mat-dialog-title>{{title | translate}}</h2>
+        <div fxFlex="25" fxLayout="row" fxLayoutAlign="end">
+            <mat-icon class="close-icon" mat-dialog-close>close</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.titulo}}</div>
+            <div fxFlex="60">{{noticia.titulo}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.resumen}}</div>
+            <div fxFlex="60">{{noticia.resumen}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.enlaces}}</div>
+            <div fxFlex="60">
+                <div *ngFor="let item of getEnlaces(noticia.recursos)">
+                    <a [href]="item.path" target="_blank">{{item.path}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.fecha_publicacion}}</div>
+            <div fxFlex="60">{{noticia.fecha | date : "dd MMM, yyyy"}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.paises}}</div>
+            <div fxFlex="60">
+                <span *ngFor="let pais of noticia.pais; last as isLast">{{pais?.nombre ? getDescripcionPais(pais) : '' }}
+                    <span *ngIf="!isLast">,</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.anexos}}</div>
+            <div fxFlex="60">
+                <div *ngFor="let item of getAnexos(noticia.recursos); let i = index">
+                    <a [href]="item.path" target="_blank">{{item.name}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" fxFlex.lt-sm="40" class="item">{{dNoticiaInfo.noticias.detalleNoticia.imagenes}}</div>
+            <div fxFlex="60">
+                <div class=divImagenes *ngFor="let item of imagenesNoticia; let i = index">
+                    <img (click)="agrandarImagen(item.path)" [alt]="noticia.titulo" [src]="item.path">
+                </div>
+            </div>
+        </div>
+        <div class="ampliar-imagen" *ngIf="agrandaImagen">
+            <div fxLayout="row" fxLayoutAlign="end">
+                <mat-icon class="cerrar" (click)="agrandaImagen = false">
+                    close
+                </mat-icon>
+            </div>
+            <img [alt]="noticia.titulo" [src]="urlImagen">
+        </div>
+    </mat-dialog-content>
+</div>

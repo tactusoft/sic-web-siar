@@ -1,0 +1,38 @@
+<div class="container-tarjeta">
+    <mat-card class="card-documento">
+        <mat-card-content class="card-content">
+            <div fxLayout="column">
+                <article>
+                    <div>
+                        <svg-icon class="position" key="clip"></svg-icon>
+                    </div>
+                    <h1>{{getDescripcionPais(documento.paises[0])}}
+                    </h1>
+                    <div fxLayout="row" class="doc-titulo">
+                        <h2> {{documento.title}} </h2>
+                    </div>
+                </article>
+            </div>
+            <div class="card-fecha">
+                <p class="titulo">
+                    <!-- {{documento.summary}} -->
+                    {{textos.gestion_docu_publicos.tarjeta_documentos.categorias}}
+                </p>
+                <hr>
+                <div class="footer-card">
+                    <div *ngFor="let categoria of documento.categorias; last as isLast">
+                        {{getDescripcionCategoria(categoria)}}
+                        <span *ngIf="!isLast">,</span>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div *ngIf="over" class="over-panel" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div fxFlex="15"></div>
+        <svg-icon key="lapiz" style="transform: translate(0px,-10px) scale(1.5); cursor: pointer;" fxFlex="34" (click)="abrirEditar(documento)"></svg-icon>
+        <div fxFlex="1" class="separador"></div>
+        <svg-icon key="caneca1" style="transform: translate(0px,-10px) scale(1.5); cursor: pointer;" (click)="abrirEliminar(documento)" fxFlex="34"></svg-icon>
+        <div fxFlex="15"></div>
+    </div>
+</div>

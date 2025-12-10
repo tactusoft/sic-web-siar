@@ -1,0 +1,268 @@
+$color-azul: #254b9c;
+$color-gris: #e6e6e6;
+$color-naranja: #f07e00;
+$color-blanco: #fff;
+.alertas-main {
+    padding: 4rem 7rem 0 4rem;
+    max-width: 85.375rem;
+    margin: auto;
+    .icono {
+        color: $color-azul;
+    }
+    .enlace {
+        margin: 0px 8px;
+        font-size: 18px;
+        a {
+            text-decoration: none;
+            color: $color-azul;
+        }
+    }
+    .link-activo {
+        font-weight: 600;
+    }
+    .alertas {
+        position: relative;
+        box-sizing: border-box;
+        padding: 12px 0px 64px 0px;
+        margin-bottom: 24px;
+        min-height: 600px;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 48%;
+            min-height: 606px;
+            background: $color-azul;
+            border-radius: 0px 25px 25px 0px;
+            z-index: -1;
+        }
+        h2 {
+            color: $color-blanco;
+            font-family: OpenSans-Bold, sans-serif;
+            font-size: 30px;
+            font-weight: 600;
+            margin-left: 36px;
+            margin-bottom: 0px;
+        }
+        .alertas-list {
+            box-sizing: border-box;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            line-height: 1.5;
+        }
+    }
+    .btn-filtro {
+        color: $color-blanco;
+        border: none;
+        font-weight: 600;
+        border-radius: 5px;
+        width: 192px;
+        height: 44px;
+        vertical-align: middle;
+    }
+    .aplicar {
+        background: $color-azul;
+    }
+    .limpiar {
+        background: $color-naranja;
+    }
+    .arrow-right {
+        font-size: 4em;
+        color: $color-azul;
+    }
+    .box-filtro {
+        &::after {
+            content: '';
+            width: 1px;
+            height: 20px;
+            background: $color-naranja;
+            position: relative;
+            left: 37px;
+        }
+    }
+    .box {
+        position: relative;
+        height: 36px;
+        margin-right: 100px;
+        text-align: right;
+        mat-form-field {
+            position: relative;
+            top: -12px;
+        }
+    }
+    .option-selected {
+        color: $color-naranja!important;
+        border-bottom: 1px solid $color-naranja;
+        .cantidad {
+            background: $color-naranja;
+            color: $color-blanco;
+        }
+    }
+    .campo-buscar {
+        height: 41px;
+        box-sizing: border-box;
+        padding: 0px 12px!important;
+    }
+    .icono-select-cate {
+        position: absolute;
+        text-align: center;
+        line-height: 2;
+        top: -8px;
+        right: 0px;
+    }
+    .icono-select {
+        color: #fff;
+        position: absolute;
+        width: 50px!important;
+        height: 50px!important;
+        text-align: center;
+        line-height: 2;
+        background: $color-azul;
+        top: -8px;
+        right: -61px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .busqueda {
+        padding: 0px 12px;
+        box-sizing: border-box;
+    }
+    .select-categorizado {
+        width: 90px;
+    }
+    .label-categorizado {
+        text-align: right;
+    }
+    .icon-cate {
+        position: relative;
+        top: -2px;
+    }
+    .mat-expansion-panel-header {
+        &:hover {
+            background: $color-blanco!important;
+        }
+    }
+    .accordion-open {
+        color: $color-naranja;
+        transition: all 2s;
+        .girar {
+            transform: rotate(180deg);
+        }
+    }
+     ::ng-deep .mat-expansion-indicator {
+        &::after {
+            visibility: hidden;
+        }
+    }
+    .cantidad {
+        background: #e6e6e6;
+        box-sizing: border-box;
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        border-radius: 18px;
+        line-height: normal;
+        width: 36px;
+        height: 20px;
+        text-align: center;
+        box-shadow: 0px 2px 3px darkgrey;
+    }
+    .current {
+        background: $color-naranja!important;
+        color: $color-blanco!important;
+    }
+    .custom-pagination {
+        margin-top: 24px;
+    }
+    .pagination-previous,
+    .page-number,
+    .pagination-next {
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        border: 1px solid darkgrey;
+        margin: 2px;
+        border-radius: 3px;
+        line-height: 2.6;
+        color: #525261
+    }
+    .flecha {
+        position: relative;
+        top: 6px;
+    }
+    .chips {
+        position: relative;
+        top: -16px
+    }
+    .check-margin {
+        margin: 0 10px;
+    }
+     ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+        border-color: #f07e00;
+    }
+     ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+        background-color: #f07e00;
+    }
+    .boton-limpiar-palabra-clave {
+        position: absolute;
+        cursor: pointer;
+        right: -114px;
+        background: orange;
+        height: 50px;
+        width: 50px;
+        top: -8px;
+        border-radius: 3px;
+        display: flex;
+        justify-content: center;
+        mat-icon {
+            color: #ffffff;
+            font-size: 35px;
+            height: 35px;
+            width: 35px;
+            align-self: center;
+        }
+    }
+}
+
+@media screen and (max-width:800px) {
+    .alertas-main {
+        padding: 11.5px 14px 36px 10px;
+        .alertas {
+            padding: 12px 0px 64px 0px;
+            margin-bottom: 0;
+            &::before {
+                width: 60%;
+                min-height: 500px;
+                border-radius: 0px 15px 15px 0px;
+                z-index: -1;
+            }
+        }
+        .box-filtro {
+            &::after {
+                left: 10px;
+            }
+        }
+        .box {
+            margin-right: 1rem;
+            text-align: center;
+            mat-form-field {
+                right: 40px;
+                top: -20px;
+            }
+        }
+        .select-categorizado {
+            width: 90px;
+            font-size: 10px;
+        }
+        .label-categorizado {
+            font-size: 10px;
+        }
+        .btn-filtro {
+            width: 8.125rem;
+            height: 2rem;
+            font-size: 0.875rem;
+        }
+    }
+}

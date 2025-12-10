@@ -1,0 +1,679 @@
+<div *ngIf="textos">
+  <div fxLayout="row wrap" style="padding: 2%;">
+    <div class="subcontenido" fxFlex="98">
+      <div fxLayout="row" fxFlexAlign="space-between center">
+        <h2 class="title-modal" fxFlex mat-dialog-title>
+          {{
+            registro
+              ? textos.gestion_docu_publicos.dialog_editar.edicion
+              : textos.gestion_docu_publicos.dialog_agregar.agregarItem
+          }}
+        </h2>
+      </div>
+
+      <mat-dialog-content class="mat-typography mat-add-doc-public">
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.title }}</div>
+          <div fxFlex="65">
+            <textarea
+              #tituloInput
+              class="input-area"
+              [formControl]="titleField"
+            ></textarea>
+            <span
+              class="mensaje"
+              *ngIf="titleField.errors?.required && intentoGuardar"
+              >{{ textos.cursos_talleres.detalle_curso.campo_requerido }}</span
+            >
+            <span class="mensaje" *ngIf="titleField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+          <svg-icon
+            fxFlex="5"
+            key="iconoEliminarCampo"
+            style="transform: translate(-120%, -10px);cursor: pointer;"
+            (click)="limpiarInput(titleField)"
+          ></svg-icon>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.firmid }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="firmidField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="firmidField.errors?.required && intentoGuardar"
+              >{{ textos.cursos_talleres.detalle_curso.campo_requerido }}</span
+            >
+            <span class="mensaje" *ngIf="firmidField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">{{ textos.proveedores.idCountry }}</div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="paisOrigenField"
+                  placeholder="{{
+                    textos.gestion_docu_publicos.dialog_agregar.seleccione_pais
+                  }}"
+                  class="Rectangle-Copy"
+                  [compareWith]="compareFnPais"
+                >
+                  <input class="campo" matInput />
+                  <mat-option *ngFor="let item of paises" [value]="item">
+                    {{ item.nombre }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="paisOrigenField.errors?.required && intentoGuardar"
+              >{{ textos.cursos_talleres.detalle_curso.campo_requerido }}</span
+            >
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.focusbusiness }}
+          </div>
+          <div fxFlex="65">
+            <textarea
+              #tituloInput
+              class="input-area"
+              [formControl]="focusbusinessField"
+            ></textarea>
+            <span
+              class="mensaje"
+              *ngIf="focusbusinessField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span
+              class="mensaje"
+              *ngIf="focusbusinessField.errors?.maxlength"
+              >{{
+                textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+              }}</span
+            >
+          </div>
+          <svg-icon
+            fxFlex="5"
+            key="iconoEliminarCampo"
+            style="transform: translate(-120%, -10px);cursor: pointer;"
+            (click)="limpiarInput(focusbusinessField)"
+          ></svg-icon>
+        </div>
+
+        <div fxLayout="row" fxFlexAlign="space-between center">
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.address_contacts }}
+          </h3>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.acAddress }}</div>
+          <div fxFlex="65">
+            <textarea
+              #tituloInput
+              class="input-area"
+              [formControl]="acAddressField"
+            ></textarea>
+            <span
+              class="mensaje"
+              *ngIf="acAddressField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span class="mensaje" *ngIf="acAddressField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+          <svg-icon
+            fxFlex="5"
+            key="iconoEliminarCampo"
+            style="transform: translate(-120%, -10px);cursor: pointer;"
+            (click)="limpiarInput(acAddress1Field)"
+          ></svg-icon>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.acCity }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="acCityField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="acCityField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span class="mensaje" *ngIf="acCityField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.acState }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="acStateField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="acStateField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span class="mensaje" *ngIf="acStateField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idCountryHeadquarters }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="countryHQField"
+                  placeholder="{{
+                    textos.gestion_docu_publicos.dialog_agregar.seleccione_pais
+                  }}"
+                  class="Rectangle-Copy"
+                  [compareWith]="compareFnPais"
+                >
+                  <input class="campo" matInput />
+                  <mat-option *ngFor="let item of paises" [value]="item">
+                    {{ item.nombre }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.acPostalcode }}
+          </div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="acPostalcodeField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="acPostalcodeField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span class="mensaje" *ngIf="acPostalcodeField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.acPhone }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="acPhoneField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="acPhoneField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span class="mensaje" *ngIf="acPhoneField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.acWebsite }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="acWebsiteField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span
+              class="mensaje"
+              *ngIf="acWebsiteField.errors?.required && intentoGuardar"
+              >{{ textos.gestion_docu_publicos.dialog_agregar.tituloReq }}</span
+            >
+            <span class="mensaje" *ngIf="acWebsiteField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxFlexAlign="space-between center">
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.contactsLocation }}
+          </h3>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.clName }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="clNameField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span class="mensaje" *ngIf="clNameField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.clEmail }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="clEmailField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span class="mensaje" *ngIf="clEmailField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">{{ textos.proveedores.clPhone }}</div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="clPhoneField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span class="mensaje" *ngIf="clPhoneField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.clExtension }}
+          </div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="clExtensionField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span class="mensaje" *ngIf="clExtensionField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxFlexAlign="space-between center">
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.background_information }}
+          </h3>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.biParentname }}
+          </div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="biParentnameField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span class="mensaje" *ngIf="biParentnameField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.biSubsidiary }}
+          </div>
+          <div fxFlex="65">
+            <div class="form-campo">
+              <input
+                class="campo"
+                [formControl]="biSubsidiaryField"
+                maxlength="200"
+                type="text"
+                style="width: 100%;"
+              />
+            </div>
+            <span class="mensaje" *ngIf="biSubsidiaryField.errors?.maxlength">{{
+              textos.gestion_docu_publicos.dialog_agregar.catacteresMax
+            }}</span>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.acCountry }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="acCountryField"
+                  placeholder="{{
+                    textos.gestion_docu_publicos.dialog_agregar.seleccione_pais
+                  }}"
+                  class="Rectangle-Copy"
+                  [compareWith]="compareFnPais"
+                >
+                  <input class="campo" matInput />
+                  <mat-option *ngFor="let item of paises" [value]="item">
+                    {{ item.nombre }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxFlexAlign="space-between center">
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.measures }}
+          </h3>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure1 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="measure1Field"
+                  class="Rectangle-Copy"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure1List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure2 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy-Gray" appearance="outline">
+                <mat-select
+                  [formControl]="measure2Field"
+                  class="Rectangle-Copy-Gray"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure1List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure3 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="measure3Field"
+                  class="Rectangle-Copy"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure2List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure4 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy-Gray" appearance="outline">
+                <mat-select
+                  [formControl]="measure4Field"
+                  class="Rectangle-Copy-Gray"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure4List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure5 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="measure5Field"
+                  class="Rectangle-Copy-Gray"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure1List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure6 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy-Gray" appearance="outline">
+                <mat-select
+                  [formControl]="measure6Field"
+                  class="Rectangle-Copy-Gray"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure5List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure7 }}
+          </div>
+          <div fxFlex="70">
+            <div class="form-campo">
+              <mat-form-field class="Rectangle-Copy" appearance="outline">
+                <mat-select
+                  [formControl]="measure7Field"
+                  class="Rectangle-Copy"
+                  [compareWith]="compareFnMeasure"
+                >
+                  <input class="campo" matInput />
+                  <mat-option
+                    *ngFor="let fuent of measure3List"
+                    [value]="fuent"
+                  >
+                    {{ fuent.description }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon class="icono-select">
+                  expand_more
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-dialog-content>
+    </div>
+    <div fxFlex fxLayout="row" fxFlex="2" fxLayoutAlign="center">
+      <mat-icon mat-dialog-close class="close-icon">
+        close
+      </mat-icon>
+    </div>
+    <div
+      fxLayout="row"
+      style="width: 100%; margin-bottom:50px;"
+      fxLayoutAlign="space-around center"
+      fxFlex="100"
+    >
+      <div fxFlex="30"></div>
+      <button class="guardar" mat-button fxFlex="15" (click)="guardarClick()">
+        {{ textos.generales.guardar }}
+      </button>
+      <button class="cancelar" mat-button mat-dialog-close fxFlex="15">
+        {{ textos.generales.cancelar }}
+      </button>
+      <div fxFlex="30"></div>
+    </div>
+  </div>
+</div>

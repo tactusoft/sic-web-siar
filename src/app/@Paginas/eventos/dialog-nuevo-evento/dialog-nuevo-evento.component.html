@@ -1,0 +1,221 @@
+<div fxLayout="row" fxLayoutAlign="end">
+    <mat-icon mat-dialog-close>
+        close
+    </mat-icon>
+</div>
+<mat-dialog-content>
+    <div fxLayout="row" fxLayoutAlign="center">
+        <form class="formulario" [formGroup]="formRegistro">
+            <h1 class="titulo">{{tituloFormulario}}</h1>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.titulo}}</div>
+                <div fxFlex="70">
+                    <div class="form-textarea">
+                        <textarea class="textarea" maxlength="200" formControlName="titulo" [ngClass]="{'inputInvalid': (titulo.invalid && titulo.dirty) || (titulo.invalid && titulo.touched) || (titulo.invalid && submit)}"></textarea>
+                        <div class="icon-cerrar">
+                            <mat-icon class="cerrar" (click)="titulo.setValue('')">
+                                close
+                            </mat-icon>
+                        </div>
+                    </div>
+                    <div class="validacion validacion-textarea" *ngIf="(titulo.invalid && titulo.dirty) || (titulo.invalid && titulo.touched) || (titulo.invalid && submit)">
+                        <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.resumen}}</div>
+                <div fxFlex="70">
+                    <div class="form-textarea">
+                        <textarea class="textarea" maxlength="4000" formControlName="resumen" [ngClass]="{'inputInvalid': (resumen.invalid && resumen.dirty) || (resumen.invalid && resumen.touched) || (resumen.invalid && submit)}"></textarea>
+                        <div class="icon-cerrar">
+                            <mat-icon class="cerrar" (click)="resumen.setValue('')">
+                                close
+                            </mat-icon>
+                        </div>
+                    </div>
+                    <div class="validacion validacion-textarea" *ngIf="(resumen.invalid && resumen.dirty) || (resumen.invalid && resumen.touched) || (resumen.invalid && submit)">
+                        <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.pais}}</div>
+                <div fxFlex="70">
+                    <div class="box">
+                        <mat-form-field appearance="outline">
+                            <mat-select required formControlName="pais">
+                                <input class="campo-buscar" matInput placeholder="{{textos.eventos.dialog_nuevo_evento.buscar}}">
+                                <mat-option disabled [value]="''" style="color: #001737 !important;">
+                                    {{textos.eventos.dialog_nuevo_evento.seleccionePais}}
+                                </mat-option>
+                                <mat-option [value]="item.id" *ngFor="let item of paises">
+                                    {{item.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon class="icono-select">
+                                expand_more
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="validacion validacion-select" *ngIf="(pais.invalid && resumen.dirty) || (pais.invalid && pais.touched) || (pais.invalid && submit)">
+                        <span class="mensaje" *ngIf="pais.errors.required">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.lugar}}</div>
+                <div fxFlex="70">
+                    <div class="form-campo">
+                        <input class="campo" formControlName="lugar" maxlength="200" type="text" placeholder="{{textos.eventos.dialog_nuevo_evento.ingrese_ubicacion}}" [ngClass]="{'inputInvalid': (lugar.invalid && lugar.dirty) || (lugar.invalid && lugar.touched) || (lugar.invalid && submit)}"
+                        />
+                        <div class="box-icono">
+                            <svg-icon class="icono icono-calendario" key="locacionBold"></svg-icon>
+                        </div>
+                    </div>
+                    <div class="validacion" *ngIf="(lugar.invalid && lugar.dirty) || (lugar.invalid && lugar.touched) || (lugar.invalid && submit)">
+                        <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.direccion}}</div>
+                <div fxFlex="70">
+                    <div class="form-campo">
+                        <input class="campo" maxlength="200" formControlName="direccion" type="text" placeholder="{{textos.eventos.dialog_nuevo_evento.ingrese_direccion}}" [ngClass]="{'inputInvalid': (direccion.invalid && direccion.dirty) || (direccion.invalid && direccion.touched) || (direccion.invalid && submit)}"
+                        />
+                        <div class="box-icono">
+                            <svg-icon class="icono icono-calendario" key="locacionBold"></svg-icon>
+                        </div>
+                    </div>
+                    <div class="validacion" *ngIf="(direccion.invalid && direccion.dirty) || (direccion.invalid && direccion.touched) || (direccion.invalid && submit)">
+                        <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.fechaInicio}}</div>
+                <div fxFlex="70">
+                    <mat-form-field class="seccion-fechas" appearance="outline">
+                        <input matInput [matDatepicker]="fecha" [formControl]="fechaInicio" placeholder="{{textos.eventos.dialog_nuevo_evento.ingrese_fecha}}">
+                        <mat-datepicker #fecha disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                    <button fxFlex="5" class="boton-date" mat-raised-button (click)="fecha.open()">
+                        <div class="box-icono">
+                            <svg-icon class="icono icono-calendario" key="calendario"></svg-icon>
+                        </div>
+                    </button>
+                    <div class="validacion" *ngIf="fechaInicio.invalid && fechaInicio.touched">
+                        <span class="mensaje" *ngIf="fechaInicio.errors.required || fechaInicio.errors.pattern">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.fechaFin}}</div>
+                <div fxFlex="70">
+                    <mat-form-field class="seccion-fechas" appearance="outline">
+                        <input matInput [matDatepicker]="fechaFinal" [min]="fechaInicio.value" [formControl]="fechaFin" placeholder="{{textos.eventos.dialog_nuevo_evento.ingrese_fecha}}">
+                        <mat-datepicker #fechaFinal disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                    <button fxFlex="5" class="boton-date" mat-raised-button (click)="fechaFinal.open()">
+                            <div class="box-icono">
+                                <svg-icon class="icono icono-calendario" key="calendario"></svg-icon>
+                            </div>
+                    </button>
+                    <div class="validacion" *ngIf="fechaFin.invalid && fechaFin.touched">
+                        <span class="mensaje" *ngIf="fechaFin.errors.required || fechaFin.errors.pattern">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.enlaces}}</div>
+                <div fxFlex="70">
+                    <div class="form-campo">
+                        <input class="campo" formControlName="enlaces" maxlength="4000" (change)="agregarEnlace(enlaces.value)" type="text" placeholder="{{textos.eventos.dialog_nuevo_evento.ingrese_enlace}}" />
+                        <div class="box-icono">
+                            <mat-icon class="icono icono-link">
+                                link
+                            </mat-icon>
+                        </div>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <div class="enlaces" *ngFor="let enlace of enlacesAnexos">
+                            <div class="box-enlaces">
+                                <a [href]="enlace" target="_blank" class="enlace">
+                                    {{enlace}}
+                                </a>
+                            </div>
+                            <mat-icon (click)="removeEnlace(enlace)" class="ico-borrar">cancel</mat-icon>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.categoria}}</div>
+                <div fxFlex="70">
+                    <div class="box">
+                        <mat-form-field appearance="outline">
+                            <mat-select formControlName="categoria">
+                                <input class="campo-buscar" matInput placeholder="{{textos.eventos.dialog_nuevo_evento.buscar}}">
+                                <mat-option disabled [value]="''" style="color: #001737 !important;">
+                                    {{textos.eventos.dialog_nuevo_evento.seleccioneCategoria}}
+                                </mat-option>
+                                <mat-option [value]="item.id" *ngFor="let item of categorias">
+                                    {{item.description}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon class="icono-select">
+                                expand_more
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="validacion validacion-select" *ngIf="(categoria.invalid && categoria.dirty) || (categoria.invalid && categoria.touched) || (categoria.invalid && submit)">
+                        <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="fila" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="30" class="item">{{textos.eventos.dialog_nuevo_evento.imagenes}}</div>
+                <div fxFlex="70">
+                    <div class="form-campo">
+                        <div class="box-imagen" (click)="imagen.click()">
+                            <div class="item-imagen">
+                                <img src="assets/img/camara.JPG" alt="" width="50" height="50">
+                                <p>{{textos.eventos.dialog_nuevo_evento.p_agregar_fotos}}</p>
+                            </div>
+                        </div>
+                        <input #imagen style="display: none;" accept="image/x-png,image/gif,image/jpeg" class="campo" (change)="onFileChange($event)" formControlName="imagenes" type="file" multiple/>
+                        <div class="ayuda">
+                            <span>{{textos.eventos.dialog_nuevo_evento.p_tipos}}</span>
+                        </div>
+                        <div style="margin-top: 8px;">
+                            <div class="enlaces" *ngFor="let imagen of imagenesBase64">
+                                <div class="box-enlaces">
+                                    <p class="enlace">
+                                        {{imagen.nombre}}
+                                    </p>
+                                </div>
+                                <mat-icon (click)="removeImagen(imagen)" class="ico-borrar">cancel</mat-icon>
+                                <br>
+                            </div>
+                            <div *ngIf="editar">
+                                <div class="enlaces" *ngFor="let imagen of getImagenes(evento.recursos)">
+                                    <div class="box-enlaces">
+                                        <img width="200px" src="{{imagen.path}}" alt="">
+                                        <mat-icon class="ico-borrar-imagen" (click)="agregarImagenBorrar(imagen)">cancel</mat-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="botones" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="24px">
+                <button class="btn btn-guardar" (click)="guardarEvento()">{{textos.generales.guardar}}</button>
+                <button class="btn btn-cancelar" mat-dialog-close>{{textos.generales.cancelar}}</button>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>

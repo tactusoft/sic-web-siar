@@ -1,0 +1,19 @@
+<!-- pdf-viewer section -->
+<div class="container">
+    <div fxLayout="row" style="margin-top: 37px;">
+      <svg-icon key="flechaRetorno"></svg-icon>
+      <span class="enlace">
+            <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+        </span>
+      <mat-icon class="icono">
+        keyboard_arrow_right
+      </mat-icon>
+      <span class="enlace">
+            <a [routerLink]="['/codigoLesiones']" [routerLinkActive]="['link-activo']">{{textos.cabecera.codigo_lesiones}}</a>
+        </span>
+    </div>
+
+    <div class="col-md-12 mt-5 mb-3">
+        <ngx-extended-pdf-viewer [src]="pdfSrc" useBrowserLocale="true" backgroundColor="#999999" [showOpenFileButton]="false" height="80vh"></ngx-extended-pdf-viewer>
+    </div>
+</div>

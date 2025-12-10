@@ -1,0 +1,26 @@
+<div class="container-tarjeta">
+  <mat-card class="card-documento">
+    <mat-card-content class="card-content">
+      <div fxLayout="column">
+        <article>
+          <div>
+            <svg-icon class="position" key="clip"></svg-icon>
+          </div>
+          <h1 (click)="abrirEditar(registro)">{{ getDescripcionPais(registro.idCountry) }}</h1>
+          <div fxLayout="row" class="doc-titulo" (click)="abrirEditar(registro)">
+            <h2>{{ registro.title }}</h2>
+          </div>
+        </article>
+      </div>
+      <div class="card-fecha" (click)="abrirEditar(registro)">
+        <p class="titulo">
+          {{ textos.gestion_docu_publicos.tarjeta_documentos.categorias }}
+        </p>
+        <hr />
+        <div class="footer-card">
+          {{ registro.focusbusiness }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

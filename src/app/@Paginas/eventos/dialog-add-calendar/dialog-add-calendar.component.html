@@ -1,0 +1,20 @@
+<div fxLayout="row" fxFlexAlign="end">
+    <div>
+        <mat-icon mat-dialog-close>minimize</mat-icon>
+    </div>
+</div>
+<mat-dialog-content class="mat-typography mat-add-calendar">
+    <div fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="icon">
+            <mat-icon>check_circle</mat-icon>
+        </div>
+        <div fxFlex="60" class="item">{{textos.eventos.dialog_add_calendar.sincEvento}}</div>
+        <div fxFlex="60">{{textos.eventos.dialog_add_calendar.agregar1}} {{evento.title}} {{textos.eventos.dialog_add_calendar.agregar2}} {{evento.startDate | date : "dd MMM 'de' yyyy"}} {{textos.eventos.dialog_add_calendar.agregar3}}</div>
+
+    </div>
+    <br>
+    <div fxLayoutAlign="space-between none" fxLayout="row">
+        <button class="acc" (click)="eventoAdd(evento)">{{textos.eventos.dialog_add_calendar.acepto}}</button>
+        <button class="no_acc" mat-dialog-close>{{textos.eventos.dialog_add_calendar.noAcepto}}</button>
+    </div>
+</mat-dialog-content>

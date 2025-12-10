@@ -1,0 +1,16 @@
+<div *ngIf="textos" class="rcss-main">
+  <div
+    class="suscripcion"
+    fxLayout="row"
+    fxLayoutAlign="end center"
+    [ngStyle]="{ 'background-image': 'url(' + IMG_BANNER_SUSCRIPCION + ')' }"
+  >
+    <div fxFlex="50" fxFlex.xs="100" fxFlex.sm="100">
+      <section>
+        <header>
+          <h1>{{ textos.cabecera.boletines }}</h1>
+        </header>
+      </section>
+    </div>
+  </div>
+</div>

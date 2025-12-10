@@ -1,0 +1,140 @@
+$color-rojo: #d8001d;
+$color-azul: #004a9c;
+$color-blanco: #ffffff;
+$color-plomo: #34353d;
+
+::ng-deep .mat-dialog-bloqueo-login {
+    max-width: 60.5625rem !important;
+    max-height: 32.4375rem !important;
+    width: 80% !important;
+}
+
+.contenedor-logo {
+    width: 4.3625rem;
+    height: 4.3625rem;
+    border-radius: 50%;
+    background-color: $color-rojo;
+    margin: 0.625rem auto 0.6875rem;
+    img {
+        width: 50%;
+        height: 100%;
+        margin: auto;
+    }
+}
+
+.seccion-titulo {
+    text-align: center;
+    margin: 1.25px auto;
+    label {
+        font-family: OpenSans-Bold, sans-serif;
+        font-size: 1.5625rem;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.36;
+        letter-spacing: normal;
+        text-align: center;
+        color: $color-rojo;
+    }
+}
+
+.seccion-resumen {
+    margin: auto;
+    text-align: center;
+    label {
+        max-width: 32.375rem;
+        max-height: 12.75rem;
+        font-family: OpenSans, sans-serif;
+        font-size: 1.25rem;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.35;
+        letter-spacing: normal;
+        text-align: center;
+        color: $color-plomo;
+        a {
+            font-family: OpenSans-Bold, sans-serif;
+            font-weight: bold;
+            color: $color-azul;
+            cursor: pointer;            
+        }
+    }
+}
+
+.seccion-contador {
+    margin: 3rem auto;
+    .contenedor-contador {
+        width: 15.0625rem;
+        height: 4.375rem;
+        border-radius: 2.1875rem;
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+        background-color: $color-blanco;
+        text-align: center;
+        margin: auto;
+        label {
+            font-family: OpenSans, sans-serif;
+            font-size: 1.5625rem;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.36;
+            letter-spacing: normal;
+            text-align: center;
+            color: $color-rojo;
+            margin-top: 1.25rem;
+        }
+    }
+}
+
+@media (max-width:768px) {
+    .seccion-titulo {
+        margin: 0.75rem auto;
+        label {
+            font-size: 1.25rem;
+        }
+    }
+    .seccion-resumen {
+        label {
+            width: 80%;
+            font-size: 1rem;
+        }
+    }
+    .seccion-contador {
+        margin: 2rem auto;
+        .contenedor-contador {
+            width: 50%;
+            height: 20%;
+            label {
+                font-size: 1rem;
+                margin-top: 0.5rem;
+            }
+        }
+    }
+}
+
+@media (max-width:400px) {
+    .seccion-titulo {
+        margin: 4% auto;
+        label {
+            font-size: 1rem;
+        }
+    }
+    .seccion-resumen {
+        label {
+            width: 90%;
+            font-size: 0.75rem;
+        }
+    }
+    .seccion-contador {
+        margin: 2rem auto;
+        .contenedor-contador {
+            width: 50%;
+            height: 20%;
+            label {
+                font-size: 1rem;
+                margin-top: 0.5rem;
+            }
+        }
+    }
+}

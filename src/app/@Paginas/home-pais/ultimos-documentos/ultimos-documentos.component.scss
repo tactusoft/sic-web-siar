@@ -1,0 +1,63 @@
+$color-azul: #254b9c;
+$color-naranja: #f07e00;
+$color-blanco: #fff;
+$color-azul-claro: #0099cc;
+$color-gris-boton: #949494;
+.img-documento-home {
+    /*background-image: url('/assets/img/eventos-auditorio.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 15px;
+    width: 100%;
+    min-height: 241px;
+    position: relative;
+    .txt-documentos {
+        position: absolute;
+        width: 495px;
+        background-color: $color-naranja;
+        color: $color-blanco;
+        right: 0;
+        bottom: -15px;
+        padding: 17px 50px 17px 0px;
+        border-radius: 23px 0 0 23px;
+        font-size: 30px;
+        height: 67px;
+        font-weight: bold;
+        line-height: 1.17;
+        letter-spacing: 0.3px;
+        text-align: right;
+    }
+}
+
+.btn-docuemntos {
+    background-color: $color-naranja;
+    cursor: pointer;
+}
+
+button {
+    color: $color-blanco;
+    border: none;
+    padding: 12px 36px;
+    border-radius: 5px;
+    font-family: OpenSans, sans-serif;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.06;
+    letter-spacing: normal;
+    text-align: center;
+    width: 192px;
+    height: 42px;
+    font-size: 16px;
+    transition: all 0.1s;
+    &:hover {
+        box-shadow: 1px 2px 3px 0px #464646;
+        border: none;
+    }
+}
+
+.btn-docuemntos:disabled {
+    background-color: $color-gris-boton;
+    opacity: 1;
+}

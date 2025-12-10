@@ -1,0 +1,15 @@
+$color-azul : #004a9c;
+$color-naranja: #eb7e25;
+
+.icono{
+    color: $color-azul;
+}
+.enlace{
+    font-family: OpenSans-Bold, sans-serif;
+    margin: 0px 8px;
+    font-size: 18px;
+    a{
+        text-decoration: none;
+        color: $color-azul;
+    }
+}

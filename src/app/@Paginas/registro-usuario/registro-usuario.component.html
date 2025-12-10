@@ -1,0 +1,157 @@
+<div *ngIf="registroInfo">
+  <div fxLayout="row" class="imagen-registro" [ngStyle]="{ 'background-image': 'url(' + IMG_BANNER_REGISTRO + ')' }">
+    <div fxLayout="column" fxFlex="100">
+      <div class="navegacion">
+        <svg-icon key="nvIco3"></svg-icon>
+        <span class="enlace">
+          <a [routerLink]="['']">{{ registroInfo.registro_usuario.inicio }}</a>
+        </span>
+        <mat-icon class="icono">
+          keyboard_arrow_right
+        </mat-icon>
+        <span class="enlace">
+          <a [routerLink]="['/registroUsuario']" [routerLinkActive]="['link-activo']">{{
+            registroInfo.registro_usuario.registrarse }}</a>
+        </span>
+      </div>
+      <div>
+        <form [formGroup]="formRegistro" class="contenedor-registro" fxLayout="column"
+          [ngClass]="{ ocultar: pagina !== 1 }">
+          <h1>{{ registroInfo.registro_usuario.nuevoUsuario }}</h1>
+          <div class="campo">
+            <label for="nombre">{{
+              registroInfo.registro_usuario.nombreUsu
+              }}</label>
+            <div class="box-input">
+              <input formControlName="email" (change)="getUsuarioCorreo(email.value)" name="nombre" type="email"
+                placeholder="{{ registroInfo.registro_usuario.eCorreo }}" autocomplete="email" />
+              <div>
+                <svg-icon key="nvIco2"></svg-icon>
+              </div>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="contrasena">{{
+              registroInfo.registro_usuario.contrasena
+              }}</label>
+            <div class="box-input">
+              <input [ngClass]="{ error: !password.valid && password.touched }" formControlName="password"
+                name="contrasena" type="password" placeholder="*******" autocomplete="new-password" />
+              <div>
+                <svg-icon key="nvIco1"></svg-icon>
+              </div>
+            </div>
+          </div>
+          <div class="validacion" *ngIf="!password.valid && password.touched">
+            <div class="guia-contrasena" *ngIf="mostrarError">
+              <div class="cerrar" fxLayout="row" fxLayoutAlign="end">
+                <mat-icon class="icono-cerrar" (click)="mostrarError = false">
+                  close
+                </mat-icon>
+              </div>
+              <span>{{ registroInfo.registro_usuario.parrafo_1 }}
+                <br />
+                {{ registroInfo.registro_usuario.parrafo_2 }}
+                <br />
+                {{ registroInfo.registro_usuario.parrafo_3 }}
+              </span>
+            </div>
+            <span class="mensaje" *ngIf="password.errors.pattern">{{
+              registroInfo.registro_usuario.contrasenaIncorrecta
+              }}</span>
+            <span *ngIf="password.errors.pattern" class="info-error" (click)="mostrarError = true">!</span>
+          </div>
+          <div class="campo">
+            <label for="confirmaContrasena">{{
+              registroInfo.registro_usuario.confirmarContrasena
+              }}</label>
+            <div class="box-input">
+              <input formControlName="passwordConfirmacion" name="confirmaContrasena" type="password"
+                placeholder="*******" autocomplete="new-password" />
+              <div>
+                <svg-icon key="nvIco1"></svg-icon>
+              </div>
+            </div>
+          </div>
+          <div class="validacion" *ngIf="passwordConfirmacion.touched && !contraseniaIgual">
+            <span class="mensaje">{{
+              registroInfo.registro_usuario.v_contrasena
+              }}</span>
+          </div>
+          <br />
+          <br />
+          <button [disabled]="
+              !contraseniaIgual ||
+              !password.valid ||
+              !passwordConfirmacion.valid
+            " class="btn-continuar" (click)="continuarRegistro()">
+            {{ registroInfo.registro_usuario.continuar }}
+          </button>
+          <br />
+          <br />
+        </form>
+        <form [formGroup]="formRegistro" class="contenedor-registro" [ngClass]="{ ocultar: pagina !== 2 }"
+          fxLayout="column" *ngIf="pagina == 2">
+          <div class="campo">
+            <label for="">{{ registroInfo.registro_usuario.pais }}</label>
+            <div class="box-input">
+              <input formControlName="idPais" name="idPais" type="text"
+                placeholder="{{ registroInfo.registro_usuario.pais }}" />
+              <div>
+                <svg-icon key="nvIco2"></svg-icon>
+              </div>
+            </div>
+          </div>
+          <div class="campo">
+            <div class="box-select">
+              <label for="">{{ registroInfo.registro_usuario.idioma }}</label>
+              <select class="select" formControlName="idIdioma">
+                <option class="option" selected disabled value="">{{
+                  registroInfo.registro_usuario.seleccionarIdioma
+                  }}</option>
+                <option class="option" [value]="idioma.id" *ngFor="let idioma of idiomasList">{{
+                  nombreIdiomaTraduccion(idioma.descripcion) }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="validacion" *ngIf="!idIdioma.valid && idIdioma.touched">
+            <span class="mensaje" *ngIf="idIdioma.errors.required">{{
+              registroInfo.registro_usuario.campo_requerido
+              }}</span>
+          </div>
+          <div class="campo">
+            <div class="box-select">
+              <label for="">{{
+                registroInfo.registro_usuario.pregunta_seguridad
+                }}</label>
+              <select class="select" (change)="openDialog()" formControlName="idQuestionSecurity">
+                <option class="option" selected disabled value="">{{
+                  registroInfo.registro_usuario.seleccionarPregunta
+                  }}</option>
+                <option class="option" [value]="subdominio.id" *ngFor="let subdominio of preguntasList[0].subDominio">{{
+                  subdominio.description }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="validacion" *ngIf="
+              (!idQuestionSecurity.valid && idQuestionSecurity.touched) ||
+              !respuestaValida
+            ">
+            <span class="mensaje">{{
+              registroInfo.registro_usuario.campo_requerido
+              }}</span>
+          </div>
+          <label for="">
+            <input type="checkbox" formControlName="terminos" />
+            <span class="aceptar"><span class="terminos"><a>{{
+                  registroInfo.registro_usuario.terminosCondiciones
+                  }}</a></span></span>
+          </label>
+          <button [disabled]="!formRegistro.valid" class="btn-continuar" (click)="guardarRegistro(formRegistro.value)">
+            {{ registroInfo.registro_usuario.registrarse }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

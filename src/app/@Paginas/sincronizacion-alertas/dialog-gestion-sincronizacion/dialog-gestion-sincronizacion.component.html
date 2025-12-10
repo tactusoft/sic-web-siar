@@ -1,0 +1,73 @@
+<div fxLayout="row" fxFlexAlign="space-between center">
+    <h2 class="title-modal" fxFlex mat-dialog-title></h2>
+    <div fxFlex fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>
+            close
+        </mat-icon>
+    </div>
+</div>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="formularioGestion" fxLayout='column' class="contenido-modal" autocomplete="off">
+        <div fxLayout='row' class='seccion-titulo'>
+            <label *ngIf="nuevo" fxflex="100">{{textos.sincronizacion_alertas.dialog_gestion.nuevoRecord}}</label>
+            <label *ngIf="!nuevo" fxflex="100">{{textos.sincronizacion_alertas.dialog_gestion.editar}}</label>
+        </div>
+        <div fxLayout='column' class='seccion-campos'>
+            <div fxLayout='row' class='nombre-externo'>
+                <div fxflex='50'>
+                    <label class="labelLogin" class='etiqueta'>{{textos.sincronizacion_alertas.dialog_gestion.nombreExterno}}</label>
+                </div>
+                <div fxflex='50'>
+                    <div class="row margen-dato">
+                        <div class="input-group">
+                            <input type="text" class="form-control inputNombre" maxlength="500" id="nombre" aria-describedby="nombrelHelp" placeholder="{{textos.sincronizacion_alertas.dialog_gestion.ingreseNombre}}" formControlName="nombre" name="nombre">
+                            <div class="input-group-append">
+                                <div class="iconoInput">
+                                    <mat-icon class="my-auto ml-auto p-2 iconoUsuario" svgIcon="iconoUsuario">
+                                    </mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Validaciones campo -->
+                    <div class="container-error-message text-danger " *ngIf="(nombre.invalid && nombre.dirty) || (nombre.invalid && nombre.touched) || (nombre.invalid && submit)">
+                        <h1 class="label-error"> {{textos.generales.campo_obligatorio}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout='row ' class='nombre-categoria'>
+                <div fxflex='10'></div>
+                <label *ngIf="tipoRegistro === 'C'" class='etiqueta' fxflex='30'>{{textos.sincronizacion_alertas.dialog_gestion.nombreCateoriaSiar}}</label>
+                <label *ngIf="tipoRegistro === 'P'" class='etiqueta' fxflex='30'>{{textos.sincronizacion_alertas.dialog_gestion.nombrePaisSiar}}</label>
+                <div fxflex='10'></div>
+                <div fxflex='50'>
+                    <mat-form-field appearance="outline">
+                        <mat-select class="dropCategoria" placeholder="{{ (tipoRegistro === 'C') ? textos.sincronizacion_alertas.dialog_gestion.seleccioneCategoria : textos.sincronizacion_alertas.dialog_gestion.seleccionePais}}" formControlName="elementoSiar">
+                            <mat-option *ngFor="let elemento of listaSiar" [value]="elemento.id">
+                                {{ (tipoRegistro === 'C') ? elemento.description : elemento.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon class="icono-select ">
+                            expand_more
+                        </mat-icon>
+                    </mat-form-field>
+                    <!-- Validaciones campo -->
+                    <div class="container-error-message text-danger " *ngIf="(elementoSiar.invalid && elementoSiar.dirty) || (elementoSiar.invalid && elementoSiar.touched) || (elementoSiar.invalid && submit)">
+                        <h1 class="label-error"> {{textos.generales.campo_obligatorio}} </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row " style="width: 100%;margin-top: 60px; " fxLayoutAlign="space-around center " fxFlex="100 ">
+            <div fxFlex="10"></div>
+            <div fxFlex="38" fxLayoutAlign="end center">
+                <button class="btn-guardar" mat-button (click)="guardarHomologacion()">{{textos.generales.guardar}}</button>
+            </div>
+            <div fxFlex="4"></div>
+            <div fxFlex="38" fxLayoutAlign="start center">
+                <button class="btn-cancelar" mat-button mat-dialog-close>{{textos.generales.cancelar}}</button>
+            </div>
+            <div fxFlex="10"></div>
+        </div>
+    </form>
+</mat-dialog-content>

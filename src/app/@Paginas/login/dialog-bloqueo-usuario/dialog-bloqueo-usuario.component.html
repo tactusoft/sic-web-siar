@@ -1,0 +1,34 @@
+<div *ngIf="bloqueoInfo">
+<div fxLayout="row" fxFlexAlign="space-between center">
+    <h2 class="title-modal" fxFlex mat-dialog-title></h2>
+    <div fxFlex fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>
+            close
+        </mat-icon>
+    </div>
+</div>
+
+<mat-dialog-content class="mat-typography">
+    <div>
+        <div class="contenedor-logo">
+            <img class="d-block" [src]=iconoContrasena alt="Chrome">
+        </div>
+    </div>
+    <div class="seccion-titulo">
+        <label>{{bloqueoInfo.login.bloqueo_usuario.cuenta_bloqueada}}</label>
+    </div>
+    <div class="seccion-resumen">
+        <label>
+            {{bloqueoInfo.login.bloqueo_usuario.p_cuenta_bloqueada}} <a class="btn-link" (click)="recuperarClave()"> <u>{{bloqueoInfo.login.bloqueo_usuario.v_cotrasena_bloqueada}}</u> </a>
+        </label>
+    </div>
+    <div class="seccion-contador">
+        <div class="contenedor-contador">
+            <label><countdown #cd class="contador" [config]="{leftTime: segundos, format: 'mm:ss' }" (event)="eventosContador($event)"></countdown></label>
+        </div>
+
+    </div>
+
+
+</mat-dialog-content>
+</div>

@@ -1,0 +1,52 @@
+<div *ngIf="textos">
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>
+            close
+        </mat-icon>
+    </div>
+    <div class="contanedor">
+        <form [formGroup]="formInvitacion">
+            <h1 class="titulo">{{textos.admin_usuarios.invitacion.titulo}}</h1>
+            <article>
+                <p>{{textos.admin_usuarios.invitacion.p_invitacion}}<br/><span class="correo-envio">{{usuario.email}}</span></p>
+            </article>
+            <div class="select-idioma" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+                <span>{{textos.admin_usuarios.invitacion.c_idioma}}</span>
+                <div class="box">
+                    <form [formGroup]="formFiltro">
+                        <mat-form-field appearance="outline">
+                            <mat-select formControlName="idIdioma" (selectionChange)="cambioIdioma($event)" [ngClass]="{'SelectInvalid': ((messageEmail === undefined) && submit)}">
+                                <input class="campo-buscar" [formControl]="buscarIdioma" matInput placeholder="{{textos.admin_usuarios.buscar}}">
+                                <mat-option [value]="0" style="color: #001737 !important;">
+                                    {{textos.admin_usuarios.invitacion.selecciona_idioma}}
+                                </mat-option>
+                                <mat-option #option [ngClass]="{'ocultar': !mostrar(buscarIdioma.value, idioma.descripcion),'option-selected' : option._getAriaSelected()}" [value]="idioma.id" *ngFor="let idioma of idiomas">
+                                    {{nombreIdiomaTraduccion(idioma.descripcion)}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon class="icono-select">
+                                expand_more
+                            </mat-icon>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </div>
+            <div class="box-texto">
+                <p>{{textos.admin_usuarios.invitacion.p_generar_inv}}</p>
+            </div>
+
+            <div class="form-campo">
+                <textarea matInput readonly id="mensaje-invitacion" [ngClass]="{'InputInvalid': ((messageEmail === undefined) && submit)}">{{messageParam}}</textarea>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+                <mat-checkbox class="example-margin" [formControl]="enviarCopia" [checked]="true">
+                    {{textos.admin_usuarios.invitacion.copia_correo}} &nbsp; <span>{{correoReenvio}}</span>
+                </mat-checkbox>
+            </div>
+            <div class="botones" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="24px">
+                <button class="btn btn-guardar" (click)="enviarInvitacion(formInvitacion.value)">{{textos.generales.guardar}}</button>
+                <button class="btn btn-cancelar" mat-dialog-close>{{textos.generales.cancelar}}</button>
+            </div>
+        </form>
+    </div>
+</div>

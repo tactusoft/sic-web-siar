@@ -1,0 +1,38 @@
+<div class="div-problemas">
+    <div fxFlex="20">
+        <button *ngIf="habilitarResincronizar" (click)="resincronizar()" class="btn-nuevo">{{textos.sincronizacion_alertas.tabla_problemas.resincronizar}}</button>
+    </div>
+    <div fxFlex="80">
+        <mat-toolbar *ngIf="filtroActivo" class="toolbarFiltro">
+            <button (click)="gestionarFiltro()" mat-raised-button class="botonFiltro">
+            <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon"/>
+        </button>
+            <input id="searchbarInput" class="searchbar" #searchbarInput type="text" (keyup)="filtroProblemas($event)" matInput placeholder="{{textos.sincronizacion_alertas.buscar}}...">
+        </mat-toolbar>
+        <table id="tablaProblemaReportado" class="problema-reportado-table" mat-table matSort [dataSource]="dataProblemasReportados" aria-describedby="problema-reportado-tabla">
+            <!-- codigo Column -->
+            <ng-container matColumnDef="codigo">
+                <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.tabla_problemas.extCodigo}}
+                    <mat-icon (click)="gestionarFiltro()" class="icono-filtro">filter_list</mat-icon>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column-gestionTaller">
+                    {{element.externalCode}} </td>
+            </ng-container>
+            <!-- problema Column -->
+            <ng-container matColumnDef="problema">
+                <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.tabla_problemas.problema}}
+                    <mat-icon (click)="gestionarFiltro()" class="icono-filtro">filter_list</mat-icon>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column-gestionTaller"> - {{element.problem}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsProblemasReportados"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsProblemasReportados;"></tr>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">{{textos.sincronizacion_alertas.tabla_problemas.sinDatosFiltro}}</td>
+            </tr>
+        </table>
+        <mat-paginator #paginatorProblemas [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        <br/>
+    </div>
+</div>

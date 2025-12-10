@@ -1,0 +1,21 @@
+<div fxLayout="row" fxLayoutAlign="end">
+    <mat-icon mat-dialog-close>
+        close
+    </mat-icon>
+</div>
+<div class="contenedor-preg" fxLayout="column" fxLayoutAlign="center start" >
+    
+    <h1 class="titulo">{{textos.registro_usuario.dialog_pregunta.tituloPregunta}} </h1>
+    <div class="pregunta-respuesta">
+        <div class="pregunta">
+            {{preguntaSeleccionada}}
+        </div>
+        <textarea class="input-area" [(ngModel)]="respuesta"></textarea>
+    </div>
+    <div fxLayout="row" style="width: 100%; margin-top: 5%;" fxLayoutAlign="space-around center" fxFlex="100">
+        <div fxFlex="20"></div>
+        <button class="guardar" mat-button [mat-dialog-close]="respuesta" [disabled]="respuesta === '' || respuesta === undefined">{{textos.generales.guardar}}</button>
+        <button class="cancelar" mat-button (click)="onClose()">{{textos.generales.cancelar}}</button>
+        <div fxFlex="20"></div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+$color-azul: #254b9c;
+$color-naranja: #f07e00;
+$color-blanco: #fff;
+$color-azul-claro: #0099cc;
+.seccion-eventos {
+    button {
+        color: $color-blanco;
+        border: none;
+        padding: 12px 36px;
+        border-radius: 5px;
+        font-family: Roboto, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.06;
+        letter-spacing: normal;
+        text-align: center;
+        width: 192px;
+        height: 42px;
+        transition: all 0.1s;
+        &:hover {
+            box-shadow: 1px 2px 3px 0px #464646;
+            border: none;
+        }
+    }
+    .btn-eventos {
+        background-color: $color-naranja;
+        cursor: pointer;
+    }
+    .btn-calendario {
+        background-color: $color-azul;
+        cursor: pointer;
+    }
+    .img-evento-home {
+        /*background-image: url('/assets/img/eventos-auditorio.jpg');*/
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 15px;
+        width: 100%;
+        min-height: 241px;
+        position: relative;
+        .txt-eventos {
+            font-family: OpenSans-Bold, sans-serif;
+            position: absolute;
+            width: 210px;
+            background-color: $color-naranja;
+            color: $color-blanco;
+            right: 0;
+            bottom: -15px;
+            padding: 17px 50px 17px 0px;
+            border-radius: 23px 0 0 23px;
+            font-size: 30px;
+            height: 67px;
+            font-weight: bold;
+            line-height: 1.17;
+            letter-spacing: 0.3px;
+            text-align: right;
+        }
+    }
+}
+
+.arrow-right {
+    font-size: 4em;
+    color: $color-naranja;
+    cursor: pointer;
+}
+
+.dops {
+    text-align: center;
+    .dop {
+        width: 20px;
+        height: 20px;
+        background-color: #d0ecfb;
+        float: left;
+        border-radius: 50%;
+        margin: 10px;
+        cursor: pointer;
+        margin-top: 2rem;
+    }
+    .dop-selected {
+        background-color: $color-azul;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .seccion-eventos {
+        button {
+            padding: 0;
+            font-size: 14px;
+            width: 130px;
+            height: 2rem;
+        }
+        .btn-eventos {
+            margin-left: 0.5rem;
+        }
+        .img-evento-home {
+            border-radius: 10px;
+            min-height: 85px;
+            width: 96%;
+            margin: auto;
+            .txt-eventos {
+                width: 125px;
+                height: 34px;
+                font-size: 18px;
+                right: -5px;
+                bottom: -15px;
+                padding: 10px 20px;
+                border-radius: 10px 0 0 10px;
+                line-height: 1.11;
+                letter-spacing: 0.18px;
+            }
+        }
+    }
+    .dops {
+        .dop {
+            width: 10px;
+            height: 10px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+    }
+    .arrow-right {
+        font-size: 36px;
+    }
+}

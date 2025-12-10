@@ -1,0 +1,64 @@
+<div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>close</mat-icon>
+    </div>
+    <div fxLayout="row" fxFlexAlign="space-between center" class="div-header">
+        <h2 class="title-modal" fxFlex mat-dialog-title>{{textos.eventos.dialog_evento_detalle.tituloDetalle}}</h2>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.titulo}}</div>
+            <div fxFlex="60" class="value">{{evento.title}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.resumen}}</div>
+            <div fxFlex="60" class="value">{{evento.summary}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.pais}}</div>
+            <div fxFlex="60" class="value">{{evento.pais?evento.pais.nombre : ''}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.lugar}}</div>
+            <div fxFlex="60" class="value">{{evento.addres}}, {{evento.place}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.categoria}}</div>
+            <div fxFlex="60" class="value">{{evento.categoryId.description}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.enlaces}}</div>
+            <div fxFlex="60" fxLayout="column" class="enlaces">
+                <div *ngFor="let item of getEnlaces(evento.recursos)">
+                    <a class="txt-detalle enlace" target="_blank" [href]="item.path">{{item.path}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.fechaInicio}} / <br> {{textos.eventos.dialog_evento_detalle.fechaFin}}
+            </div>
+            <div fxFlex="60" class="value">{{evento.startDate | date : "dd MMM, yyyy"}} - {{evento.endDate | date : "dd MMM, yyyy"}}</div>
+        </div>
+
+        <div class="fila" fxLayout="row">
+            <div fxFlex="30" class="item">{{textos.eventos.dialog_evento_detalle.imagen}}</div>
+            <div fxFlex="60">
+                <img width="150px!important" (click)="agrandarImagen(item.path)" [alt]="evento.title" [src]="item.path" *ngFor="let item of getImagen(evento.recursos)">
+            </div>
+        </div>
+        <div class="ampliar-imagen" *ngIf="agrandaImagen">
+            <div fxLayout="row" fxLayoutAlign="end">
+                <mat-icon class="cerrar" (click)="agrandaImagen = false">
+                    close
+                </mat-icon>
+            </div>
+            <img [alt]="evento.title" [src]="urlImagen">
+        </div>
+    </mat-dialog-content>
+</div>

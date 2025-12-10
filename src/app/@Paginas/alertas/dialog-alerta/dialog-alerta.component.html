@@ -1,0 +1,334 @@
+<div *ngIf="textos">
+  <div fxLayout="row" fxFlexAlign="space-between center">
+    <h2 fxFlex="90" class="title-modal" mat-dialog-title>
+      {{ alerta.productName }}
+    </h2>
+    <div fxFlex fxLayout="row" fxLayoutAlign="end">
+      <mat-icon mat-dialog-close>
+        close
+      </mat-icon>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <div class="box-compartir">
+      <p class="txt-compartir">
+        <svg-icon key="compartir"></svg-icon>
+        {{ textos.alertas.dialog_alerta.compartir }}
+      </p>
+      <div>
+        <a [routerLink]="" (click)="copyToClipboard()">
+          <div class="link-shared" [ngStyle]="{ 'background-image': 'url(' + IMG_LINK + ')' }"></div>
+        </a>
+      </div>
+      <div>
+        <a [href]="urlFacebook" target="_blank">
+          <div class="facebook" [ngStyle]="{ 'background-image': 'url(' + IMG_FACEBOOK + ')' }"></div>
+        </a>
+      </div>
+      <div>
+        <a [href]="urlTwitter" target="_blank">
+          <div class="twitter" [ngStyle]="{ 'background-image': 'url(' + IMG_TWITTER + ')' }"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <br class="linea-br" /><br />
+  <mat-dialog-content class="mat-typography">
+    <mat-accordion class="example-headers-align">
+      <div [@.disabled]="disableAnimation">
+        <mat-expansion-panel [expanded]="true" class="mat-elevation-z0" #panel (opened)="(false)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="item-acordeon" [ngClass]="{ 'accordion-open': panel.expanded }">
+                {{ textos.alertas.dialog_alerta.info_gen }}
+                <span>
+                  <mat-icon>
+                    expand_more
+                  </mat-icon>
+                </span>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.cod_siar }}
+            </div>
+            <div fxFlex="70">{{ alerta.id }}</div>
+          </div>
+
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.categorias }}
+            </div>
+            <div fxFlex="70">
+              {{
+              alerta.categoryId
+              ? getDescripcionCategoria(alerta.categoryId)
+              : ""
+              }}
+            </div>
+          </div>
+
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.pais_notificante }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.idCountry ? getDescripcionPais(alerta.idCountry) : "" }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.pais_org_produ }}
+            </div>
+            <div fxFlex="70">{{ paisesAlerta }}</div>
+          </div>
+
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.url_fuente }}
+            </div>
+            <div fxFlex="70">
+              <a href="{{ alerta.urlSource }}" target="blank">{{
+                alerta.urlSource
+                }}</a>
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.fecha_publicacion }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.publicationDate | date: "dd MMM, yyyy" }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.nivel_riesgo }}
+            </div>
+            <div fxFlex="70">
+              {{
+              alerta.nivelRiesgo
+              ? getDescripcionNivelRiesgo(alerta.nivelRiesgo)
+              : ""
+              }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.imagen }}
+            </div>
+            <div fxFlex="70">
+              <img class="imagen" width="150px" *ngFor="let item of getImagenes(alerta.recursos)"
+                (click)="agrandarImagen(item.path)" [src]="item.path" [alt]="alerta.productName" />
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+    <mat-accordion class="example-headers-align">
+      <div [@.disabled]="disableAnimation">
+        <mat-expansion-panel class="mat-elevation-z0" #panel2>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="item-acordeon" [ngClass]="{ 'accordion-open': panel2.expanded }">
+                {{ textos.alertas.dialog_alerta.detalle_producto }}
+                <span class="icono-expand">
+                  <mat-icon>
+                    expand_more
+                  </mat-icon>
+                </span>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.nombre_producto }}
+            </div>
+            <div fxFlex="70">{{ alerta.productName }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.descripcion_producto }}
+            </div>
+            <div fxFlex="70">{{ alerta.productDescription }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.marca }}
+            </div>
+            <div fxFlex="70">{{ alerta.productBrand }}</div>
+          </div>
+
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.unidades }}
+            </div>
+            <div fxFlex="70">{{ alerta.units }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.periodo_ventas }}
+            </div>
+            <div fxFlex="70">{{ alerta.periodSold }}</div>
+          </div>
+
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.tipo_modelo }}
+            </div>
+            <div fxFlex="70">{{ alerta.typeNumberModel }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.numero_codigo_barras }}
+            </div>
+            <div fxFlex="70">{{ alerta.batchNumberBarcode }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.nombre_proveedor }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.proveedor ? alerta.proveedor.title : "" }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.distribuidor }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.distributor }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.fabricante }}
+            </div>
+            <div fxFlex="70">{{ alerta.manufacturerer }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.importador }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.importer }}
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+    <mat-accordion class="example-headers-align">
+      <div [@.disabled]="disableAnimation">
+        <mat-expansion-panel class="mat-elevation-z0" #panel3>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="item-acordeon" [ngClass]="{ 'accordion-open': panel3.expanded }">
+                {{ textos.alertas.dialog_alerta.riesgos_medidas }}
+                <span class="icono-expand">
+                  <mat-icon>
+                    expand_more
+                  </mat-icon>
+                </span>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.descripcion_defecto }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.defectDescription }}
+            </div>
+          </div>
+
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.accidentes_reportados }}
+            </div>
+            <div fxFlex="70">{{ alerta.accidentsReported }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.riesgos }}
+            </div>
+            <div fxFlex="70">{{ riesgosAlerta }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.tipos_medidas }}
+            </div>
+            <div fxFlex="70">
+              {{
+              alerta.measureTypeId
+              ? getDescripcionTipoMedida(alerta.measureTypeId)
+              : ""
+              }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.medidas }}
+            </div>
+            <div fxFlex="70">{{ alerta.measures }}</div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.recomendaciones_advertencias }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.recommendationsWarnings }}
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+    <mat-accordion class="example-headers-align">
+      <div [@.disabled]="disableAnimation">
+        <mat-expansion-panel class="mat-elevation-z0" #panel4>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="item-acordeon" [ngClass]="{ 'accordion-open': panel4.expanded }">
+                {{ textos.alertas.dialog_alerta.informacion_adicional }}
+                <span class="icono-expand">
+                  <mat-icon>
+                    expand_more
+                  </mat-icon>
+                </span>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.observaciones }}
+            </div>
+            <div fxFlex="70">
+              {{ alerta.additionalInformation }}
+            </div>
+          </div>
+          <div class="fila" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="30" class="item">
+              {{ textos.alertas.dialog_alerta.otros_recursos }}
+            </div>
+            <div fxFlex="70">
+              <a class="txt-detalle enlace" target="_blank" [href]="item.path"
+                *ngFor="let item of getDocumentos(alerta.recursos)">{{ obtenerNombreEnlace(item.path) }}</a>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+    <div class="ampliar-imagen" *ngIf="agrandaImagen">
+      <div>
+        <div fxLayout="row" fxLayoutAlign="end">
+          <mat-icon class="cerrar" (click)="agrandaImagen = false">
+            close
+          </mat-icon>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img [src]="urlImagen" alt="" />
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

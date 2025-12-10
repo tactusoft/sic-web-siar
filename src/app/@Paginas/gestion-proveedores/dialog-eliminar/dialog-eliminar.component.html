@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="end">
+  <mat-icon mat-dialog-close>
+    close
+  </mat-icon>
+</div>
+<div fxLayout="column" fxLayoutAlign="center center" style="margin: 60px 0px;">
+  <svg-icon key="caneca" class="icono-el" fxFlex="100"></svg-icon>
+  <div style="margin-top: 20px;">
+    <h1 class="titulo">
+      {{textos.generales.eliminar}}
+    </h1>
+  </div>
+  <p class="texto">
+    {{textos.generales.eliminar_confimacion}}
+    {{ documento.title }}
+    ?
+  </p>
+  <div
+    fxLayout="row"
+    style="width: 100%; margin-top: 5%;"
+    fxLayoutAlign="space-around center"
+  >
+    <div fxFlex="20"></div>
+    <button class="guardar" mat-button (click)="eliminarDocumento()">
+      {{ textos.generales.aceptar }}
+    </button>
+    <button class="cancelar" mat-button mat-dialog-close>
+      {{ textos.generales.cancelar }}
+    </button>
+    <div fxFlex="20"></div>
+  </div>
+</div>

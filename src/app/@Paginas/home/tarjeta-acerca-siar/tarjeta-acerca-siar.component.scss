@@ -1,0 +1,108 @@
+$color-azul: #004a9c;
+$color-blanco: #fff;
+.tarjeta-acerca-rcss {
+    //min-height: 502px;
+    .img-acerca-rcss {
+        height: 366px;
+        //margin: auto 0;
+        /*background-image: url('/assets/img/siar_es.png');*/
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 0 20px 20px 0;
+        min-height: 200px;
+        min-width: 360px;
+        background-color: white;
+        /*&:hover {
+            background-image: url('/assets/img/siar_es_hover.png');
+        }*/
+    }
+    .acerca-rcss {
+        min-height: 500px;
+        padding: 39px 150px 24px 56px;
+        background-color: #e6e6e6;
+        h2 {
+            color: $color-azul;
+            font-weight: 500;
+            font-size: 30px;
+            font-family: OpenSans-Bold, sans-serif;
+        }
+        p {
+            //width: 467.1px;
+            //height: 237.5px;
+            font-size: 17px;
+            font-family: OpenSans, sans-serif;
+            font-stretch: normal;
+            letter-spacing: 0.17px;
+            text-align: left;
+            color: #000000;
+            margin: 56px 0px 0px;
+        }
+        button {
+            background-color: $color-azul;
+            color: $color-blanco;
+            border: none;
+            padding: 8px 24px;
+            width: 192px!important;
+            height: 44px!important;
+            font-family: Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.06;
+            letter-spacing: normal;
+            text-align: center;
+            border-radius: 5px;
+            transition: all 0.1s;
+            margin-top: 90px;
+            &:hover {
+                box-shadow: 1px 2px 3px 0px #464646;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .tarjeta-acerca-rcss {
+        .acerca-rcss {
+            button {
+                margin-top: 70px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .tarjeta-acerca-rcss {
+        .acerca-rcss {
+            min-height: 300px;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .tarjeta-acerca-rcss {
+        .acerca-rcss {
+            padding-right: 80px;
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .tarjeta-acerca-rcss {
+        .acerca-rcss {
+            padding: 10px;
+            h2 {
+                font-size: 28px;
+            }
+            p {
+                font-size: 14px;
+                margin-top: 30px;
+            }
+            button {
+                margin-top: 30px;
+            }
+        }
+    }
+}

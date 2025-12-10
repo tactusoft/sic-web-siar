@@ -1,0 +1,266 @@
+<div class="main-gestion-alertas">
+    <div id="menu" fxLayout="row">
+        <svg-icon key="flechaRetorno"></svg-icon>
+        <span class="enlace">
+            <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+        </span>
+        <mat-icon class="icono">
+            keyboard_arrow_right
+        </mat-icon>
+        <span class="enlace">
+            <a class="span-2" [routerLink]="['/gestion-alertas']"
+                [routerLinkActive]="['link-activo']">{{textos.gestion_alertas.gestion_parametros_alertas}}</a>
+        </span>
+    </div>
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile class="Rectngulo-2843-1">
+            <div class="Rectngulo-2843-1">
+                <mat-toolbar *ngIf="!buscarCateg" color="primary">
+                    <span class="span-1">{{textos.gestion_alertas.categoria}}</span>
+                    <span class="example-spacer"></span>
+                    <span class="span-1">{{textos.gestion_alertas.estado}}</span>
+                    <button (click)="activarBusqueda(idCategoria)" mat-raised-button class="Rectngulo-2944">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                </mat-toolbar>
+                <mat-toolbar *ngIf="buscarCateg" class="Rectngulo-2944-1">
+                    <button (click)="buscarCategoria(idCategoria)" mat-raised-button class="Rectngulo-2944-2">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                    <input class="Rectangle-Copy" #comCategoria type="text" (keyup)="filtro(comCategoria.value, idCategoria)" matInput placeholder="{{textos.gestion_alertas.buscar}}">
+                </mat-toolbar>
+                <mat-card class="Rectngulo-2843 flex scrollable" style="height: 200px !important;">
+                    <table aria-describedby="">
+                        <tbody>
+                            <caption *ngIf=false></caption>
+                            <tr *ngIf=false>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr *ngFor="let domain of subdomainListCategoria; let in=index">
+                                <td style="width:60%"><label class="Ahogo">{{domain.description}}
+                                    </label></td>
+                                <td style="width:30%">
+                                    <mat-slide-toggle color="primary" style="float: left;" (click)="cambiarEstado(domain)" [checked]=" domain.estado === 'A' ">
+                                        {{domain.estado=== 'I' ? textos.gestion_alertas.inactivo : textos.gestion_alertas.activo}}
+                                    </mat-slide-toggle>
+                                </td>
+                                <td style="width:10%">
+                                    <button class="butt" style="float: left; border:none" (click)="openDialogEditAlert(domain)">
+                                    <mat-icon class="iconoEditar" svgIcon="iconoEditar"></mat-icon>
+                                  </button>
+                                </td>
+                            </tr>
+                            <tbody>
+                    </table>
+                </mat-card>
+                <div class="Rectngulo-2843-2">
+                    <button mat-raised-button class="Agregar" (click)="openDialog(idCategoria)">
+                        <mat-icon>add</mat-icon>{{textos.gestion_alertas.agregar}}
+                    </button>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="Rectngulo-2843-1">
+            <div class="Rectngulo-2843-1">
+                <mat-toolbar *ngIf="!buscarRiesgo" color="primary">
+                    <span class="span-1">{{textos.gestion_alertas.riesgo}}</span>
+                    <span class="example-spacer"></span>
+                    <span class="span-1">{{textos.gestion_alertas.estado}}</span>
+                    <button (click)="buscarCategoria(idRiesgos)" mat-raised-button class="Rectngulo-2944">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                </mat-toolbar>
+                <mat-toolbar *ngIf="buscarRiesgo" class="Rectngulo-2944-1">
+                    <button (click)="buscarCategoria(idRiesgos)" mat-raised-button class="Rectngulo-2944-2">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                    <input #comRiesgos type="text" (keyup)="filtro(comRiesgos.value,idRiesgos)" matInput placeholder="{{textos.gestion_alertas.buscar}}" class="Rectangle-Copy">
+                </mat-toolbar>
+                <mat-card class="Rectngulo-2843 flex scrollable" style="height: 200px !important;">
+                    <table aria-describedby="">
+                        <tbody>
+                            <caption *ngIf=false></caption>
+                            <tr *ngIf=false>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr *ngFor="let domain of subdomainListRiesgo; let in=index">
+                                <td style="width:60%">{{domain.description}}</td>
+                                <td style="width:30%">
+                                    <mat-slide-toggle #toggle color="primary" [checked]=" domain.estado === 'A' " style="float: left;" (click)="cambiarEstado(domain)"></mat-slide-toggle>
+                                    <h3 [ngClass]="{'primary-color' : toggle.checked}">
+                                        {{domain.estado=== 'I' ? textos.gestion_alertas.inactivo : textos.gestion_alertas.activo}}
+                                    </h3>
+                                </td>
+                                <td style="width:10%">
+                                    <button class="butt" style="float: left; border:none" (click)="openDialogEditAlert(domain)">
+                                    <mat-icon class="iconoEditar" svgIcon="iconoEditar"></mat-icon>
+                                  </button>
+                                </td>
+                            </tr>
+                            <tbody>
+                    </table>
+                </mat-card>
+                <div class="Rectngulo-2843-2">
+                    <button mat-raised-button class="Agregar" (click)="openDialog(idRiesgos)">
+                        <mat-icon>add</mat-icon> {{textos.gestion_alertas.agregar}}
+                    </button>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <div style="height: 10px !important; width: 50% !important;"></div>
+        <div style="height: 10px !important; width: 50% !important;"></div>
+        <mat-grid-tile class="Rectngulo-2843-1">
+            <div class="Rectngulo-2843-1">
+                <mat-toolbar *ngIf="!buscarNivelRiesgo" color="primary">
+                    <span class="span-1">{{textos.gestion_alertas.nivelRiesgo}}</span>
+                    <span class="example-spacer"></span>
+                    <span class="span-1">{{textos.gestion_alertas.estado}}</span>
+                    <button (click)="buscarCategoria(idNivelRiesgo)" mat-raised-button class="Rectngulo-2944">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                </mat-toolbar>
+                <mat-toolbar *ngIf="buscarNivelRiesgo" class="Rectngulo-2944-1">
+                    <button (click)="buscarCategoria(idNivelRiesgo)" mat-raised-button class="Rectngulo-2944-2">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                    <input #comNivelRiesgo type="text" (keyup)="filtro(comNivelRiesgo.value,idNivelRiesgo)" matInput placeholder="{{textos.gestion_alertas.buscar}}" class="Rectangle-Copy">
+                </mat-toolbar>
+                <mat-card class="Rectngulo-2843 flex scrollable" style="height: 200px !important;">
+                    <table aria-describedby="">
+                        <tbody>
+                            <caption *ngIf=false></caption>
+                            <tr *ngIf=false>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr *ngFor="let domain of subdomainListNivRiesgo; let in=index">
+                                <td style="width:60%">{{domain.description}}</td>
+                                <td style="width:30%">
+                                    <mat-slide-toggle color="primary" [checked]=" domain.estado === 'A' " style="float: left;" (click)="cambiarEstado(domain)">
+                                        {{domain.estado=== 'I' ? textos.gestion_alertas.inactivo : textos.gestion_alertas.activo}}
+                                    </mat-slide-toggle>
+                                </td>
+                                <td style="width:10%">
+                                    <button class="butt" style="float: left; border:none" (click)="openDialogEditAlert(domain)">
+                                    <mat-icon class="iconoEditar" svgIcon="iconoEditar"></mat-icon>
+                                  </button>
+                                </td>
+                            </tr>
+                            <tbody>
+                    </table>
+                </mat-card>
+                <div class="Rectngulo-2843-2">
+                    <button mat-raised-button class="Agregar" (click)="openDialog(idNivelRiesgo)">
+                        <mat-icon>add</mat-icon> {{textos.gestion_alertas.agregar}}
+                    </button>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="Rectngulo-2843-1">
+            <div class="Rectngulo-2843-1">
+                <mat-toolbar *ngIf="!buscarTipMed" color="primary">
+                    <span class="span-1">{{textos.gestion_alertas.tipoMedidas}}</span>
+                    <span class="example-spacer"></span>
+                    <span class="span-1">{{textos.gestion_alertas.estado}}</span>
+                    <button (click)="buscarCategoria(idTipoMedida)" mat-raised-button class="Rectngulo-2944">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                </mat-toolbar>
+                <mat-toolbar *ngIf="buscarTipMed" class="Rectngulo-2944-1">
+                    <button (click)="buscarCategoria(idTipoMedida)" mat-raised-button class="Rectngulo-2944-2">
+                        <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763" />
+                    </button>
+                    <input #comTipoMedida type="text" (keyup)="filtro(comTipoMedida.value, idTipoMedida)" matInput placeholder="{{textos.gestion_alertas.buscar}}" class="Rectangle-Copy">
+                </mat-toolbar>
+                <mat-card class="Rectngulo-2843 flex scrollable" style="height: 200px !important;">
+                    <table aria-describedby="">
+                        <tbody>
+                            <caption *ngIf=false></caption>
+                            <tr *ngIf=false>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr *ngFor="let domain of subdomainListTipMedida; let in=index">
+                                <td style="width:60%">{{domain.description}}</td>
+                                <td style="width:30%">
+                                    <mat-slide-toggle color="primary" [checked]=" domain.estado === 'A' " style="float: left;" (click)="cambiarEstado(domain)">
+                                        {{domain.estado=== 'I' ? textos.gestion_alertas.inactivo : textos.gestion_alertas.activo}}
+                                    </mat-slide-toggle>
+                                </td>
+                                <td style="width:10%">
+                                    <button class="butt" style="float: left; border:none" (click)="openDialogEditAlert(domain)">
+                                    <mat-icon class="iconoEditar" svgIcon="iconoEditar"></mat-icon>
+                                  </button>
+                                </td>
+                            </tr>
+                            <tbody>
+                    </table>
+                </mat-card>
+                <div class="Rectngulo-2843-2">
+                    <button mat-raised-button class="Agregar" (click)="openDialog(idTipoMedida)">
+                        <mat-icon>add</mat-icon> {{textos.gestion_alertas.agregar}}
+                    </button>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="Rectngulo-2843-1">
+            <div class="Rectngulo-2843-1">
+            <mat-toolbar *ngIf="!buscarCategoriaDirectorio" color="primary">
+              <span class="span-1">{{textos.gestion_alertas.catDir}}</span>
+              <span class="example-spacer"></span>
+              <span class="span-1">{{textos.gestion_alertas.estado}}</span>
+              <button (click)="buscarCategoria(idCategoriaDirectorio)" mat-raised-button class="Rectngulo-2944">
+                <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763"/>
+              </button>
+            </mat-toolbar>
+            <mat-toolbar *ngIf="buscarCategoriaDirectorio" class="Rectngulo-2944-1">
+              <button (click)="buscarCategoria(idCategoriaDirectorio)" mat-raised-button class="Rectngulo-2944-2">
+                <img src="./assets/img/buscador.svg" alt="buscador" class="Trazado-3763"/>
+              </button>
+              <input #cat1 type="text" (keyup)="filtro(cat1.value,idCategoriaDirectorio)" matInput
+                     placeholder="{{textos.gestion_alertas.buscar}}" class="Rectangle-Copy">
+            </mat-toolbar>
+            <mat-card class="Rectngulo-2843 flex scrollable" style="height: 200px !important;">
+              <table aria-describedby="">
+                <tbody>
+                <caption *ngIf=false></caption>
+                <tr *ngIf=false>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                <tr *ngFor="let subdomain of subdomainListCategoriaDirectorio; let in=index">
+                  <td style="width:60%">{{subdomain.description}}</td>
+                  <td style="width:30%">
+                    <mat-slide-toggle color="primary" [checked]=" subdomain.estado === 'A' " style="float: left;"
+                                      (click)="cambiarEstado(subdomain)">
+                      {{subdomain.estado === 'I' ? textos.gestion_alertas.inactivo : textos.gestion_alertas.activo}}
+                    </mat-slide-toggle>
+                  </td>
+                  <td style="width:10%">
+                    <button class="butt" style="float: left; border:none" (click)="openDialogEditAlert(subdomain)">
+                    <mat-icon class="iconoEditar" svgIcon="iconoEditar"></mat-icon>
+                    </button>
+                  </td>
+                </tr>
+                <tbody>
+              </table>
+            </mat-card>
+            <div class="Rectngulo-2843-2">
+              <button mat-raised-button class="Agregar" (click)="openDialog(idCategoriaDirectorio)">
+                <mat-icon>add</mat-icon>
+                {{textos.gestion_alertas.agregar}}
+              </button>
+            </div>
+          </div>
+        </mat-grid-tile>
+
+
+    </mat-grid-list>
+</div>

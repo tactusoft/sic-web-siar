@@ -1,0 +1,21 @@
+$color-naranja: #eb7e25;
+.title-modal {
+  color: $color-naranja;
+  margin-left: 70px;
+  border-bottom: 2px solid $color-naranja;
+  font-size: 2em;
+}
+mat-dialog-content {
+  padding: 24px 96px;
+  .fila {
+    padding: 24px;
+    &:nth-child(even) {
+      background-color: #f1f1f1;
+    }
+  }
+  div {
+    .item {
+      font-weight: 600;
+    }
+  }
+}

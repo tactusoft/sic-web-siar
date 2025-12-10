@@ -1,0 +1,131 @@
+$color-azul: #004a9c;
+.card-noticias {
+    border-radius: 10px 10px 0 0;
+    height: 584px;
+    width: 100%;
+    box-sizing: border-box;
+    &:hover {
+        background: #e6e6e6
+    }
+    .card-content {
+        position: relative;
+        text-align: left;
+        font-weight: 600;
+        height: 50%;
+        article {
+            max-width: 241px;
+            max-height: 256px;
+            h1 {
+                color: $color-azul;
+                font-family: OpenSans, sans-serif;
+                font-size: 20px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                text-align: left;
+                display: block;
+                min-height: 2rem;
+                width: 12.5rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .card-parrafo {
+                position: relative;
+                height: 160px;
+                font-family: OpenSans-Bold, sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                text-align: left;
+                overflow-y: auto;
+            }
+            .card-fecha {
+                font-family: OpenSans, sans-serif;
+                font-size: 20px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                text-align: left;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 60px;
+                    height: 2px;
+                    background: $color-azul;
+                    left: 0;
+                    bottom: 56px;
+                }
+            }
+        }
+    }
+    .imagen {
+        max-height: 292px;
+        height: calc(50% + 16px);
+        display: block;
+    }
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 5px;
+    padding-right: 60px;
+    height: 49px;
+    background-color: #324050;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    width: 6px;
+    padding-right: 60px;
+    background-color: #324050;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    padding-right: 60px;
+    background: #888;
+}
+
+@media (max-width:600px) {
+    .card-noticias {
+        .card-content {
+            article {
+                h1 {
+                    width: 8.5rem;
+                }
+            }
+        }
+    }
+     ::ng-deep .dialog-noticia-detalle {
+        width: 90vw !important;
+        max-width: 90vw !important;
+    }
+}
+
+@media screen and (max-width: 959px) {
+     ::ng-deep .dialog-noticia-detalle {
+        width: 80vw !important;
+        max-width: 80vw !important;
+        mat-dialog-container {
+            padding: 20px 30px 20px 20px;
+        }
+        mat-dialog-content {
+            padding: 20px !important;
+        }
+    }
+}

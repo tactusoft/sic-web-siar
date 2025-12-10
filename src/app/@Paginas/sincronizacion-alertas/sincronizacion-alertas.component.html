@@ -1,0 +1,187 @@
+<div class="main-sincronizacion-alertas">
+    <div fxLayout="row" class="pb-4 mt-1">
+        <svg-icon key="flechaRetorno"></svg-icon>
+        <span class="enlace">
+            <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+        </span>
+        <mat-icon class="icono">
+            keyboard_arrow_right
+        </mat-icon>
+        <span class="enlace">
+            <a [routerLink]="['/sincronizacionAlertas']"
+                [routerLinkActive]="['link-activo']">{{textos.sincronizacion_alertas.sincronizacionAlertas}}</a>
+        </span>
+    </div>
+    <div fxLayout="row" fxLayoutGap="3.75rem" fxLayoutAlign="end start" class="botonesSeccion">
+        <button [ngClass]="!(menuAlertasActivo) ? 'btn-activo' : 'btn-inactivo'" (click)="sincronizarDatosHomologados()">{{textos.sincronizacion_alertas.sincronizar}}</button>
+        <button [ngClass]="(menuAlertasActivo) ? 'btn-activo' : 'btn-inactivo'" (click)="mostrarAlertas()">{{textos.sincronizacion_alertas.alertasNoMapeadas}}</button>
+    </div>
+    <div class="mt-5 seccion-paises-sincronizacion">
+        <div *ngIf="!menuAlertasActivo">
+            <table id="tablaPaisesSincronizados" class="gestion-parametros-table" mat-table matSort [dataSource]="dataSource" style="width: 100%;" aria-describedby="gestion-sincronizacion-tabla">
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.vista}} </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-gestion">
+                        <a (click)="cargarHomologaciones(element)">
+                            <mat-icon class="icono">view_headline</mat-icon>
+                        </a>
+                    </td>
+                </ng-container>
+                <!-- pais Column -->
+                <ng-container matColumnDef="pais">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.pais}} </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-gestion"> {{ element.country ? getDescripcionPais(element.country) : '' }} </td>
+                </ng-container>
+                <!-- fecha_sincronizacion Column -->
+                <ng-container matColumnDef="fecha_sincronizacion">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.ultimaSincronizacion}} </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-gestion">
+                        {{element.date | date:'dd/MM/yyyy h:mm a'}} </td>
+                </ng-container>
+                <!-- comentarios Column -->
+                <ng-container matColumnDef="comentarios">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.comentarios}} </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-gestion"> {{element.comment}}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+            </table>
+            <div *ngIf="this.dataSource.data.length === 0" class="divSinDatos">
+                <label> {{textos.sincronizacion_alertas.sinRegistros}}... </label>
+            </div>
+        </div>
+        <div *ngIf="menuAlertasActivo">
+            <table id="tablaAlertas" class="gestion-alertas-table" mat-table matSort [dataSource]="dataAlertas" style="width: 100%;" aria-describedby="gestion-alertas-tabla">
+                <!-- vista  Column -->
+                <ng-container matColumnDef="vista">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.vista}}
+                        <div class="botonOff"></div>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-alertas col-vista">
+                        <a (click)="cargarHomologaciones(element)">
+                            <mat-icon class="icono">view_headline</mat-icon>
+                        </a>
+                    </td>
+                </ng-container>
+                <!-- pais Column -->
+                <ng-container matColumnDef="pais">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.pais}}
+                        <mat-toolbar *ngIf="buscadorPais" class="toolbarFiltro">
+                            <button (click)="gestionarFiltroPais()" mat-raised-button class="botonFiltro">
+                                <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                            </button>
+                            <input id="searchbarInput" class="searchbar" #searchbarInput type="text" (keyup)="filtrarAlertas($event, 'pais')" matInput placeholder="{{textos.sincronizacion_alertas.buscar}}...">
+                        </mat-toolbar>
+                        <a *ngIf="!buscadorPais" (click)="gestionarFiltroPais()" mat-raised-button class="botonFiltroOff">
+                            <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                        </a>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-alertas"> {{element.country.id}} </td>
+                </ng-container>
+                <!-- SIARID Column -->
+                <ng-container matColumnDef="siarId">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.siarid}}
+                        <mat-toolbar *ngIf="buscadorID" class="toolbarFiltro">
+                            <button (click)="gestionarFiltroID()" mat-raised-button class="botonFiltro">
+                                <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                            </button>
+                            <input id="searchbarInput" class="searchbar" #searchbarInput type="text" (keyup)="filtrarAlertas($event, 'siarId')" matInput placeholder="{{textos.sincronizacion_alertas.buscar}}...">
+                        </mat-toolbar>
+                        <a *ngIf="!buscadorID" (click)="gestionarFiltroID()" mat-raised-button class="botonFiltroOff">
+                            <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                        </a>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-alertas"> {{element.id}} </td>
+                </ng-container>
+                <!-- producto Column -->
+                <ng-container matColumnDef="producto">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.comentarios}}
+                        <mat-toolbar *ngIf="buscadorProducto" class="toolbarFiltro">
+                            <button (click)="gestionarFiltroProducto()" mat-raised-button class="botonFiltro">
+                                <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                            </button>
+                            <input id="searchbarInput" class="searchbar" #searchbarInput type="text" (keyup)="filtrarAlertas($event, 'producto')" matInput placeholder="{{textos.sincronizacion_alertas.buscar}}...">
+                        </mat-toolbar>
+                        <a *ngIf="!buscadorProducto" (click)="gestionarFiltroProducto()" mat-raised-button class="botonFiltroOff">
+                            <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                        </a>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-alertas col-producto"> {{element.comment}}
+                    </td>
+                </ng-container>
+                <!-- Publicante Column -->
+                <ng-container matColumnDef="publicante">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.publicante}}
+                        <mat-toolbar *ngIf="buscadorPublicante" class="toolbarFiltro">
+                            <button (click)="gestionarFiltroPublicante()" mat-raised-button class="botonFiltro">
+                                <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                            </button>
+                            <input id="searchbarInput" class="searchbar" #searchbarInput type="text" (keyup)="filtrarAlertas($event, 'publicante')" matInput placeholder="{{textos.sincronizacion_alertas.buscar}}...">
+                        </mat-toolbar>
+                        <a *ngIf="!buscadorPublicante" (click)="gestionarFiltroPublicante()" mat-raised-button class="botonFiltroOff">
+                            <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                        </a>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-alertas"> {{ element.country ? getDescripcionPais(element.country) : '' }}
+                    </td>
+                </ng-container>
+                <!-- fecha_publicacion Column -->
+                <ng-container matColumnDef="publicacion">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{textos.sincronizacion_alertas.fechaSincronizacion}}
+                        <mat-toolbar *ngIf="buscadorPublicacion" class="toolbarFiltro">
+                            <button (click)="gestionarFiltroPublicacion()" mat-raised-button class="botonFiltro">
+                                <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                            </button>
+                            <input id="searchbarInput" class="searchbar" #searchbarInput type="text" (keyup)="filtrarAlertas($event, 'publicacion')" matInput placeholder="{{textos.sincronizacion_alertas.buscar}}...">
+                        </mat-toolbar>
+                        <a *ngIf="!buscadorPublicacion" (click)="gestionarFiltroPublicacion()" mat-raised-button class="botonFiltroOff">
+                            <img src="./assets/img/buscador.svg" alt="buscador" class="searchIcon" />
+                        </a>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column-alertas">
+                        {{element.date | date:'dd/MM/yyyy h:mm a':'+0000'}}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsAlerta"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsAlerta;"></tr>
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">{{textos.sincronizacion_alertas.sinDatosFiltro}}</td>
+                </tr>
+            </table>
+            <mat-paginator #paginatorAlertas [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+    <div *ngIf="mostrarHomologaciones" class="seccion-problemas-reportados">
+        <mat-tab-group mat-stretch-tabs>
+            <mat-tab>
+                <ng-template mat-tab-label>{{textos.sincronizacion_alertas.problemaReportado}}</ng-template>
+                <ng-template matTabContent>
+                    <app-tabla-ploblemas-reportados *ngIf="listaProblemasReportados.length > 0" (resincronizarAlerta)="resincronizarAlerta($event)" [alertaSincronizaciones]="alertaActual">
+                    </app-tabla-ploblemas-reportados>
+                    <div *ngIf="listaProblemasReportados.length === 0 " class="divSinDatos">
+                        <label> {{textos.sincronizacion_alertas.sinRegistros}}... </label>
+                    </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>{{textos.sincronizacion_alertas.categoriaMapa}}</ng-template>
+                <ng-template matTabContent>
+                    <div *ngIf="mostrarMapeos">
+                        <app-tabla-categoria (administrarHomologacion)="administrarSincronizacion($event)" [listaCategorias]="listaCategorias" [administar]="!menuAlertasActivo"></app-tabla-categoria>
+                    </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>{{textos.sincronizacion_alertas.categoriaPais}}</ng-template>
+                <ng-template matTabContent>
+                    <div *ngIf="mostrarMapeos">
+                        <app-tabla-pais (administrarHomologacion)="administrarSincronizacion($event)" [listaPaises]="listaPaises" [administar]="!menuAlertasActivo"></app-tabla-pais>
+                    </div>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
