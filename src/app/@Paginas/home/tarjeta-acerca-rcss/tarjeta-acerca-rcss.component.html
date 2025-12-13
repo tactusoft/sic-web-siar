@@ -1,0 +1,14 @@
+<div *ngIf="acercaInfo">
+    <section class="tarjeta-acerca-rcss" fxLayoutAlign="center center" fxLayout="row" fxLayout.lt-md="column">
+        <a [routerLink]="['acercaRCSS']" class="img-acerca-rcss" [ngStyle]="{'background-image': 'url(' + IMG_MANOS_ROMPECABEZA + ')'}" fxFlexAlign.lt-md="stretch" fxFlex="45">
+        </a>
+
+        <article class="acerca-rcss" fxFlex="55">
+            <h2>{{acercaInfo.home.tarjeta_acerca_rcss.acerca}}</h2>
+
+            <p>{{acercaInfo.home.tarjeta_acerca_rcss.resumen}}</p>
+
+            <button [routerLink]="['acercaRCSS']">{{acercaInfo.home.tarjeta_acerca_rcss.leer}}</button>
+        </article>
+    </section>
+</div>

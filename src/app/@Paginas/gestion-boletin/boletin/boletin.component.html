@@ -1,0 +1,37 @@
+<div class="container-tarjeta">
+  <mat-card
+    class="tarjeta-boletin mat-elevation-z2"
+    (click)="openDialog(boletin)"
+  >
+    <mat-card-content class="content">
+      <p>{{ boletin.boletin.titulo }}</p>
+      <div class="card-fecha">
+        <hr />
+        <p class="fechas">{{ boletin.boletin.fecha | date: "dd MMM, yyyy" }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div
+    *ngIf="over"
+    class="over-panel"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center"
+  >
+    <div fxFlex="15"></div>
+    <svg-icon
+      key="lapiz"
+      style="transform: scale(1.5); cursor: pointer;"
+      fxFlex="34"
+      (click)="abrirEditar(boletin)"
+    ></svg-icon>
+    <div fxFlex="1" class="separador"></div>
+    <svg-icon
+      key="caneca1"
+      style="transform: scale(1.5); cursor: pointer;"
+      (click)="abrirEliminar(boletin)"
+      fxFlex="34"
+    ></svg-icon>
+    <div fxFlex="15"></div>
+  </div>
+</div>

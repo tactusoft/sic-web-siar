@@ -1,0 +1,161 @@
+<div fxLayout="row wrap">
+  <div class="subcontenido" fxFlex="98">
+    <div fxLayout="row" fxFlexAlign="space-between center">
+      <h2 class="title-modal" fxFlex mat-dialog-title>
+        {{ textos.gestion_boletin.dialog_editar.edicion }}
+      </h2>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+      <div class="fila" fxLayout="row">
+        <div fxFlex="30" class="item">Título</div>
+        <div fxFlex="65">
+          <textarea
+            #tituloInput
+            class="input-area"
+            [formControl]="tituloC"
+          ></textarea>
+          <span
+            class="mensaje"
+            *ngIf="tituloC.errors?.required && intentoGuardar"
+            >{{ textos.gestion_boletin.dialog_editar.tituloRequerido }}</span
+          >
+          <span class="mensaje" *ngIf="tituloC.errors?.maxlength">{{
+            textos.gestion_boletin.dialog_editar.carateresMax
+          }}</span>
+        </div>
+        <svg-icon
+          fxFlex="5"
+          key="iconoEliminarCampo"
+          style="transform: translate(-120%, -10px);cursor: pointer;"
+          (click)="limpiarInput(tituloC)"
+        ></svg-icon>
+      </div>
+
+      <div class="fila" fxLayout="row">
+        <div fxFlex="30" class="item">
+          {{ textos.gestion_boletin.dialog_editar.resumen }}
+        </div>
+        <div fxFlex="65">
+          <textarea
+            #resumenInput
+            class="input-area"
+            [formControl]="resumenC"
+          ></textarea>
+          <span
+            class="mensaje"
+            *ngIf="resumenC.errors?.required && intentoGuardar"
+            >{{ textos.gestion_boletin.dialog_editar.resumenRequerido }}</span
+          >
+        </div>
+        <svg-icon
+          fxFlex="5"
+          key="iconoEliminarCampo"
+          style="transform: translate(-120%, -10px); cursor: pointer;"
+          (click)="limpiarInput(resumenC)"
+        ></svg-icon>
+      </div>
+
+      <div class="fila" fxLayout="row wrap">
+        <div fxFlex="30" class="item">
+          {{ textos.gestion_boletin.dialog_editar.fechaPublic }}
+        </div>
+        <div fxFlex="65">
+          <mat-form-field class="Rectangle-Copy" appearance="outline">
+            <input
+              matInput
+              [matDatepicker]="fecha"
+              disabled
+              [formControl]="fechaC"
+            />
+
+            <mat-datepicker #fecha disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <button
+            fxFlex="5"
+            class="boton-date"
+            mat-raised-button
+            (click)="fecha.open()"
+          >
+            <svg-icon
+              key="calendarioGris"
+              style="transform: translate(0px, -10px) scale(1.3);"
+            ></svg-icon>
+          </button>
+        </div>
+        <div fxFlex="30" class="item"></div>
+        <div fxFlex="65">
+          <span
+            class="mensaje"
+            *ngIf="fechaC.errors?.required && intentoGuardar"
+            >{{ textos.gestion_boletin.dialog_editar.fechaReq }}</span
+          >
+        </div>
+      </div>
+
+      <div class="fila" fxLayout="row wrap">
+        <div fxFlex="30" class="item">Archivo</div>
+        <div fxFlex="65">
+          <div
+            fxLayout="column"
+            class="container-profile"
+            fxLayoutAlign="center center"
+            fxFlex="66"
+            (click)="openFileExplorer()"
+          >
+            <svg-icon
+              key="grupo7182"
+              style="transform: scale(1.9);"
+              fxFlex="75"
+            ></svg-icon>
+            <input
+              hidden
+              id="imageInput"
+              type="file"
+              (change)="handleFileInput($event.target.files)"
+              accept=".gif, .jpg, .png, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .txt, .rtf, .jpeg, .pdf"
+              multiple
+            />
+            <label fxFlex="25" class="Agrega-documento">{{
+              textos.gestion_boletin.dialog_editar.agregarArchivo
+            }}</label>
+          </div>
+          <div fxLayoutAlign="center center" fxFlex="34"></div>
+        </div>
+        <div fxFlex="30" class="item" *ngIf="archivo.length !== 0"></div>
+        <div fxFlex="65" fxLayout="column" *ngIf="archivo.length !== 0">
+          <div fxFlex="100" class="sub-azul" *ngFor="let arch of archivo">
+            <a [href]="arch.nombreRecurso" target="_blank"
+              >({{ arch.nombreRecurso }} - {{ arch.peso / 1000 }}KB)</a
+            >
+            <svg-icon
+              key="iconoEliminarArchivo"
+              style="transform: scale(0.5) translate(-10px,-10px); cursor:pointer"
+              (click)="eliminarArchivo(arch)"
+            ></svg-icon>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+  <div fxFlex fxLayout="row" fxFlex="2" fxLayoutAlign="center">
+    <mat-icon mat-dialog-close class="close-icon">
+      close
+    </mat-icon>
+  </div>
+  <div
+    fxLayout="row"
+    style="width: 100%; margin-bottom:50px;"
+    fxLayoutAlign="space-around center"
+    fxFlex="100"
+  >
+    <div fxFlex="30"></div>
+    <button class="guardar" (click)="editarBoletin()" mat-button fxFlex="15">
+      {{ textos.generales.guardar }}
+    </button>
+    <button class="cancelar" mat-button mat-dialog-close fxFlex="15">
+      {{ textos.generales.cancelar }}
+    </button>
+    <div fxFlex="30"></div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div *ngIf="uDocumentosInfo">
+    <div fxLayout="column" fxLayoutGap="30px">
+        <div class="child-1">
+            <div class="img-documento-home" [ngStyle]="{'background-image': 'url(' + IMG_EVENTOS_AUDITORIO + ')'}">
+                <div class="txt-documentos">{{uDocumentosInfo.home_pais.ultimos_documentos.documentos}}</div>
+            </div>
+        </div>
+        <div fxLayoutGap="32px">
+            <button class="btn-docuemntos" [disabled]="documentos.length < 8" [routerLink]="['/documentos']">{{uDocumentosInfo.home_pais.ultimos_documentos.ver}}</button>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="2"></div>
+            <div fxFlex="93" fxLayout="row wrap" fxLayoutAlign="space-around none" fxLayoutGap="4% grid" fxLayoutGap.xs="10% grid">
+                <app-tarjeta-documentos style="margin-top: 24px;" fxFlex="25" fxFlex.sm="50" fxFlex.xs="50" [documento]="documento" *ngFor="let documento of documentos"></app-tarjeta-documentos>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+$color-naranja: #f07e00;
+.title-modal {
+  color: $color-naranja;
+  font-family: OpenSans, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: 0.3px;
+  text-align: left;
+  margin-left: 70px;
+  border-bottom: 2px solid $color-naranja;
+}
+
+.ampliar-imagen {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  text-align: center;
+  background-color: #00000099;
+  z-index: 99999999999999;
+
+  .cerrar {
+    position: relative;
+    color: #f1f1f1;
+    cursor: pointer;
+    right: 50px;
+    top: 50px;
+  }
+
+  img {
+    margin: auto;
+    max-width: 100rem;
+  }
+}
+
+::ng-deep .dialog-noticia-detalle {
+  .mat-dialog-container {
+    border-radius: 15px !important;
+    padding: 0px !important;
+  }
+}
+
+.mat-dialog-content {
+  padding: 24px 96px;
+
+  .fila {
+    padding: 24px;
+
+    &:nth-child(even) {
+      background-color: #f1f1f1;
+    }
+  }
+
+  div {
+    .item {
+      font-family: OpenSans, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: 0.2px;
+      text-align: left;
+      color: #000000;
+    }
+  }
+}
+
+.recurso {
+  margin: 0px 8px;
+}
+
+.divImagenes {
+  display: inline-block;
+  margin: 0 1rem 1rem 0;
+  border: solid 2px #cccccc;
+
+  img {
+    width: 150px;
+  }
+}
+
+.margen {
+  margin: 8% 6%;
+}
+
+.close-icon {
+  transform: translate(100%, -200%);
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 5px;
+  padding-right: 60px;
+  height: 49px;
+  background-color: #324050;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  width: 6px;
+  padding-right: 60px;
+  background-color: #324050;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  padding-right: 60px;
+  background: #888;
+}
+
+@media screen and (max-width: 599px) {
+  .title-modal {
+    font-size: 20px;
+    margin-left: 0;
+  }
+  .ampliar-imagen {
+    .cerrar {
+      right: 25px;
+      top: 25px;
+    }
+
+    img {
+      margin-top: 50px;
+      max-width: 90vw;
+    }
+  }
+  .margen {
+    margin: 0;
+  }
+  .close-icon {
+    transform: translate(0, 0);
+  }
+  .mat-dialog-content {
+    .fila {
+      padding: 14px;
+    }
+
+    div {
+      .item {
+        font-size: 14px;
+      }
+    }
+  }
+  .divImagenes {
+    img {
+      width: 130px;
+    }
+  }
+  ::ng-deep .dialog-noticia-detalle {
+    width: 90vw !important;
+    max-width: 90vw !important;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .title-modal {
+    margin-left: 0;
+  }
+  .ampliar-imagen {
+    img {
+      margin-top: 60px;
+      max-width: 90vw;
+    }
+  }
+  ::ng-deep .dialog-noticia-detalle {
+    width: 80vw !important;
+    max-width: 80vw !important;
+
+    mat-dialog-container {
+      padding: 20px 30px 20px 20px;
+    }
+
+    mat-dialog-content {
+      padding: 20px !important;
+    }
+  }
+  .mat-dialog-content {
+    padding: 20px !important;
+  }
+}

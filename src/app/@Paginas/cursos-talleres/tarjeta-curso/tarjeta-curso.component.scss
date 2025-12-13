@@ -1,0 +1,159 @@
+$color-blue: #254b9c;
+$color-blanco: #ffffff;
+$color-naranja: #eb7e25;
+.tarjeta-curso {
+    margin-top: 24px;
+    border-radius: 28px;
+    padding: 27px;
+    // max-width: 524px;
+    .cabecera {
+        h1 {
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.39;
+            letter-spacing: 0.18px;
+            text-align: left;
+            color: #2d3b89;
+        }
+        div {
+            background-color: #949494;
+            display: inline-block;
+            width: 163px;
+            border-radius: 0 23px 23px 0;
+            height: 39px;
+            position: relative;
+            left: -27px;
+            h2 {
+                font-size: 18px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                letter-spacing: 0.18px;
+                color: $color-blanco;
+                line-height: 2;
+                margin: 0;
+                text-align: center;
+                position: relative;
+                left: 17px;
+            }
+        }
+        .mouse-hover {
+            background-color: #eb7e25;
+        }
+    }
+    .content {
+        margin-bottom: 0;
+        padding-bottom: 8px;
+        .descripcion {
+            font-size: 18px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.39;
+            letter-spacing: 0.18px;
+            text-align: left;
+            color: #000000;
+            margin-top: 24px;
+            height: 50px;
+            display: block;
+            word-wrap: break-word;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .fechas {
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.39;
+            letter-spacing: 0.18px;
+            text-align: left;
+            color: #000000;
+        }
+        div {
+            .estrella {
+                margin: 0 4px;
+            }
+            .calificacion,
+            .comentario {
+                margin: 0 4px;
+                font-size: 18px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.39;
+                letter-spacing: 0.18px;
+                text-align: left;
+                color: #000000;
+            }
+            .comment {
+                font-size: 18px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.39;
+                letter-spacing: 0.18px;
+                text-align: left;
+                color: #000000;
+                margin-left: 8px;
+            }
+            .barra {
+                width: 0;
+                height: 35px;
+                border-right: solid 1px #000000;
+                margin: 0 8px;
+                position: relative;
+                top: -6px;
+            }
+        }
+    }
+}
+
+.tarjeta-hover {
+    background-color: #f2f2f2;
+}
+
+.tarjeta-edicion {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 28px;
+    background: #ffffff;
+    opacity: 0.90 !important;
+}
+
+.iconoEditar,
+.iconoEliminar {
+    //order: none;
+    //outline: none;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+}
+
+.separador-icono {
+    width: 0;
+    height: 70px;
+    margin: 0 15%;
+    border: solid 1px #004a9c;
+}
+
+.div-new-cur {
+    width: 158px;
+    height: 22px;
+    margin: 8px 256.5px 34px 1.3px;
+    font-family: OpenSans, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: left;
+    color: #f07e00;
+}

@@ -1,0 +1,174 @@
+<div *ngIf="textos">
+    <div fxLayout="row wrap" style="padding: 2%;">
+
+        <div class="subcontenido" fxFlex="98">
+            <div fxLayout="row" fxFlexAlign="space-between center">
+                <h2 class="title-modal" fxFlex mat-dialog-title>
+                    {{textos.gestion_docu_publicos.dialog_editar.edicion}}</h2>
+            </div>
+
+
+            <mat-dialog-content class="mat-typography mat-edit-doc-public">
+
+                <div class="fila" fxLayout="row">
+                    <div fxFlex="30" class="item">Título</div>
+                    <div fxFlex="65">
+                        <textarea #tituloInput class="input-area" [formControl]="tituloC"></textarea>
+                        <span class="mensaje" *ngIf="tituloC.errors?.required && intentoGuardar">{{textos.gestion_docu_publicos.dialog_editar.tituloReq}}</span>
+                        <span class="mensaje" *ngIf="tituloC.errors?.maxlength">{{textos.gestion_docu_publicos.dialog_editar.caracteresMax}}</span>
+                    </div>
+                    <svg-icon fxFlex="5" key="iconoEliminarCampo" style="transform: translate(-120%, -10px);cursor: pointer;" (click)="limpiarInput(tituloC)"></svg-icon>
+                </div>
+
+                <div class="fila" fxLayout="row wrap" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.gestion_docu_publicos.dialog_editar.paises}}</div>
+                    <div fxFlex="65">
+                        <div class="box">
+                            <mat-form-field appearance="outline">
+                                <mat-select [formControl]="paisC" multiple placeholder="Seleccione un país">
+                                    <input class="campo-buscar" matInput>
+                                    <mat-option [value]="item" *ngFor="let item of paises">
+                                        {{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon class="icono-select">
+                                    expand_more
+                                </mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <span class="mensaje" *ngIf="paisC.errors?.required && intentoGuardar">{{textos.gestion_docu_publicos.dialog_editar.paisRequerido}}</span>
+                    </div>
+                    <div fxFlex="30" *ngIf="paisC.value"></div>
+                    <div fxFlex="65" *ngIf="paisC.value" fxLayout="row wrap">
+                        <div fxFlex="45" class="sub-gris" *ngFor="let arch of paisC.value" style="margin-bottom: 5px; margin-left: 5px;">
+                            <div fxFlex="90">
+                                {{arch.nombre}}
+                            </div>
+                            <svg-icon fxFlex="10" key="iconoEliminarCampo" style="transform: scale(0.7) translate(0px, -15px); cursor:pointer" (click)="eliminarPais(arch)"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fila" fxLayout="row wrap" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.gestion_docu_publicos.dialog_editar.categorias}}</div>
+                    <div fxFlex="65">
+                        <div class="box">
+                            <mat-form-field appearance="outline">
+                                <mat-select [formControl]="categoriaC" multiple placeholder="Seleccione una categoría">
+                                    <input class="campo-buscar" matInput>
+                                    <mat-option [value]="item" *ngFor="let item of categorias">
+                                        {{item.description}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon class="icono-select">
+                                    expand_more
+                                </mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <span class="mensaje" *ngIf="categoriaC.errors?.required && intentoGuardar">{{textos.gestion_docu_publicos.dialog_editar.categoriaReq}}</span>
+                    </div>
+                    <div fxFlex="30" *ngIf="categoriaC.value"></div>
+                    <div fxFlex="65" *ngIf="categoriaC.value" fxLayout="row wrap">
+                        <div fxFlex="45" class="sub-gris" *ngFor="let arch of categoriaC.value" style="margin-bottom: 5px; margin-left: 5px;">
+                            <div fxFlex="90">
+                                {{arch.description}}
+                            </div>
+                            <svg-icon fxFlex="10" key="iconoEliminarCampo" style="transform: scale(0.7) translate(0px, -15px); cursor:pointer" (click)="eliminarCategoria(arch)"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fila" fxLayout="row wrap">
+                    <div fxFlex="30" class="item">{{textos.gestion_docu_publicos.dialog_editar.anexos}}</div>
+                    <div fxFlex="65">
+                        <div fxLayout="column" class="container-profile" fxLayoutAlign="center center" fxFlex="66" (click)="openFileExplorer()">
+                            <svg-icon key="grupo7182" style="transform: scale(1.9);" fxFlex="75"></svg-icon>
+                            <input hidden id="anexoInput" type="file" (change)="handleFileInput($event.target.files)" accept=".doc, .docx, .ppt, .pptx, .xls, .xlsx, .txt, .rtf, .png, .pdf" multiple>
+                            <label fxFlex="25" class="Agrega-documento">{{textos.gestion_docu_publicos.dialog_editar.agregarAnexos}}</label>
+                        </div>
+                        <div fxLayoutAlign="center center" fxFlex="34"></div>
+                    </div>
+                    <div fxFlex="30" class="item" *ngIf="anexosEntrantes.length !== 0"></div>
+                    <div fxFlex="65" fxLayout="column" *ngIf="anexosEntrantes.length !== 0">
+                        <div fxFlex="100" class="sub-azul" *ngFor="let arch of anexosEntrantes"><a [href]="arch.path" target="_blank">({{arch.name}} - {{arch.size/1000}}KB)</a>
+                            <svg-icon key="iconoEliminarArchivo" style="transform: scale(0.5) translate(-10px,-10px); cursor:pointer" (click)="eliminarArchivoExistente(arch)"></svg-icon>
+                        </div>
+                    </div>
+                    <div fxFlex="30" class="item" *ngIf="anexos.length !== 0"></div>
+                    <div fxFlex="65" fxLayout="column" *ngIf="anexos.length !== 0">
+                        <div fxFlex="100" class="sub-azul" *ngFor="let arch of anexos">({{arch.nombre}} - {{arch.tamano/1000}}KB)
+                            <svg-icon key="iconoEliminarArchivo" style="transform: scale(0.5) translate(-10px,-10px); cursor:pointer" (click)="eliminarArchivo(arch)"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row wrap" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.gestion_docu_publicos.dialog_editar.enlaces}}</div>
+                    <div fxFlex="65">
+                        <div class="form-campo">
+                            <input class="campo" [formControl]="enlacesC" maxlength="4000" (change)="agregarEnlace(enlacesC.value)" type="text" placeholder="Ingrese un enlace" />
+                            <div class="box-icono">
+                                <mat-icon class="icono icono-link">
+                                    Enlace
+                                </mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="30" class="item" *ngIf="enlacesAnexos.length !== 0"></div>
+                    <div fxFlex="65" fxLayout="column" *ngIf="enlacesAnexos.length !== 0">
+                        <div fxFlex="100" class="sub-azul" *ngFor="let enlace of enlacesAnexos">
+                            <a [href]="enlace" target="_blank" class="enlace">
+                {{enlace}}
+              </a>
+                            <svg-icon key="iconoEliminarArchivo" style="transform: scale(0.5) translate(-10px,-10px); cursor:pointer" (click)="removeEnlace(enlace)"></svg-icon>
+                        </div>
+                    </div>
+                    <div fxFlex="30" class="item" *ngIf="enlacesEntrantes.length !== 0"></div>
+                    <div fxFlex="65" fxLayout="column" *ngIf="enlacesEntrantes.length !== 0">
+                        <div fxFlex="100" class="sub-azul" *ngFor="let enlace of enlacesEntrantes">
+                            <a [href]="enlace" target="_blank" class="enlace">
+                {{enlace.path}}
+              </a>
+                            <svg-icon key="iconoEliminarArchivo" style="transform: scale(0.5) translate(-10px,-10px); cursor:pointer" (click)="removeEnlaceExistente(enlace)"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fila" fxLayout="row wrap">
+                    <div fxFlex="30" class="item">{{textos.gestion_docu_publicos.dialog_editar.imagenes}}</div>
+                    <div fxFlex="65">
+                        <div fxLayout="column" class="container-profile" fxLayoutAlign="center center" fxFlex="66" (click)="openImagenExplorer()">
+                            <svg-icon key="camara" style="transform: scale(1.9);" fxFlex="75"></svg-icon>
+                            <input hidden id="imageInput" type="file" (change)="handleImagenInput($event.target.files)" accept=".jpeg, .jpg, .gif, .png" multiple>
+                            <label fxFlex="25" class="Agrega-documento">{{textos.gestion_docu_publicos.dialog_editar.agregarImagenes}}</label>
+                        </div>
+                        <div fxLayoutAlign="center center" fxFlex="34"></div>
+                    </div>
+                    <div fxFlex="30" class="item" *ngIf="imagenes.length !== 0"></div>
+                    <div fxFlex="65" fxLayout="column" *ngIf="imagenes.length !== 0">
+                        <div fxFlex="100" class="sub-azul" *ngFor="let arch of imagenes">({{arch.nombre}} - {{arch.tamano/1000}}KB)
+                            <svg-icon key="iconoEliminarArchivo" style="transform: scale(0.5) translate(-10px,-10px); cursor:pointer" (click)="eliminarImagen(arch)"></svg-icon>
+                        </div>
+                    </div>
+                    <div fxFlex="30" class="item" *ngIf="imagenesEntrantes.length !== 0"></div>
+                    <div fxFlex="65" fxLayout="column" *ngIf="imagenesEntrantes.length !== 0">
+                        <div fxFlex="100" class="sub-azul" *ngFor="let arch of imagenesEntrantes" style="margin-top: 10px;">
+                            <img fxFlex="95" width="100%" [alt]="arch.path" [src]="arch.path" (click)="redirect(arch.path)">
+                            <svg-icon fxFlex="5" key="iconoEliminarArchivo" style="transform: scale(0.8) translate(-10px, -15px); cursor:pointer;" (click)="eliminarImagenExistente(arch)"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+            </mat-dialog-content>
+        </div>
+        <div fxFlex fxLayout="row" fxFlex="2" fxLayoutAlign="center">
+            <mat-icon mat-dialog-close class="close-icon">
+                close
+            </mat-icon>
+        </div>
+        <div fxLayout="row" style="width: 100%; margin-bottom:50px;" fxLayoutAlign="space-around center" fxFlex="100">
+            <div fxFlex="30"></div>
+            <button class="guardar" mat-button fxFlex="15" (click)="agregarDocumento()">{{textos.generales.guardar}}</button>
+            <button class="cancelar" mat-button mat-dialog-close fxFlex="15">{{textos.generales.cancelar}}</button>
+            <div fxFlex="30"></div>
+        </div>
+    </div>
+</div>

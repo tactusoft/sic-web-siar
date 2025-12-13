@@ -1,0 +1,21 @@
+.componente {
+    margin-bottom: 67px;
+}
+
+.main-home {
+    padding: 10px 58px;
+    max-width: 1366px;
+    margin: auto;
+}
+
+@media screen and (max-width: 599px) {
+    .main-home {
+        padding: 0px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 959px) {
+    .main-home {
+        padding: 0px;
+    }
+}

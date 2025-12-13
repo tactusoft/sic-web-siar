@@ -1,0 +1,82 @@
+$color-azul: #004a9c;
+$color-naranja: #f07e00;
+$color-blanco: #fff;
+.suscripcion {
+  /*background-image: url('/assets/img/banner-suscripcion.jpg');*/
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 330px;
+  position: relative;
+  div {
+    section {
+      padding: 36px;
+      header {
+        h1 {
+          color: $color-naranja;
+          font-size: 30px;
+          font-weight: 900;
+        }
+      }
+      p {
+        color: #fff;
+        line-height: 27px;
+        font-size: 17px;
+        font-family: OpenSans-Regular, sans-serif;
+      }
+      form {
+        .box {
+          margin-bottom: 24px;
+          position: relative;
+          input {
+            position: relative;
+            border: solid 1px #ececec;
+            border-radius: 3px;
+            height: 50px;
+            padding: 0 24px;
+          }
+          div {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background: $color-azul;
+            color: $color-blanco;
+            right: calc(40% - 1px);
+            text-align: center;
+            line-height: 4.5;
+            border-radius: 3px;
+          }
+        }
+        .mensaje-error {
+          position: relative;
+          top: -24px;
+          width: 60%;
+          text-align: right;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+button {
+  color: $color-blanco;
+  font-family: "Roboto", sans-serif;
+  border: none;
+  font-size: 16px;
+  padding: 12px 36px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.1s;
+  &:hover {
+    box-shadow: 1px 2px 3px 0 #464646;
+  }
+}
+
+.error-input {
+  border-color: red !important;
+}
+
+.error-icon {
+  background: red !important;
+}

@@ -1,0 +1,156 @@
+@import '~ngx-toastr/toastr';
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$sic-web-siar-primary: mat-palette($mat-indigo);
+$sic-web-siar-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$sic-web-siar-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$sic-web-siar-theme: mat-light-theme((
+  color: (
+    primary: $sic-web-siar-primary,
+    accent: $sic-web-siar-accent,
+    warn: $sic-web-siar-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($sic-web-siar-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+  font-family: OpenSans-Bold;
+  src: local(OpenSans-Bold);
+  src: url('./assets/fonts/OpenSans-Bold.eot');
+  src: url('./assets/fonts/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+      url('./assets/fonts/OpenSans-Bold.woff2') format('woff2'),
+      url('./assets/fonts/OpenSans-Bold.woff') format('woff'),
+      url('./assets/fonts/OpenSans-Bold.ttf') format('truetype'),
+      url('./assets/fonts/OpenSans-Bold.svg#OpenSans-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: OpenSans-Regular;
+  src: local(OpenSans-Regular);
+  src: url('./assets/fonts/OpenSans-Regular.eot');
+  src: url('./assets/fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+      url('./assets/fonts/OpenSans-Regular.woff2') format('woff2'),
+      url('./assets/fonts/OpenSans-Regular.woff') format('woff'),
+      url('./assets/fonts/OpenSans-Regular.ttf') format('truetype'),
+      url('./assets/fonts/OpenSans-Regular.svg#OpenSans-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+$color-azul : #254b9c;
+$color-naranja: #eb7e25;
+
+.btn-azul{
+  background-color: $color-azul;
+}
+.btn-naranja{
+  background-color: $color-naranja;
+}
+.mat-select-arrow{
+  visibility: hidden!important;
+}
+.mat-pseudo-checkbox{
+  display: none!important;
+}
+
+
+.fc-col-header {
+  background-color: #254b9c;
+}
+
+.fc-col-header-cell-cushion {
+  color: white;
+}
+
+.fc-col-header-cell-cushion:hover {
+  color: white;
+}
+
+.fc-col-header .fc-scrollgrid-sync-inner{
+  padding: 10px !important;
+}
+
+
+.fc .fc-scroller-harness-liquid{
+  background-color: #f2f2f2;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.fc .fc-daygrid-day.fc-day-today{
+  background: transparent !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number{ 
+  color: white;
+  background-color: #f07e00;
+  padding: 8px;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.ol-viewport{border-radius: 2%;}
+.mat-expansion-indicator{
+  display: none;
+}
+
+.mat-dialog-container{
+  border-radius: 18px;
+  z-index: 99999999;
+}
+
+.pivot-wrapper .pvtUiCell {
+  background: #ffffff !important;  
+}  
+  
+.pivot-wrapper .pvtCols {
+  padding-top: 5px !important;
+  background-color: #b1bfc8 !important;
+}
+
+.pivot-wrapper .pvtUnused {
+  padding-top: 5px !important;
+  background-color: #b1c8c6 !important;
+}
+.pivot-wrapper .pvtRows {
+  background-color: #b1bfc8 !important;
+}
+
+table.pvtUi {
+  border: 1px solid #000;
+}
+
+.pvtFilterBox {
+  left: auto !important;
+  top: auto !important;
+}

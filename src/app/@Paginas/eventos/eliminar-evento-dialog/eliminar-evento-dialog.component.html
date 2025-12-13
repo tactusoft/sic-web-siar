@@ -1,0 +1,31 @@
+<div class="cerrar">
+    <div class="ico-cerrar"><mat-icon  mat-dialog-close>close</mat-icon></div>
+</div>
+<mat-dialog-content class="mat-typography" >
+<div fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="icono">
+        <svg-icon key="iconoEliminar" class="opcion-icono ico-eliminar"></svg-icon>
+    </div>
+    <br><br>
+    <div fxFlex="60" class="item">
+        {{textos.eventos.eliminar_evento_dialog.eliminarEventos}}
+    </div>
+    <br>
+    <div fxFlex="60">
+        <p class="detalle">
+            {{textos.eventos.eliminar_evento_dialog.v_eliminar_eventos}} {{evento.title}}
+        </p>
+
+    </div>
+    
+</div>
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+            <button class="acc" (click)="eliminarEvento()">{{textos.generales.aceptar}}</button>
+            <button class="no_acc" mat-dialog-close>{{textos.generales.cancelar}}</button>
+    </div>
+    
+    
+</div>
+</mat-dialog-content>

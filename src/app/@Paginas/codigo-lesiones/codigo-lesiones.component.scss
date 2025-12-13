@@ -1,0 +1,157 @@
+$color-azul: #254b9c;
+$color-naranja: #f07e00;
+$color-blanco: #fff;
+.icono {
+    color: $color-azul;
+}
+
+.enlace {
+    margin: 0px 8px;
+    font-family: OpenSans-Regular, sans-serif;
+    font-size: 18px;
+    a {
+        text-decoration: none;
+        color: $color-azul;
+    }
+}
+
+.link-activo {
+    font-weight: 600;
+}
+
+.titulo {
+    /*background-image: url("/assets/img/banderas.jpg");*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: OpenSans-Bold, sans-serif;
+    height: 333px;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: $color-naranja;
+    padding: 265px 0px 0px 39px;
+    border-radius: 0px 30px 30px 0px;
+}
+
+.arrow-right {
+    display: contents;
+    font-size: 4em;
+    color: $color-azul;
+    cursor: pointer;
+}
+
+.arrow-left {
+    display: contents;
+    font-size: 4em;
+    color: $color-blanco;
+    cursor: pointer;
+}
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 5px;
+    padding-right: 60px;
+    height: 49px;
+    background-color: #324050;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    width: 6px;
+    padding-right: 60px;
+    background-color: #324050;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    padding-right: 60px;
+    background: #888;
+}
+
+.margen-link {
+    margin-top: 37px;
+}
+
+@media screen and (max-width: 599px) {
+    .margen-tarjeta {
+        margin-right: 0px;
+    }
+    .main-miembros {
+        padding: 15px;
+    }
+    .seccion-ultimas-noticias {
+        padding: 12px 0px 0px 0px;
+        &::before {
+            width: 118%;
+            height: 95%;
+        }
+    }
+    .texto {
+        font-size: 13px;
+        margin-top: 20px;
+    }
+    .texto-miembros {
+        font-size: 13px;
+    }
+    .margen-link {
+        margin-top: 0px;
+    }
+    .margen-parrafo {
+        margin: 20px 0px;
+    }
+    .titulo {
+        height: 150px;
+        padding: 85px 0px 0px 20px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 959px) {
+    .main-miembros {
+        padding: 40px;
+    }
+    .arrow-left {
+        display: flex;
+        transform: translate(-10px, 0px);
+        font-size: 4em;
+        color: $color-blanco;
+        cursor: pointer;
+    }
+    .seccion-ultimas-noticias {
+        padding: 12px 0px 0px 0px;
+        &::before {
+            width: 108%;
+            height: 95%;
+        }
+    }
+    .texto {
+        font-size: 15px;
+    }
+    .texto-miembros {
+        font-size: 15px;
+    }
+    .titulo {
+        height: 200px;
+        padding: 140px 0px 0px 39px;
+    }
+}
+
+
+.iconoEditar,
+.iconoMas,
+.iconoEliminar {
+    order: none;
+    outline: none;
+}
+
+[type=button] #openFile{display:none !important}

@@ -1,0 +1,29 @@
+<div *ngIf="textos" class="rcss-main">
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="prueba" [ngStyle]="{'background-image' : imageBg}">
+            <div class="row position-relative">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm position-absolute position " *ngIf="paises">
+                    <div class="row">
+                        <div class="col titulo">
+                            {{textos.autoridades.titulo}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col texto">
+                            <ul>
+                                <li *ngFor="let autoridad of paises[0].autoridades;let i = index" class="texto"
+                                    [class.item-selected]="i===0" (click)="openDialog(autoridad)">
+                                    {{autoridad.name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

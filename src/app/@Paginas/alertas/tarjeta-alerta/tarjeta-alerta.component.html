@@ -1,0 +1,15 @@
+<div *ngIf="textos" class="tarjeta-alerta-main">
+  <mat-card class="card-alerta" (click)="openDialog(alerta)">
+      <img class="box-imagen" mat-card-image [src]="getImagenes(alerta.recursos)" [alt]="alerta.productName">
+      <mat-card-content class="card-content">
+          <article>
+              <h1>{{alerta.idCountry ? getDescripcionPais(alerta.idCountry) : ''}}</h1>
+              <p class="card-parrafo">
+                  {{alerta.productName}}
+              </p>
+              <p class="riesgo"><span>{{alerta.nivelRiesgo ? getDescripcionNivelRiesgo(alerta.nivelRiesgo) : ''}}</span></p>
+              <p class="card-fecha">{{alerta.publicationDate | date : "dd MMM, yyyy"}}</p>
+          </article>
+      </mat-card-content>
+  </mat-card>
+</div>

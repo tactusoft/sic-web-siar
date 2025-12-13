@@ -1,0 +1,126 @@
+<div *ngIf="textos">
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>
+            close
+        </mat-icon>
+    </div>
+    <mat-dialog-content *ngIf="validarDatos() || !plantilla">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <form class="formulario" [formGroup]="formRegistro">
+                <h1 class="titulo">{{plantilla ? textos.atlas.editarPlantilla : textos.generales.agregar_item}}</h1>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.codigo}}*</div>
+                    <div fxFlex="70">
+                        <div class="form-campo">
+                            <input formControlName="codigo" class="campo" type="text" placeholder=""/>
+                        </div>
+                        <div class="validacion" *ngIf="codigo.invalid && (codigo.touched || submit)">
+                            <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.enunciadoEsp}}*</div>
+                    <div fxFlex="70" style="min-width: max-content !important;">
+                        <div class="form-textarea">
+                            <textarea class="textarea" formControlName="enunciadoEsp"></textarea>
+                        </div>
+                        <div class="validacion" *ngIf="enunciadoEsp.invalid && (enunciadoEsp.touched || submit)">
+                            <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.enunciadoEng}}*</div>
+                    <div fxFlex="70">
+                        <div class="form-textarea">
+                            <textarea class="textarea" formControlName="enunciadoEng"></textarea>
+                        </div>
+                        <div class="validacion" *ngIf="enunciadoEng.invalid && (enunciadoEng.touched || submit)">
+                            <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.enunciadoPor}}*</div>
+                    <div fxFlex="70">
+                        <div class="form-textarea">
+                            <textarea class="textarea" formControlName="enunciadoPor"></textarea>
+                        </div>
+                        <div class="validacion" *ngIf="enunciadoPor.invalid && (enunciadoPor.touched || submit)">
+                            <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.enunciadoFra}}*</div>
+                    <div fxFlex="70">
+                        <div class="form-textarea">
+                            <textarea class="textarea" formControlName="enunciadoFra"></textarea>
+                        </div>
+                        <div class="validacion" *ngIf="enunciadoFra.invalid && (enunciadoFra.touched || submit)">
+                            <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.posicion}}*</div>
+                    <div fxFlex="70" fxLayout="column">
+                        <div class="form-campo">
+                            <input class="campo" formControlName="posicion" placeholder="" style="width: 100px;"/>
+                        </div>
+                        <div class="validacion" *ngIf="posicion.errors?.required && (posicion.touched || submit)">
+                            <span class="mensaje">{{textos.generales.campo_obligatorio}}</span>
+                        </div>
+                        <div class="validacion" *ngIf="posicion.errors?.pattern && (posicion.touched || submit)">
+                            <span class="mensaje">{{textos.mensajes.MENSAJE_CAMPO_ENTERO}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.plantillaPadre}}</div>
+                    <div fxFlex="70">
+                        <div class="box">
+                            <mat-form-field appearance="outline">
+                                <mat-select formControlName="idPadre">
+                                    <mat-option style="color: #001737 !important;" value="0">
+                                        Seleccione...
+                                    </mat-option>
+                                    <mat-option [value]="plantilla.id" *ngFor="let plantilla of plantillasOrdenadas">
+                                        {{plantilla.codigo}} - {{getLabelTemplateLang(plantilla.subdominio.id)}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon class="icono-select">
+                                    expand_more
+                                </mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.atlas.tieneContenido}}*</div>
+                    <div fxFlex="70">
+                        <mat-slide-toggle color="primary" style="float: left;" formControlName="tieneContenido">
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.admin_usuarios.estado}}*</div>
+                    <div fxFlex="70">
+                        <mat-slide-toggle color="primary" style="float: left;" formControlName="estado">
+                            {{estado.value ? textos.gestion_alertas.activo : textos.gestion_alertas.inactivo}}
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+
+                <div class="botones" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="24px">
+                    <button class="btn btn-guardar" (click)="guardar()" [disabled]="!formRegistro.valid">{{textos.generales.guardar}}</button>
+                    <button class="btn btn-cancelar" mat-dialog-close>{{textos.generales.cancelar}}</button>
+                </div>
+            </form>
+            <br/>
+        </div>
+    </mat-dialog-content>
+</div>

@@ -1,0 +1,126 @@
+$color-naranja: #eb7e25;
+.div-header {
+    margin-top: 20px;
+}
+
+.title-modal {
+    color: $color-naranja;
+    margin-left: 70px;
+    border-bottom: 2px solid $color-naranja;
+    font-size: 2em;
+    max-width: 335px;
+    width: 100%;
+}
+
+::ng-deep .mat-dialog-detalle-eventos {
+    width: 70%;
+    padding: 24px 96px;
+     ::ng-deep .mat-dialog-container {
+        border-radius: 15px;
+    }
+    mat-dialog-content {
+        padding: 24px 96px;
+        .fila {
+            padding: 24px;
+            &:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+        }
+        div {
+            .item {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.ampliar-imagen {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    text-align: center;
+    background-color: #00000099;
+    z-index: 99999999999999;
+    .cerrar {
+        position: relative;
+        color: #f1f1f1;
+        cursor: pointer;
+        right: 50px;
+        top: 50px;
+    }
+    img {
+        margin: 100px auto;
+    }
+}
+
+.txt-detalle {
+    font-size: 14px!important;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: left;
+    color: #001737;
+}
+
+.enlace {
+    color: #5597ba;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 5px;
+    padding-right: 60px;
+    height: 49px;
+    background-color: #324050;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    width: 6px;
+    padding-right: 60px;
+    background-color: #324050;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    padding-right: 60px;
+    background: #888;
+}
+
+@media screen and (max-width:800px) {
+    .title-modal {
+        margin-left: 0;
+        font-size: 1.25em;
+    }
+     ::ng-deep .mat-dialog-detalle-eventos {
+        width: 90%;
+        max-width: unset !important;
+        padding: 0;
+        mat-dialog-content {
+            padding: 0 24px;
+            .fila {
+                padding: 16px;
+            }
+            div {
+                .item,
+                .value {
+                    font-size: 12px;
+                }
+                .item {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+}

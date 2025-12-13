@@ -1,0 +1,27 @@
+<div *ngIf="textos" class="rcss-main">
+    <div style="position: relative; margin-left: 50px;">
+        <div fxLayout="row" style="margin-top: 37px;">
+            <svg-icon key="flechaRetorno"></svg-icon>
+            <span class="enlace" style="font-family: OpenSans, sans-serif;">
+                <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+            </span>
+            <mat-icon class="icono">
+                keyboard_arrow_right
+            </mat-icon>
+            <span class="enlace">
+                <a [routerLink]="['/gestionAtlas']" [routerLinkActive]="['link_activo']">{{textos.cabecera.gestion_atlas}}</a>
+            </span>
+            <mat-icon class="icono">
+                keyboard_arrow_right
+            </mat-icon>
+            <span class="enlace">
+                <a [routerLink]="['/gestionAtlas/crear']" [routerLinkActive]="['link_activo']">{{textos.atlas.agregar}}</a>
+            </span>
+        </div>
+        <br>
+        <br>
+
+        <app-generar-formulario-atlas [idPais1]="idPais" [idPais2]="-1" [readOnly]="false" [titulo]="textos.atlas.agregar"></app-generar-formulario-atlas>
+
+    </div>
+</div>

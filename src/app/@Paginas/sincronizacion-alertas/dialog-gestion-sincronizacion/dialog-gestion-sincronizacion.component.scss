@@ -1,0 +1,222 @@
+$color-negro: #000000;
+$color-naranja: #f07e00;
+$color-blanco: #ffffff;
+$color-azul: #004a9c;
+$fondo-blanco-opaco: #f1f1f1;
+::ng-deep .mat-dialog-gestion-sincronizacion {
+    width: 80%;
+    max-width: 1132.5px !important;
+    max-height: 487.9px;
+    box-shadow: 1px 3px 20px 0 rgba(0, 0, 0, 0.16);
+}
+
+.contenido-modal {
+    margin: 4px 165px 62px;
+    .seccion-titulo {
+        width: 100%;
+        margin-bottom: 2rem;
+        label {
+            width: 380px;
+            height: 41px;
+            font-family: OpenSans, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.17;
+            letter-spacing: 0.3px;
+            text-align: left;
+            color: #f07e00;
+            border-bottom: 2px solid;
+        }
+    }
+    .seccion-campos {
+        height: 10.5rem;
+        .nombre-externo {
+            width: 780px;
+            height: 84px;
+            background-color: $fondo-blanco-opaco;
+            label {
+                padding-top: 25px;
+                margin-left: 44px;
+                margin-right: 100px;
+                font-family: OpenSans-Bold, sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.35;
+                letter-spacing: normal;
+                text-align: left;
+                color: $color-negro;
+            }
+            .input-group {
+                margin-top: 17px;
+            }
+            .inputNombre {
+                width: 237px;
+                height: 50px;
+            }
+        }
+        .nombre-categoria {
+            width: 780px;
+            height: 84px;
+            padding-top: 25px;
+            background-color: $color-blanco label {
+                width: 181px;
+                font-family: OpenSans, sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.35;
+                letter-spacing: normal;
+                text-align: left;
+                color: $color-negro;
+            }
+            label {
+                max-width: 181px;
+                margin-left: 44px;
+                margin-right: 72px;
+                font-family: OpenSans-Bold, sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.35;
+                letter-spacing: normal;
+                text-align: left;
+                color: $color-negro;
+            }
+            .label-error {
+                margin-left: 162px;
+                margin-top: 12px;
+            }
+        }
+    }
+}
+
+button {
+    outline: unset;
+    border-radius: 5px;
+    width: 192px;
+    color: $color-blanco;
+}
+
+.btn-guardar {
+    border: solid 2px $color-naranja;
+    background-color: $color-naranja;
+}
+
+.btn-cancelar {
+    border: solid 2px $color-azul;
+    background-color: $color-azul;
+}
+
+.mat-form-field {
+    width: 237px;
+    height: 50px;
+}
+
+
+/************/
+
+
+/***************/
+
+.form-control.ng-invalid.ng-dirty,
+.form-control.ng-invalid.ng-touched,
+.form-control-mat-select.ng-invalid.dirty,
+.form-control-mat-select.ng-invalid.ng-touched,
+.inputHora .ng-form-submitted .form-control.ng-invalid {
+    background-image: none !important;
+    border-radius: 4px !important;
+    border: solid 1px #d90b0b !important;
+    background-color: #ffffff !important;
+}
+
+.queOccurio .ng-invalid {
+    border: 1px solid red;
+}
+
+.form-control-mat-select.mat-select-disabled {
+    background-color: #e9ecef!important;
+}
+
+.labelDocs {
+    font-family: "Neris Semibold", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+}
+
+.direccionSiniestro {
+    width: 16em!important;
+}
+
+.form-control-mat-select {
+    font-style: normal !important;
+    font-family: "Neris Light", Arial, Helvetica, sans-serif !important;
+}
+
+.selectTipoDocumento {
+    width: 180px !important;
+    height: 37px;
+}
+
+.selectTipoDocumento,
+.selectGenero,
+#edadconductor {
+    width: 100% !important;
+}
+
+.inputSolicitanteRadicacion {
+    font-size: 12px !important;
+}
+
+
+/***/
+
+.icono-select {
+    color: #fff;
+    position: absolute;
+    width: 50px!important;
+    height: 50px!important;
+    text-align: center;
+    line-height: 2;
+    background: $color-azul;
+    top: -8px;
+    right: -61px;
+    border-radius: 3px;
+}
+
+.iconoUsuario {
+    width: 100%;
+    height: 100%;
+}
+
+.iconoInput {
+    width: 56px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: $color-azul;
+    border: solid 1px $color-azul;
+}
+
+.container-error-message {
+    text-align: right;
+    .label-error {
+        height: 1%;
+        text-align: right;
+        font-size: 14px;
+        font-family: Roboto, sans-serif;
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.21;
+        letter-spacing: normal;
+        margin: 4px 0;
+    }
+}

@@ -1,0 +1,29 @@
+<div class="contenido">
+    <div class="tarjeta">
+        <img *ngIf="administrar" class="tarjeta tenue" [src]="image" alt="{{miembro?.nombre ? paisMiembro : ''}}">
+        <img *ngIf="!administrar" class="tarjeta" [src]="image" alt="{{miembro?.nombre ? paisMiembro : ''}}">
+    </div>
+    <div class="administrar" *ngIf="administrar">
+        <div class="container opciones-admin">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-6 opcion editar" (click)="edita()">
+                    <svg-icon class="opcion-icono ico-editar" key="iconoEditar"></svg-icon>
+                </div>
+                <div class="col-6 opcion eliminar" (click)="elimina()">
+                    <svg-icon class="opcion-icono ico-eliminar" key="iconoEliminar"></svg-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="noadministrar" *ngIf="!administrar" (click)="edita()">
+        <div class="container opciones-admin">
+            <div class="row justify-content-center align-items-center">
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="nombre" (click)="openDialog(miembro)">
+        {{miembro?.nombre ? paisMiembro : ''}}
+    </div>-->
+</div>

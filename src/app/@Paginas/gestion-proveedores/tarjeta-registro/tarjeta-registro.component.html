@@ -1,0 +1,48 @@
+<div class="container-tarjeta">
+  <mat-card class="card-documento">
+    <mat-card-content class="card-content">
+      <div fxLayout="column">
+        <article>
+          <div>
+            <svg-icon class="position" key="clip"></svg-icon>
+          </div>
+          <h1>{{ getDescripcionPais(registro.idCountry) }}</h1>
+          <div fxLayout="row" class="doc-titulo">
+            <h2>{{ registro.title }}</h2>
+          </div>
+        </article>
+      </div>
+      <div class="card-fecha">
+        <p class="titulo">
+          {{ textos.gestion_docu_publicos.tarjeta_documentos.categorias }}
+        </p>
+        <hr />
+        <div class="footer-card">
+          {{ registro.focusbusiness }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div
+    *ngIf="over"
+    class="over-panel"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center"
+  >
+    <div fxFlex="15"></div>
+    <svg-icon
+      key="lapiz"
+      style="transform: translate(0px,-10px) scale(1.5); cursor: pointer;"
+      fxFlex="34"
+      (click)="abrirEditar(registro)"
+    ></svg-icon>
+    <div fxFlex="1" class="separador"></div>
+    <svg-icon
+      key="caneca1"
+      style="transform: translate(0px,-10px) scale(1.5); cursor: pointer;"
+      (click)="abrirEliminar(registro)"
+      fxFlex="34"
+    ></svg-icon>
+    <div fxFlex="15"></div>
+  </div>
+</div>

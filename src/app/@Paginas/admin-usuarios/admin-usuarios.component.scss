@@ -1,0 +1,52 @@
+$color-azul : #004a9c;
+$color-naranja: #eb7e25;
+
+.icono{
+    color: $color-azul;
+}
+.enlace{
+    font-family: OpenSans-Bold, sans-serif;
+    margin: 0px 8px;
+    font-size: 18px;
+    a{
+        text-decoration: none;
+        color: $color-azul;
+    }
+}
+
+.link-activo{
+    font-weight: 600;
+}
+
+.boton{
+    font-family: Roboto, sans-serif;
+    width: 206.6px;
+    height: 44.5px;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.06;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 10px;
+}
+.boton-usuario{
+    border: solid 2px #004a9c;
+    background-color: #004a9c;
+}
+.boton-roles{
+    border: solid 2px #f07e00;
+    background-color: #f07e00;
+}
+.nuevo-registro{
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: left;
+    color: #f07e00;
+}

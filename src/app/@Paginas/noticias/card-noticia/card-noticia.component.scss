@@ -1,0 +1,186 @@
+$color-azul: #254b9c;
+$color-negro: #000000;
+.card-noticias {
+    border-radius: 10px 10px 0 0;
+    box-sizing: border-box;
+    height: 584px;
+    width: 292px;
+    margin-bottom: 50px;
+    .imagen {
+        border-radius: 10px;
+        max-height: 264px;
+        height: calc(50% + 16px);
+        display: block;
+    }
+    &:hover {
+        background: #e6e6e6
+    }
+    .card-content {
+        position: relative;
+        text-align: left;
+        font-weight: 600;
+        article {
+            h1 {
+                color: $color-azul;
+                font-family: OpenSans, sans-serif;
+                font-size: 20px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                text-align: left;
+                display: block;
+                height: 2.5rem;
+                width: 12.5rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .card-parrafo {
+                position: relative;
+                height: 160px;
+                font-family: OpenSans-Bold, sans-serif;
+                font-size: 20px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                overflow-y: auto;
+            }
+            .card-fecha {
+                font-family: OpenSans, sans-serif;
+                font-size: 20px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                text-align: left;
+                color: $color-negro;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 60px;
+                    height: 2px;
+                    background: $color-azul;
+                    left: 0;
+                    bottom: 24px;
+                }
+            }
+        }
+    }
+}
+
+.noticia {
+    position: relative;
+    .administrar {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: #d6d6d696;
+        border-radius: 13px;
+        .opciones-admin {
+            position: absolute;
+            top: calc(50% - 20px);
+        }
+    }
+}
+
+.opcion {
+    text-align: center;
+    .opcion-icono {
+        font-size: 40px;
+    }
+    .ico-editar,
+    .ico-eliminar {
+        cursor: pointer;
+    }
+    .ico-eliminar {
+        filter: invert(20%) sepia(73%) saturate(1498%) hue-rotate(202deg) brightness(102%) contrast(91%);
+    }
+}
+
+.editar {
+    border-right: 0.5px solid #004a9c;
+}
+
+.noticia:hover {
+    cursor: pointer;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 5px;
+    padding-right: 60px;
+    height: 49px;
+    background-color: #324050;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    width: 6px;
+    padding-right: 60px;
+    background-color: #324050;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    padding-right: 60px;
+    background: #888;
+}
+
+::ng-deep .dialog-noticia-detalle {
+    width: 70vw !important;
+    max-width: 70vw !important;
+}
+
+@media screen and (max-width: 599px) {
+    .card-noticias {
+        width: 45vw;
+        .card-content {
+            article {
+                h1 {
+                    font-size: 1rem;
+                    line-height: 1.13;
+                    letter-spacing: 0.16px;
+                    height: 2.5rem;
+                    width: 7.75rem;
+                    white-space: unset;
+                }
+                .card-parrafo {
+                    font-size: 16px;
+                }
+                .card-fecha {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+     ::ng-deep .dialog-noticia-detalle {
+        width: 90vw !important;
+        max-width: 90vw !important;
+    }
+}
+
+@media screen and (max-width: 959px) {
+     ::ng-deep .dialog-noticia-detalle {
+        width: 80vw !important;
+        max-width: 80vw !important;
+        mat-dialog-container {
+            padding: 20px 30px 20px 20px;
+        }
+        mat-dialog-content {
+            padding: 20px !important;
+        }
+    }
+}

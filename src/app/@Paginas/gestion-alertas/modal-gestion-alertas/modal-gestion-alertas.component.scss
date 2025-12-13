@@ -1,0 +1,332 @@
+$color-azul: #004a9c;
+$color-blanco: #fff;
+$color-rojo: #d8001d;
+$color-naranja:#f07e00;
+
+.titulo {
+    font-family: OpenSans-Bold, sans-serif;
+    display: inline-block;
+    width: 100%;
+    /*max-width: 380px;*/
+    text-align: left;
+    border-bottom: 2px solid #f07e00;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.3px;
+    color: #f07e00;
+    margin:35px 0px;
+    padding-left: 0px;
+}
+
+.dialogC {
+    position: relative !important;
+}
+
+.close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+h1 {
+    font-family: OpenSans-Bold, sans-serif;
+    font-size: 30px;
+    padding-left: 160px;
+    padding-bottom: 20px;
+    color: $color-naranja;
+}
+
+hr {
+    width: 433px;
+    padding: 1px;
+    margin-left: 157px;
+    background-color: $color-naranja;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    margin-top: 20px;
+    transform: translate(-50%, -50%);
+    padding-bottom: 30px;
+}
+
+.componentes-label {
+    width: 210px;
+    height: 54px;
+    font-family: OpenSans-Bold, sans-serif;
+    font-size: 20px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+    vertical-align: bottom;
+    padding-left: 35px;
+    padding-top: 25px;
+}
+
+.componentes-label-0 {
+    width: 168px;
+    height: 54px;
+    font-family: OpenSans-Regular, sans-serif;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+    vertical-align: bottom;
+    padding-left: 40px;
+    padding-top: 25px;
+}
+
+.componentes-label--1 {
+    width: 100%;
+    height: 80px;
+    font-family: OpenSans-Regular, sans-serif;
+    font-size: 20px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+    background-color: #f1f1f1;
+    border-radius: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.Guardar {
+    width: 192px;
+    height: 44.5px;
+    background-color: #f07e00;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.06;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    margin-right: 24px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+}
+
+.Cancelar {
+    width: 192px;
+    height: 44.5px;
+    background-color: #004a9c;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.06;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+}
+
+.Agregar-componente {
+    width: 1000px;
+    height: 41px;
+    font-family: OpenSans-Bold, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: #f07e00;
+}
+
+.line {
+    width: 16.7px;
+    height: 16.7px;
+    border: solid 2px #34353d;
+}
+
+.modal-body {
+    height: 90%;
+    overflow-y: auto;
+}
+
+.div-form {
+    width: 90%;
+    padding-left: 160px;
+    padding-top: 5px;
+    padding-bottom: 40px;
+}
+
+.flex {
+    flex: 1 1 auto !important;
+}
+
+.scrollable {
+    overflow: auto !important;
+    box-sizing: border-box !important;
+    position: absolute !important;
+    right: 0 !important;
+    height: 60% !important;
+}
+
+
+/* width */
+
+ ::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 5px;
+    height: 49px;
+    background-color: #324050;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    width: 6px;
+    background-color: #324050;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.close {
+    margin-left: -50px;
+    border: none;
+    outline: none;
+}
+
+
+/***/
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    border-radius: 26px;
+    outline: none;
+    background-color: #f8f8f8;
+    resize: none;
+    padding: 12px 24px;
+    border: none;
+}
+
+.fila {
+    padding: 18px 44px;
+    &:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+    .item {
+        font-family: OpenSans-Bold, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: 0.2px;
+        text-align: left;
+        color: #000000;
+    }
+    .item+div {
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: 0.2px;
+        text-align: left;
+        color: #000000;
+    }
+}
+
+.form-textarea {
+    position: relative;
+    width: 100%;
+    max-width: 465px;
+    height: 70px;
+    .textarea {
+        width: 100%;
+        height: 100%;
+        border-radius: 26px;
+        outline: none;
+        background-color: #f8f8f8;
+        resize: none;
+        padding: 12px 24px;
+        border: none;
+    }
+    .icon-cerrar {
+        position: absolute;
+        right: -4px;
+        top: -6px;
+        width: 22px;
+        height: 22px;
+        background-color: #696b6e;
+        border-radius: 50%;
+        .cerrar {
+            font-size: 15px;
+            position: relative;
+            top: 4px;
+            left: 4px;
+            color: #efefef;
+            cursor: pointer;
+        }
+    }
+}
+
+.validacion-textarea {
+    max-width: 465px!important;
+}
+
+.validacion-select {
+    margin-top: 10px;
+}
+
+.validacion {
+    text-align: right;
+    top: 0px;
+    position: relative;
+    width: 100%;
+    max-width: 275px;
+    .mensaje {
+        color: #d8001d;
+        position: relative;
+        top: 0px;
+        font-size: 12px;
+    }
+}
+
+.inputInvalid {
+    border: solid 1px $color-rojo !important;
+}
+
+input:-webkit-autofill.inputInvalid {
+    animation-delay: 1s;
+    animation-name: autofill;
+    animation-fill-mode: both;
+}
+
+.formulario {
+    width: 100%;
+    max-width: 780px;
+    max-width: 0 auto;
+    margin-bottom: 1rem;
+}

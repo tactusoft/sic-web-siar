@@ -1,0 +1,103 @@
+<div *ngIf="textos" class="rcss-main">
+    <div fxLayout="row" style="margin-top: 20px;">
+        <svg-icon key="flechaRetorno"></svg-icon>
+
+        <span class="enlace">
+      <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+    </span>
+
+        <mat-icon class="icono">keyboard_arrow_right</mat-icon>
+
+        <span class="enlace">
+      <a
+          [routerLink]="['/acercaRCSS']"
+          [routerLinkActive]="['link_activo']"
+          style="
+            font-family: OpenSans, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #004a9c;"
+      >{{textos.acerca_rcss.que_es_rcss}}</a>
+    </span>
+    </div>
+
+    <br>
+
+    <header class="cabecera" fxLayout="row" fxLayout.lt-md="column">
+        <div class="imagen-header" [ngStyle]="{'background-image': 'url(' + IMG_REUNION + ')'}" fxFlex="55"></div>
+        <div class="titulo" fxFlex="45">
+            <div class="grupo-titulo">
+                <h1>{{textos.acerca_rcss.RCSS}}</h1>
+
+                <h2>{{textos.rcss_titulo}}</h2>
+            </div>
+        </div>
+    </header>
+
+    <article class="articulo">
+        <mat-divider class="divider"></mat-divider>
+        <p class="parrafo">{{textos.acerca_rcss.parrafo_1}}</p>
+        <p class="parrafo">
+            {{textos.acerca_rcss.parrafo_2_1}}
+            <a [href]="urlOAS" target="_blank">{{textos.acerca_rcss.parrafo_2_2}}</a> {{textos.acerca_rcss.parrafo_2_3}}
+            <span class="text-bold">
+                {{textos.acerca_rcss.parrafo_2_4}}
+            </span> {{textos.acerca_rcss.parrafo_2_5}}
+        </p>
+        <section class="seccion-rcss">
+            <h2>{{textos.acerca_rcss.la_rcss}}</h2>
+            <p class="parrafo">{{textos.acerca_rcss.parrafo_3}}</p>
+        </section>
+        <p class="parrafo">
+            {{textos.acerca_rcss.parrafo_4}}
+        </p>
+        <p class="parrafo">
+            {{textos.acerca_rcss.parrafo_5}}
+        </p>
+        <p class="parrafo">
+            {{textos.acerca_rcss.parrafo_6_1}}
+            <a [routerLink]="['/acercaSIAR']" target="_blank">
+        {{textos.acerca_rcss.parrafo_6_2}}
+      </a> {{textos.acerca_rcss.parrafo_6_3}}
+        </p>
+        <br>
+        <br>
+        <section class="estructura">
+            <article class="articulo-estructura">
+                <div class="box-estructura">
+                    <h2 class="titulo-esctructura">{{textos.acerca_rcss.titulo_estructura}}</h2>
+                    <p class="parrafo">
+                        {{ textos.acerca_rcss.parrafo_7_1}}
+                        <a [href]="urlAGRES" target="_blank">
+              {{ textos.acerca_rcss.parrafo_7_2}}
+            </a> {{ textos.acerca_rcss.parrafo_7_3}}
+                    </p>
+                    <p class="parrafo">
+                        {{textos.acerca_rcss.parrafo_8}}
+                    </p>
+                </div>
+                <div class="lista-estructura" fxLayout="row" fxLayout.xs="column">
+                    <ul fxFlex>
+                        <li>
+                            <p class="parrafo">
+                                {{textos.acerca_rcss.parrafo_9}}
+                            </p>
+                        </li>
+                    </ul>
+                    <ul fxFlex>
+                        <li>
+                            <p class="parrafo">
+                                {{textos.acerca_rcss.parrafo_10}}
+                            </p>
+                        </li>
+                        <li>
+                            <p class="parrafo">
+                                {{textos.acerca_rcss.parrafo_11}}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+    </article>
+</div>

@@ -1,0 +1,106 @@
+<div *ngIf="textos" class="rcss-main">
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>
+            close
+        </mat-icon>
+    </div>
+    <div class="modal-body">
+        <div fxLayout="row" fxLayoutAlign="center">
+            <form class="formulario" [formGroup]="formRegistro">
+                <h1 class="titulo">{{textos.generales.agregar_item}}</h1>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.admin_usuarios.rol}}</div>
+                    <div fxFlex="70">
+                        <div class="form-campo">
+                            <input class="campo" #rol type="text" maxlength="40" placeholder="{{textos.admin_usuarios.nuevo_rol.ingresa_rol}}" required/>
+                            <mat-error *ngIf="rol.value.trim()==='' && guardar">
+                                {{textos.generales.campo_obligatorio}}
+                            </mat-error>
+                            <div class="box-icono">
+                                <mat-icon class="icono" svgIcon="etiqueta"></mat-icon>
+                            </div>
+                        </div>
+                        <div class="validacion" *ngIf="name.invalid && name.touched">
+                            <span class="mensaje" *ngIf="name.errors.required">{{textos.admin_usuarios.v_rol}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="column">
+                    <div fxLayout="row" fxLayout.xs="column">
+                        <div fxFlex="30" class="item">{{textos.admin_usuarios.permisos}}</div>
+                        <div fxFlex="70">
+                            <div class="box">
+                                <mat-form-field appearance="outline">
+                                    <mat-select placeholder="{{textos.admin_usuarios.permisos}}" #permiso (selectionChange)="cargarPermiso($event.value)" required>
+                                        <input class="campo-buscar" matInput placeholder="{{textos.admin_usuarios.buscar}}">
+                                        <mat-option [value]="permiso" *ngFor="let permiso of permisos">
+                                            {{permiso.menu}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon class="icono-select">
+                                        expand_more
+                                    </mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" style="margin-top: 30px;">
+                        <div fxFlex="30"></div>
+
+                        <div fxFlex="70" fxLayout="row wrap" style="width: 100%;">
+                            <div *ngFor="let permiso of array2" fxFlex="47" style="
+                                display: flex;
+                                position: relative;
+                                width: 100%;
+                                height: 36px;
+                                border-radius: 18px;
+                                margin: 10px 0 0 10px;
+                                background: #bcbcbc;">
+                                <p style="
+                                    margin: 0;
+                                    font-family: OpenSans, sans-serif;
+                                    color: #ffffff;
+                                    padding-left: 20px;
+                                    align-self: center;">{{permiso.menu}}</p>
+
+                                <div (click)="borrar(permiso)" style="
+                                    display: flex;
+                                    cursor: pointer;
+                                    justify-content: center;
+                                    border-radius: 10px;
+                                    height: 20px;
+                                    background-color: #696b6e;
+                                    position: absolute;
+                                    top: -5px;
+                                    right: 10px;
+                                    width: 20px;">
+                                    <mat-icon style="
+                                        font-size: 16px;
+                                        height: 16px;
+                                        width: 16px;
+                                        align-self: center;
+                                        color: #ffffff;">
+                                        close
+                                    </mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fila" fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="30" class="item">{{textos.admin_usuarios.estado}}</div>
+                    <div fxFlex="70">
+                        <div class="box">
+                            {{textos.admin_usuarios.nuevo_rol.activo}}
+                        </div>
+                    </div>
+                </div>
+                <div class="botones" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="24px">
+                    <button class="btn btn-guardar" type="button" (click)="onNoClick(rol.value)">{{textos.generales.guardar}}</button>
+                    <button class="btn btn-cancelar" mat-dialog-close>{{textos.generales.cancelar}}</button>
+                </div>
+                <br/>
+            </form>
+        </div>
+    </div>
+</div>

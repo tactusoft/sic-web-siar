@@ -1,0 +1,108 @@
+$color-azul: #254b9c;
+$color-naranja: #eb7e25;
+$color-blanco: #fff;
+.banner {
+    /*background-image: url('/assets/img/reunion.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    min-height: 364px;
+    position: relative;
+    .content-banner {
+        padding: 40px 100px;
+        position: absolute;
+        background-color: #254b9c;
+        min-height: 272px;
+        max-height: 273px;
+        right: 0;
+        border-radius: 23px 0 0 23px;
+        .icono {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 5px;
+        }
+        .item-content {
+            text-align: center;
+            .icono-content {
+                font-size: 80px;
+            }
+        }
+        p {
+            color: $color-blanco;
+            font-size: 17px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.29;
+            letter-spacing: 0.17px;
+            text-align: center;
+        }
+    }
+}
+
+.titulo-cursos {
+    position: relative;
+    top: -50px;
+    left: 86px;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    text-align: left;
+    display: inline-block;
+    color: $color-blanco;
+}
+
+@media screen and (max-width: 599px) {
+    .banner {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 100%;
+        min-height: 150px;
+        position: relative;
+        margin-top: 140px;
+        .content-banner {
+            .icono {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 5px;
+            }
+            padding: 20px;
+            position: absolute;
+            background-color: #254b9c;
+            right: 0;
+            min-height: 180px;
+            border-radius: 23px 0 0 23px;
+            transform: translate(0px, -80%);
+            height: 180px;
+            .item-content {
+                text-align: center;
+                .icono-content {
+                    font-size: 80px;
+                }
+            }
+            p {
+                color: $color-blanco;
+                font-size: 15px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.29;
+                letter-spacing: 0.17px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 959px) {
+    .banner {
+        .content-banner {
+            padding: 40px 50px;
+        }
+    }
+}

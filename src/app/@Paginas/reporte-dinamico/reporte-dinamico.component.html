@@ -1,0 +1,186 @@
+<div *ngIf="textos" class="rcss-main">
+    <div style="position: relative; margin-left: 50px;">
+        
+        <!-- Breadcrumb -->
+        <div fxLayout="row" style="margin-top: 37px;">
+            <svg-icon key="flechaRetorno"></svg-icon>
+            <span class="enlace" style="font-family: OpenSans, sans-serif;">
+                <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+            </span>
+            <mat-icon class="icono">keyboard_arrow_right</mat-icon>
+            <span class="enlace">
+                <a [routerLink]="['/reporteDinamico']" [routerLinkActive]="['link_activo']">
+                    {{textos.reporte_dinamico.titulo}}
+                </a>
+            </span>
+        </div>
+
+        <br><br>
+
+        <!-- Tarjeta de Totales -->
+        <div class="card-totales" fxLayout="row" fxLayoutAlign="space-around center">
+            <div class="total-item">
+                <span class="total-label">{{textos.reporte_dinamico.total_registros || 'Total Registros'}}</span>
+                <span class="total-valor">{{totalRegistros | number}}</span>
+            </div>
+            <div class="total-item">
+                <span class="total-label">{{textos.reporte_dinamico.total_alertas || 'Total Alertas'}}</span>
+                <span class="total-valor">{{totalAlertas | number}}</span>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Botones de acción -->
+        <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="16px" style="margin-right: 50px;">
+            <button type="button" class="btn-limpiar-top" mat-stroked-button (click)="limpiarFiltros()">
+                <mat-icon>clear</mat-icon>
+                {{textos.reporte_dinamico.limpiar || 'Limpiar'}}
+            </button>
+            <button class="boton-exportar" mat-raised-button (click)="exportExcel()">
+                <mat-icon>download</mat-icon>
+                {{textos.reporte_dinamico.exportar || 'Exportar Excel'}}
+            </button>
+        </div>
+
+        <br>
+
+        <!-- Filtros -->
+        <div class="filtro" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="58px">
+            <span class="filtrado-por">{{textos.reporte_dinamico.filtrar_por || 'Filtrar por'}}</span>
+            <div class="box">
+                <form [formGroup]="formFiltro">
+
+                    <!-- Filtro por País -->
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="idPais">
+                            <input class="campo-buscar" [formControl]="buscarPais" matInput placeholder="Buscar"
+                                (valueChange)="bPais.value = ''" #bPais value="">
+                            <mat-option [value]="'0'" style="color: #001737 !important;">
+                                {{textos.reporte_dinamico.todos_paises || 'Todos los países'}}
+                            </mat-option>
+                            <mat-option #option
+                                [ngClass]="{'ocultar': !mostrar(buscarPais.value, pais),'option-selected': option._getAriaSelected()}"
+                                [value]="pais" *ngFor="let pais of paisesDisponibles">
+                                {{pais}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon class="icono-select">expand_more</mat-icon>
+                    </mat-form-field>
+
+                    <!-- Filtro por Categoría -->
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="idCategoria">
+                            <input class="campo-buscar" [formControl]="buscarCategoria" matInput placeholder="Buscar"
+                                (valueChange)="bCategoria.value = ''" #bCategoria value="">
+                            <mat-option [value]="'0'" style="color: #001737 !important;">
+                                {{textos.reporte_dinamico.todas_categorias || 'Todas las categorías'}}
+                            </mat-option>
+                            <mat-option #optionCat
+                                [ngClass]="{'ocultar': !mostrar(buscarCategoria.value, categoria),'option-selected': optionCat._getAriaSelected()}"
+                                [value]="categoria" *ngFor="let categoria of categoriasDisponibles">
+                                {{categoria}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon class="icono-select">expand_more</mat-icon>
+                    </mat-form-field>
+
+                    <!-- Filtro por Año -->
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="idAnio">
+                            <input class="campo-buscar" [formControl]="buscarAnio" matInput placeholder="Buscar"
+                                (valueChange)="bAnio.value = ''" #bAnio value="">
+                            <mat-option [value]="'0'" style="color: #001737 !important;">
+                                {{textos.reporte_dinamico.todos_anios || 'Todos los años'}}
+                            </mat-option>
+                            <mat-option #optionAnio
+                                [ngClass]="{'ocultar': !mostrar(buscarAnio.value, anio.toString()),'option-selected': optionAnio._getAriaSelected()}"
+                                [value]="anio" *ngFor="let anio of aniosDisponibles">
+                                {{anio}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon class="icono-select">expand_more</mat-icon>
+                    </mat-form-field>
+
+                </form>
+            </div>
+        </div>
+
+        <br><br>
+
+        <!-- Tabla de datos -->
+        <div class="table-header" fxLayout="row" fxLayoutAlign="start center">
+            <div class="item-header" fxFlex="20">{{textos.reporte_dinamico.pais || 'País'}}</div>
+            <div class="item-header centrado" fxFlex="15">{{textos.reporte_dinamico.anio || 'Año'}}</div>
+            <div class="item-header" fxFlex="45">{{textos.reporte_dinamico.categoria || 'Categoría'}}</div>
+            <div class="item-header centrado" fxFlex="20">{{textos.reporte_dinamico.num_alertas || 'Núm. Alertas'}}</div>
+        </div>
+
+        <div class="table-content">
+            <div fxLayout="row" class="fila-content" fxLayoutAlign="start center"
+                *ngFor="let alerta of alertasFiltradas | paginate : configPaginador">
+
+                <div class="item-content" fxFlex="20">
+                    {{alerta.Pais}}
+                </div>
+
+                <div class="item-content centrado" fxFlex="15">
+                    {{alerta.Anio}}
+                </div>
+
+                <div class="item-content" fxFlex="45">
+                    <span class="texto-largo">{{alerta.Categoria}}</span>
+                </div>
+
+                <div class="item-content centrado" fxFlex="20">
+                    <span class="badge-alertas">{{alerta.Alertas | number}}</span>
+                </div>
+            </div>
+
+            <!-- Mensaje sin datos -->
+            <div *ngIf="alertasFiltradas.length === 0" class="sin-datos">
+                <p>{{textos.reporte_dinamico.sin_datos || 'No se encontraron registros'}}</p>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Paginador -->
+        <div fxLayout="row">
+            <div fxFlex></div>
+            <div fxFlex="auto">
+                <div fxLayout="row" fxLayoutAlign="end">
+                    <pagination-template #p="paginationApi" [id]="configPaginador.id"
+                        (pageChange)="pageChanged($event)">
+                        <div class="custom-pagination" fxLayout="row">
+                            <div *ngIf="!p.isFirstPage()" class="pagination-previous" [class.disabled]="p.isFirstPage()"
+                                (click)="p.previous()">
+                                <span>
+                                    <mat-icon class="flecha">keyboard_arrow_left</mat-icon>
+                                </span>
+                            </div>
+
+                            <div class="page-number" (click)="p.setCurrent(page.value)" *ngFor="let page of p.pages"
+                                [class.current]="p.getCurrent() === page.value">
+                                <span *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                                <div *ngIf="p.getCurrent() === page.value">
+                                    <span>{{ page.label }}</span>
+                                </div>
+                            </div>
+
+                            <div *ngIf="!p.isLastPage()" class="pagination-next" [class.disabled]="p.isLastPage()"
+                                (click)="p.next()">
+                                <span *ngIf="!p.isLastPage()" (click)="p.next()">
+                                    <mat-icon class="flecha">keyboard_arrow_right</mat-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </pagination-template>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+
+    </div>
+</div>

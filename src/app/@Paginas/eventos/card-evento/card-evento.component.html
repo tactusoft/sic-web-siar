@@ -1,0 +1,59 @@
+<div class="evento">
+    <mat-card class="card-evento">
+        <mat-card-content class="card-content div-card">
+            <div fxLayout="column">
+                <article>
+                    <div *ngIf="eventoPasado(evento)" class="rectangulo" (click)="openDialogAddCalendar(evento)">
+                        <svg-icon key="calendarioGris" class="calendario"></svg-icon>
+                    </div>
+                    <h1 (click)="openDialog(evento)">{{evento?.pais ? paisesEvento : ''}}</h1>
+                    <div class="ubicacion" fxLayout="row">
+                        <svg-icon key="locacionBold"></svg-icon>
+                        <h2>{{evento.addres}}, {{evento.place}}</h2>
+                    </div>
+                    <p class="card-parrafo" (click)="openDialog(evento)">
+                        {{evento.title}}
+                    </p>
+                </article>
+            </div>
+            <div class="card-fecha">
+                <hr>
+                <p class="fechas">{{evento.startDate | date : "dd MMM, yyyy"}} - {{evento.endDate | date : "dd MMM, yyyy"}}</p>
+            </div>
+        </mat-card-content>
+        <mat-card-footer class="detalle-fecha">
+            <div *ngIf="!eventoPasado(evento)" class="fecha" fxLayout="row">
+                <div class="dia">
+                    <p class="numero">{{evento.startDate | date : "dd"}}</p>
+                    <p class="mes">{{evento.startDate | date : "MMM"}}</p>
+                </div>
+                <div id="triangulo"></div>
+                <div class="estado">
+                    <p>{{textos.eventos.card_eventos.finalizado}}</p>
+                </div>
+            </div>
+            <div *ngIf="eventoPasado(evento)" class="fecha2" fxLayout="row">
+                <div class="dia">
+                    <p class="numero">{{evento.startDate | date : "dd"}}</p>
+                    <p class="mes">{{evento.startDate | date : "MMM"}}</p>
+                </div>
+                <div id="triangulo"></div>
+                <div class="estado">
+                    <p>{{textos.eventos.card_eventos.proximo}}</p>
+                </div>
+            </div>
+        </mat-card-footer>
+    </mat-card>
+    <div class="administrar" *ngIf="administrar">
+        <div class="container opciones-admin">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-6 opcion editar" (click)="edita()">
+                    <svg-icon class="opcion-icono ico-editar" key="iconoEditar"></svg-icon>
+                </div>
+                <div class="col-6 opcion eliminar" (click)="elimina()">
+                    <svg-icon class="opcion-icono ico-eliminar" key="iconoEliminar"></svg-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

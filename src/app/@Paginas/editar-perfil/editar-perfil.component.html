@@ -1,0 +1,175 @@
+<div style="position: relative;" class="fondo-editar">
+    <div fxLayout="row" style="padding-left: 58px; padding-top: 24px;">
+        <svg-icon key="nvIco3"></svg-icon>
+        <span class="enlace">
+            <a [routerLink]="['']">{{textos.generales.inicio}}</a>
+        </span>
+        <mat-icon class="icono">
+            keyboard_arrow_right
+        </mat-icon>
+        <span class="enlace">
+            <a [routerLink]="['/editarPerfil']"
+                [routerLinkActive]="['link_activo']">{{textos.editar_perfil.miPerfil}}</a>
+        </span>
+    </div>
+
+    <br>
+    <br>
+    <div class="lienzo-blanco" fxLayout="row" fxLayoutGap="20px" style="height: 362px; margin-top: 10px;">
+        <div fxLayout="column" fxFlex="18" fxLayoutAlign="center center">
+            <p class="cambiar-foto">{{textos.editar_perfil.cambiarFoto}}</p>
+            <br>
+            <div class="container-profile" fxLayoutAlign="center center">
+                <img (click)="openFileExplorer()" style="cursor: pointer; background-color: #f5f5f5; line-height: 108px"
+                    [src]="profileImgUrl" [alt]="imagenPerfil" class="profile-width" />
+                <input hidden id="imageInput" type="file" (change)="onFileChange($event)">
+            </div>
+            <br>
+            <p class="nombre-usuario">{{textos.editar_perfil.nombreUsuario}}</p>
+            <p class="nombre-usuario-val">
+                {{infoUsr.email}}
+            </p>
+            <div *ngIf="mostrarOpciones">
+                <button class="guardar" mat-button
+                    (click)="conservarImagenPerfil()">{{textos.editar_perfil.establecerFoto}}</button>
+                <br>
+                <button class="cancelar" mat-button
+                    (click)="restaurarImagenPerfil()">{{textos.generales.cancelar}}</button>
+            </div>
+        </div>
+        <div class="linea"></div>
+        <div class="width-full pad-left" fxLayout="column" fxLayoutGap="50px" fxFlex="20"
+            fxLayoutAlign="space-around start">
+            <div>
+                <p class="title-label"> {{textos.editar_perfil.nombres}} </p>
+                <p class="value-label"> {{infoUsr.name}} </p>
+            </div>
+            <div>
+                <p class="title-label"> {{textos.editar_perfil.correo}} </p>
+                <p class="value-label"> {{infoUsr.email}} </p>
+            </div>
+        </div>
+        <div class="width-full" fxLayout="column" fxLayoutGap="50px" fxFlex="20" fxLayoutAlign="space-around start">
+            <div>
+                <p class="title-label"> {{textos.editar_perfil.apellidos}} </p>
+                <p class="value-label"> {{infoUsr.last_name}} </p>
+            </div>
+            <div>
+                <p class="title-label"> {{textos.editar_perfil.rol}} </p>
+                <p class="value-label"> {{rolUsr}} </p>
+            </div>
+        </div>
+        <div *ngIf="modificarActivo; else elseBlock" class="lienzo-azul-ligth pad-datos-ligth" fxLayout="column"
+            fxLayoutGap="20px" style="height: fit-content;" fxLayoutGap="20px" fxFlex="40">
+            <div>
+                <button class="title-label-rojo b-cancelar"
+                    (click)="activarMod(); switched = false; countSelect = 0">{{textos.generales.cancelar}}</button>
+            </div>
+            <form [formGroup]="formEditar" class="contenedor-modificar">
+                <div class="campo">
+                    <label for="contrasena">{{textos.editar_perfil.nuevaContrasena}}</label>
+                    <div class="box-input">
+                        <input
+                            [ngClass]="{'error': !contrasena.valid &&  contrasena.touched && contrasena.errors.pattern}"
+                            formControlName="contrasena" name="contrasena" type="password"
+                            placeholder={{textos.editar_perfil.ingresarContrasena}} maxlength="200"
+                            (focusout)="validarContrasenaRep()" autocomplete="new-password">
+                        <div>
+                            <svg-icon key="candado"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="validacion" *ngIf="!contrasena.valid &&  contrasena.touched">
+                    <div class="guia-contrasena" *ngIf="mostrarError">
+                        <div class="cerrar" fxLayout="row" fxLayoutAlign="end">
+                            <mat-icon class="icono-cerrar" (click)="mostrarError = false">
+                                close
+                            </mat-icon>
+                        </div>
+                        <span>{{textos.registro_usuario.parrafo_1}}
+                            <br>
+                            {{textos.registro_usuario.parrafo_2}}
+                            <br>
+                            {{textos.registro_usuario.parrafo_3}}
+                        </span>
+                    </div>
+                    <span class="mensaje"
+                        *ngIf="contrasena.errors.pattern">{{textos.registro_usuario.v_contra_segura}}</span>
+                    <span *ngIf="contrasena.errors.pattern" class="info-error" (click)="mostrarError = true">!</span>
+                    <span class="mensaje" *ngIf="contrasena.errors.required">{{textos.login.v_contrasena}}</span>
+                </div>
+                <div class="validacion" *ngIf="contrasena.valid &&  contrasenaRep">
+                    <span class="mensaje">{{textos.editar_perfil.v_contra_repetida}}</span>
+                </div>
+                <div class="campo">
+                    <label for="confirmaContrasena">{{textos.registro_usuario.confirmarContrasena}}</label>
+                    <div class="box-input">
+                        <input formControlName="contrasenaConfirmacion" name="confirmaContrasena" type="password"
+                            placeholder={{textos.editar_perfil.ingresarContrasena}}
+                            [ngClass]="{'error': contrasenaConfirmacion.touched && !contraseniaIgual}" maxlength="200"
+                            autocomplete="new-password">
+                        <div>
+                            <svg-icon key="candado"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="validacion" *ngIf="contrasenaConfirmacion.touched && !contraseniaIgual">
+                    <span class="mensaje">{{textos.registro_usuario.v_contrasena}}</span>
+                </div>
+                <div class="campo">
+                    <label for="preguntasLista">{{textos.registro_usuario.pregunta_seguridad}}</label>
+                    <div class="box-input"
+                        (click)="desplegado =! desplegado; $event.stopPropagation(); countSelect = countSelect + 1; validaPreguntaSeg()">
+                        <input formControlName="idPreguntaSeg" disabled name="preguntasLista"
+                            [ngClass]="{'no-question': preguntaSeleccionada == ''}" [ngValue]="John">
+                        <div>
+                            <mat-icon style="color:#fff">expand_more</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="campo">
+                    <div *ngIf="desplegado" class="lista-pregunta" (click)="$event.stopPropagation()">
+                        <div style="margin: 10px; overflow: auto; max-height: 140px;">
+                            <div class="pregunta-indvidual"
+                                [ngClass]="{'pregunta-selected': p.description === preguntaSeleccionada}"
+                                *ngFor="let p of preguntasSeg"
+                                (click)="desplegado =! desplegado; openDialogModRespuesta(p.description); $event.stopPropagation(); obtenerIdPregunta()">
+                                {{p.description}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="validacion" *ngIf="noQuestion">
+                    <span class="mensaje">{{textos.editar_perfil.v_pregunta}}</span>
+                </div>
+            </form>
+            <div>
+                <button class="title-label-blanco b-guardar"
+                    [disabled]="!contraseniaIgual || preguntaSeleccionada == '' || contrasenaRep"
+                    (click)="guardarCambios(formEditar.value)">{{textos.editar_perfil.guardarCambios}}</button>
+            </div>
+        </div>
+        <ng-template #elseBlock>
+            <div class="lienzo-azul" fxLayout="column" fxLayoutGap="30px" fxFlex="46"
+                fxLayoutAlign="space-around start">
+                <div fxFlex="80" fxFill>
+                    <form>
+                        <p class="title-label-blanco"> {{textos.registro_usuario.contrasena}} </p>
+                        <input class="value-label input-contrasena" type="password" name="contrasenaUsuario"
+                            value="********" autocomplete="off" readonly>
+
+                    </form>
+                </div>
+                <div fxFlex="80" fxFill>
+                    <p class="title-label-blanco ">{{textos.registro_usuario.dialog_pregunta.tituloPregunta}}</p>
+                    <p class="value-label"> {{preguntaUsr}} </p>
+                </div>
+                <div fxFlex="80" fxFill>
+                    <div fxFlex="80"></div>
+                    <button class="title-label-blanco b-cambiar"
+                        (click)="activarMod(); switched = true; count = -1; noQuestion = false"
+                        fxFlex="20">{{textos.editar_perfil.cambiar}}</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

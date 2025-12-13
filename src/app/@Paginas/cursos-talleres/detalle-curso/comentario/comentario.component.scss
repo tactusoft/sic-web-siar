@@ -1,0 +1,57 @@
+$color-azul: #254b9c;
+.calificacion,
+.comentarios {
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+}
+
+.comentario {
+    width: 100%;
+    max-width: 647px;
+}
+
+.estrella {
+    margin: 0 4px;
+}
+
+.box-fecha {
+    position: relative;
+    margin-right: 22px;
+    .fecha-comentario {
+        margin-right: 22px;
+        text-align: right;
+        display: list-item;
+        text-decoration: dotted;
+        width: 84px;
+        position: absolute;
+        right: 0;
+    }
+}
+
+.promedio {
+    margin: 0 8px;
+}
+
+.barra {
+    background-color: $color-azul;
+    max-width: 647px;
+}
+
+.txt-comentario {
+    margin: 8px 0;
+    word-wrap: break-word;
+}
+
+label {
+    height: 100px;
+    width: 649px;
+    margin: 0 auto;
+    display: block;
+    overflow: auto;
+}

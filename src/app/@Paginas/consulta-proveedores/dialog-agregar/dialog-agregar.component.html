@@ -1,0 +1,439 @@
+<div *ngIf="textos">
+  <div fxLayout="row wrap" style="padding: 2%;">
+    <div class="subcontenido" fxFlex="98">
+      <div fxLayout="row" fxFlexAlign="space-between center">
+        <h2 class="title-modal" fxFlex mat-dialog-title>
+          {{ registro.title }}
+        </h2>
+      </div>
+
+      <mat-dialog-content
+        *ngIf="mode == 0"
+        class="mat-typography mat-add-doc-public"
+      >
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">{{ textos.proveedores.firmid }}</div>
+          <div fxFlex="70">{{ registro.firmid }}</div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">{{ textos.proveedores.idCountry }}</div>
+          <div fxFlex="70">{{ registro.idCountry.nombre }}</div>
+        </div>
+
+        <div class="fila" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.focusbusiness }}
+          </div>
+          <div fxFlex="70">{{ registro.focusbusiness }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acAddress || registro.acCity || registro.acState"
+          fxLayout="row"
+          fxFlexAlign="space-between center"
+        >
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.address_contacts }}
+          </h3>
+        </div>
+
+        <div
+          *ngIf="registro.acAddress"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.acAddress }}</div>
+          <div fxFlex="70">{{ registro.acAddress }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acCity"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.acCity }}</div>
+          <div fxFlex="70">{{ registro.acCity }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acState"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.acState }}</div>
+          <div fxFlex="70">{{ registro.acState }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idCountryHeadquarters"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idCountryHeadquarters }}
+          </div>
+          <div fxFlex="70">{{ registro.idCountryHeadquarters.nombre }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acPostalcode"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.acPostalcode }}
+          </div>
+          <div fxFlex="70">{{ registro.acPostalcode }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acPhone"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.acPhone }}</div>
+          <div fxFlex="70">{{ registro.acPhone }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acWebsite"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.acWebsite }}</div>
+          <div fxFlex="70">{{ registro.acWebsite }}</div>
+        </div>
+
+        <div
+          *ngIf="
+            registro.clName ||
+            registro.clEmail ||
+            registro.clPhone ||
+            registro.clExtension
+          "
+          fxLayout="row"
+          fxFlexAlign="space-between center"
+        >
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.contactsLocation }}
+          </h3>
+        </div>
+
+        <div
+          *ngIf="registro.clName"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.clName }}</div>
+          <div fxFlex="70">{{ registro.clName }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.clEmail"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.clEmail }}</div>
+          <div fxFlex="70">{{ registro.clEmail }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.clPhone"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">{{ textos.proveedores.clPhone }}</div>
+          <div fxFlex="70">{{ registro.clPhone }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.clExtension"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.clExtension }}
+          </div>
+          <div fxFlex="70">{{ registro.clExtension }}</div>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxFlexAlign="space-between center"
+          *ngIf="
+            registro.biParentname || registro.biSubsidiary || registro.acCountry
+          "
+        >
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.background_information }}
+          </h3>
+        </div>
+
+        <div
+          *ngIf="registro.biParentname"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.biParentname }}
+          </div>
+          <div fxFlex="70">{{ registro.biParentname }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.biSubsidiary"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.biSubsidiary }}
+          </div>
+          <div fxFlex="70">{{ registro.biSubsidiary }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.acCountry"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.acCountry }}
+          </div>
+          <div fxFlex="70">{{ registro.acCountry.nombre }}</div>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxFlexAlign="space-between center"
+          *ngIf="
+            registro.idMeasure1 ||
+            registro.idMeasure2 ||
+            registro.idMeasure3 ||
+            registro.idMeasure5 ||
+            registro.idMeasure6 ||
+            registro.idMeasure7
+          "
+        >
+          <h3 class="title-modal" fxFlex mat-dialog-title>
+            {{ textos.proveedores.measures }}
+          </h3>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure1"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure1 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure1.description }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure2"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure2 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure2.description }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure3"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure3 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure3.description }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure4"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure4 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure4.description }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure5"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure5 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure5.description }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure6"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure6 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure6.description }}</div>
+        </div>
+
+        <div
+          *ngIf="registro.idMeasure7"
+          class="fila"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <div fxFlex="30" class="item">
+            {{ textos.proveedores.idMeasure7 }}
+          </div>
+          <div fxFlex="70">{{ registro.idMeasure7.description }}</div>
+        </div>
+      </mat-dialog-content>
+
+      <mat-dialog-content
+        *ngIf="showPersonal"
+        class="mat-typography mat-add-doc-public"
+      >
+      </mat-dialog-content>
+
+      <mat-dialog-content
+        *ngIf="mode == 1"
+        class="mat-typography mat-add-doc-public"
+      >
+        <div class="alertas">
+          <div fxLayout="row" fxLayoutGap="60px">
+            <div fxFlex="45">
+              <h2 class="titulo">{{ textos.alertas.alertas }}</h2>
+            </div>
+            <div
+              fxFlex="45"
+              fxLayout="row"
+              fxLayoutAlign="end center"
+              fxLayoutGap="60px"
+            ></div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="5" fxHide.xs></div>
+            <div
+              fxFlex="90"
+              fxFlex.xs="100"
+              class="alertas-list"
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between none"
+              fxLayoutGap="4% grid"
+              fxLayoutGap.xs="10% grid"
+            >
+              <app-tarjeta-alerta
+                [alerta]="alerta"
+                fxFlex="26"
+                fxFlex.sm="50"
+                fxFlex.xs="50"
+                *ngFor="let alerta of alertas | paginate: configPaginador"
+              ></app-tarjeta-alerta>
+              <div fxFlex="5" fxHide.xs></div>
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="end"
+            fxLayoutAlign.xs="center"
+            *ngIf="mostrarPaginador"
+          >
+            <pagination-template
+              #p="paginationApi"
+              [id]="configPaginador.id"
+              (pageChange)="pageChanged($event, stringFiltro)"
+            >
+              <div class="custom-pagination" fxLayout="row">
+                <div
+                  *ngIf="!p.isFirstPage()"
+                  class="pagination-previous"
+                  [class.disabled]="p.isFirstPage()"
+                  (click)="p.previous()"
+                >
+                  <span>
+                    <mat-icon class="flecha">
+                      keyboard_arrow_left
+                    </mat-icon>
+                  </span>
+                </div>
+                <div
+                  class="page-number"
+                  (click)="p.setCurrent(page.value)"
+                  *ngFor="let page of p.pages"
+                  [class.current]="p.getCurrent() === page.value"
+                >
+                  <span *ngIf="p.getCurrent() !== page.value">{{
+                    page.label
+                  }}</span>
+                  <div *ngIf="p.getCurrent() === page.value">
+                    <span>{{ page.label }}</span>
+                  </div>
+                </div>
+                <div
+                  *ngIf="!p.isLastPage()"
+                  class="pagination-next"
+                  [class.disabled]="p.isLastPage()"
+                  (click)="p.next()"
+                >
+                  <span *ngIf="!p.isLastPage()" (click)="p.next()">
+                    <mat-icon class="flecha">
+                      keyboard_arrow_right
+                    </mat-icon>
+                  </span>
+                </div>
+              </div>
+            </pagination-template>
+          </div>
+        </div>
+      </mat-dialog-content>
+    </div>
+    <div fxFlex fxLayout="row" fxFlex="2" fxLayoutAlign="center">
+      <mat-icon mat-dialog-close class="close-icon">
+        close
+      </mat-icon>
+    </div>
+    <div
+      fxLayout="row"
+      style="width: 100%; margin-bottom:50px;"
+      fxLayoutAlign="space-around center"
+      fxFlex="100"
+    >
+      <div fxFlex="30"></div>
+      <!--
+      <button class="guardar" mat-button fxFlex="15" (click)="guardarClick()">
+        {{ textos.generales.guardar }}
+      </button>-->
+      <div fxFlex="30"></div>
+    </div>
+  </div>
+</div>
