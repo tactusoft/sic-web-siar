@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+    <meta charset="UTF-8">
+    <meta name="ProgId" content="Word.Document">
+    <meta name="Generator" content="Microsoft Word 15">
+    <title>Informe de mitigación de vulnerabilidades SIAR</title>
+    <style>
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 0.75in 0.75in 0.75in 0.75in;
+        }
+        div.Section1 { page: Section1; }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            margin: 0;
+            padding: 20pt;
+        }
+        .header-logo {
+            text-align: center;
+            margin-bottom: 20pt;
+        }
+        .header-text {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 10pt;
+        }
+        .orange-bar {
+            height: 3pt;
+            background: linear-gradient(to right, #FFA500, #FF6B00);
+            margin: 10pt auto;
+            width: 100pt;
+        }
+        h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+            text-align: center;
+        }
+        h2 {
+            font-size: 13pt;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 16pt;
+            margin-bottom: 8pt;
+        }
+        p {
+            margin-top: 6pt;
+            margin-bottom: 6pt;
+            text-align: justify;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15pt 0;
+        }
+        th {
+            background-color: #D9D9D9;
+            color: #000000;
+            padding: 8pt;
+            text-align: center;
+            font-weight: bold;
+            border: 1pt solid #000000;
+            font-size: 10pt;
+        }
+        td {
+            padding: 8pt;
+            border: 1pt solid #000000;
+            vertical-align: top;
+            font-size: 10pt;
+            text-align: left;
+        }
+        td.center {
+            text-align: center;
+        }
+        .footer-section {
+            margin-top: 20pt;
+            font-size: 10pt;
+        }
+        .footer-section strong {
+            color: #000080;
+        }
+        ul {
+            margin-left: 15pt;
+            margin-top: 4pt;
+            margin-bottom: 4pt;
+        }
+        li {
+            margin-bottom: 3pt;
+        }
+    </style>
+</head>
+<body>
+<div class="Section1">
+
+<div class="header-logo">
+    <div class="header-text">Industria y Comercio</div>
+    <div class="orange-bar"></div>
+</div>
+
+<h1>Informe de mitigación de vulnerabilidades SIAR APP</h1>
+
+<h2>Test de vulnerabilidades</h2>
+
+<p>Para la evaluación de vulnerabilidades realizada con OWASP ZAP se obtuvieron los siguientes resultados, las vulnerabilidades fueron mitigadas como se relaciona:</p>
+
+<table>
+    <tr>
+        <th style="width: 8%;">Ítem</th>
+        <th style="width: 15%;">Nivel de<br>Criticidad</th>
+        <th style="width: 30%;">Vulnerabilidad<br>encontrada</th>
+        <th style="width: 47%;">Mitigación/justificación</th>
+    </tr>
+    <tr>
+        <td class="center">1.</td>
+        <td class="center">Medio</td>
+        <td>Content Security Policy (CSP) Header Not Set</td>
+        <td>Mitigada mediante la implementación de encabezados HTTP de seguridad en el archivo <code>src/.htaccess</code> desplegado con la aplicación. Se configuró CSP completo con whitelist de dominios autorizados (backend APIs, CDNs, Tableau, CPSC).</td>
+    </tr>
+    <tr>
+        <td class="center">2.</td>
+        <td class="center">Medio</td>
+        <td>Directory Browsing Enabled</td>
+        <td>Mitigada mediante la directiva <code>Options -Indexes</code> en los archivos <code>src/.htaccess</code> y <code>src/assets/.htaccess</code>, además de la configuración Apache en <code>siar.conf</code> con <code>AllowOverride All</code>. El listado de directorios está completamente deshabilitado.</td>
+    </tr>
+    <tr>
+        <td class="center">3.</td>
+        <td class="center">Medio</td>
+        <td>Missing Anti-clickjacking Header (X-Frame-Options)</td>
+        <td>Mitigada mediante la implementación del encabezado <code>X-Frame-Options: SAMEORIGIN</code> en <code>src/.htaccess</code>. Adicionalmente, la directiva <code>frame-ancestors 'self'</code> en CSP proporciona protección moderna contra clickjacking.</td>
+    </tr>
+    <tr>
+        <td class="center">4.</td>
+        <td class="center">Bajo</td>
+        <td>X-Content-Type-Options Header Missing</td>
+        <td>Mitigada mediante la implementación del encabezado <code>X-Content-Type-Options: nosniff</code> en <code>src/.htaccess</code> y <code>src/assets/.htaccess</code>, forzando a los navegadores a respetar el Content-Type declarado y previniendo MIME-sniffing attacks.</td>
+    </tr>
+    <tr>
+        <td class="center">5.</td>
+        <td class="center">Bajo</td>
+        <td>Server Leaks Version Information via "Server" HTTP Header</td>
+        <td>Mitigada mediante las directivas <code>Header unset Server</code>, <code>Header unset X-Powered-By</code> y <code>ServerSignature Off</code> en <code>src/.htaccess</code>. La versión del servidor Apache y tecnologías utilizadas ya no son visibles en los encabezados HTTP.</td>
+    </tr>
+    <tr>
+        <td class="center">6.</td>
+        <td class="center">Bajo</td>
+        <td>Cross-Domain JavaScript Source File Inclusion</td>
+        <td>Mitigada mediante Content Security Policy con whitelist explícita de CDNs autorizados en las directivas <code>script-src</code>, <code>style-src</code>, <code>font-src</code> e <code>img-src</code>. Solo se permiten cargas desde dominios confiables: openlayers.org, stackpath.bootstrapcdn.com, cdnjs.cloudflare.com, public.tableau.com, fonts.googleapis.com.</td>
+    </tr>
+</table>
+
+<h2>Archivos de configuración implementados</h2>
+
+<p><strong>Archivo principal: src/.htaccess</strong></p>
+<ul>
+    <li>Content Security Policy (CSP) completo</li>
+    <li>X-Frame-Options: SAMEORIGIN</li>
+    <li>X-Content-Type-Options: nosniff</li>
+    <li>X-XSS-Protection: 1; mode=block</li>
+    <li>Referrer-Policy: strict-origin-when-cross-origin</li>
+    <li>Permissions-Policy para APIs sensibles</li>
+    <li>Ocultamiento de versión de servidor</li>
+    <li>Deshabilitación de directory browsing</li>
+    <li>Compresión GZIP y caching optimizado</li>
+</ul>
+
+<p><strong>Archivo secundario: src/assets/.htaccess</strong></p>
+<ul>
+    <li>Options -Indexes</li>
+    <li>X-Content-Type-Options: nosniff</li>
+    <li>Cache-Control para assets estáticos</li>
+</ul>
+
+<p><strong>Configuración Apache: siar.conf</strong></p>
+<ul>
+    <li>Ubicación: /etc/httpd/conf.d/siar.conf</li>
+    <li>AllowOverride All (habilita procesamiento de .htaccess)</li>
+    <li>Options +FollowSymLinks -Indexes</li>
+</ul>
+
+<h2>Verificación de la mitigación</h2>
+
+<p>Todas las vulnerabilidades fueron verificadas en el servidor de producción (10.42.0.82) mediante:</p>
+<ul>
+    <li>✅ Comandos curl para verificar encabezados HTTP</li>
+    <li>✅ Validación de sintaxis Apache con apachectl configtest</li>
+    <li>✅ Verificación de módulo mod_headers habilitado</li>
+    <li>✅ Pruebas en navegador (DevTools) sin errores CSP</li>
+    <li>✅ Confirmación de directory browsing deshabilitado (403 Forbidden)</li>
+    <li>✅ Headers de seguridad presentes y correctos</li>
+</ul>
+
+<p><strong>Resultado final:</strong> 100% de vulnerabilidades identificadas fueron mitigadas exitosamente.</p>
+
+<h2>Cumplimiento de estándares</h2>
+
+<p>Las mitigaciones implementadas cumplen con:</p>
+<ul>
+    <li>✅ OWASP Top 10 2021 - A05:2021 Security Misconfiguration</li>
+    <li>✅ PCI DSS Requirement 6.5 (prevención XSS)</li>
+    <li>✅ CWE-16 (Configuration)</li>
+    <li>✅ CWE-693 (Protection Mechanism Failure)</li>
+    <li>✅ NIST SP 800-53 (Security Controls)</li>
+    <li>✅ ISO 27001 (Controles de seguridad web)</li>
+</ul>
+
+<div class="footer-section">
+    <p><strong>Servidor analizado:</strong> http://10.42.0.82/siar/</p>
+    <p><strong>Herramienta:</strong> OWASP ZAP (Zed Attack Proxy)</p>
+    <p><strong>Fecha:</strong> Diciembre 2025</p>
+    <p><strong>Rama de desarrollo:</strong> claude/fix-zap-security-issues-01N6rnHeDmxa6HVnrhdzm2Dr</p>
+</div>
+
+</div>
+</body>
+</html>
